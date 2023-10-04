@@ -22,3 +22,6 @@ fun DependencyHandler.ksp(dependency: Any): Dependency? = add("ksp", dependency)
 
 fun DependencyHandler.coreLibraryDesugaring(dependency: Any): Dependency? =
     add("coreLibraryDesugaring", dependency)
+
+fun DependencyHandler.lintChecks(dependency: Any): Dependency? =
+    add("lintChecks", dependency)

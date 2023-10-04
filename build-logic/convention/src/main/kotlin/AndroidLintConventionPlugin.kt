@@ -1,9 +1,12 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.Lint
+import com.mitch.safevault.util.libs
+import com.mitch.safevault.util.lintChecks
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidLintConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -19,6 +22,10 @@ class AndroidLintConventionPlugin : Plugin<Project> {
                     pluginManager.apply("com.android.lint")
                     configure(Lint::configure)
                 }
+            }
+
+            dependencies {
+                lintChecks(libs.findLibrary("linting-composeLints").get())
             }
         }
     }

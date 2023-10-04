@@ -44,9 +44,6 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.lifecycle.runtimeCompose)
 
-    // Formatting + Linting
-    lintChecks(libs.linting.composeLints)
-
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)
