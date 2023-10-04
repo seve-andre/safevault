@@ -1,0 +1,21 @@
+plugins {
+    id("safevault.android.library")
+    id("safevault.android.library.compose")
+}
+
+android {
+    namespace = "com.mitch.safevault.core.designsystem"
+
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    api(libs.compose.foundation.layout)
+    api(libs.compose.material3)
+    debugApi(libs.compose.ui.tooling)
+    api(libs.compose.ui.tooling.preview)
+    api(libs.accompanist.systemuicontroller)
+    api(libs.icons.eva)
+}

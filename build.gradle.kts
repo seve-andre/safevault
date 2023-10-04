@@ -5,12 +5,11 @@ plugins {
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.protobuf) apply false
-    alias(libs.plugins.detekt) apply false
     alias(libs.plugins.junit5) apply false
-    alias(libs.plugins.android.test) apply false
 
     alias(libs.plugins.gradle.versions)
     alias(libs.plugins.version.catalog.update)
+    alias(libs.plugins.android.library) apply false
 }
 
 tasks.register("clean", Delete::class) {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="change_language">Cambia lingua</string>
+    <string name="change_theme">Cambia tema</string>
+    <string name="cancel">Annulla</string>
+    <string name="save">Salva</string>
+</resources>
