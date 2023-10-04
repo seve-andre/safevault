@@ -4,12 +4,12 @@ kotlin = "1.9.0"
 kotlinx-coroutines = "1.7.3"
 
 # UI
-compose-bom = "2023.09.02"
+compose-bom = "2023.10.00"
 accompanist = "0.33.0-alpha"
-activity-compose = "1.7.2"
+activity-compose = "1.8.0"
 compose = "1.5.0"
 compose-compiler = "1.5.2"
-compose-material3 = "1.2.0-alpha08"
+compose-material3 = "1.2.0-alpha09"
 androidx-lifecycle = "2.6.2"
 coil = "2.3.0"
 eva = "1.0.0"
@@ -17,7 +17,7 @@ core-splashscreen = "1.0.1"
 appcompat = "1.6.1"
 
 # Navigation
-navigation-compose = "2.7.3"
+navigation-compose = "2.7.4"
 
 # Dependency Injection
 hilt = "2.48"
