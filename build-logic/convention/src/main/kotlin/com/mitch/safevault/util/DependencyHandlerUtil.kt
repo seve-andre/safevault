@@ -9,6 +9,9 @@ fun DependencyHandler.implementation(dependency: Any): Dependency? =
 fun DependencyHandler.testImplementation(dependency: Any): Dependency? =
     add("testImplementation", dependency)
 
+fun DependencyHandler.testRuntimeOnly(dependency: Any): Dependency? =
+    add("testRuntimeOnly", dependency)
+
 fun DependencyHandler.androidTestImplementation(dependency: Any): Dependency? =
     add("androidTestImplementation", dependency)
 

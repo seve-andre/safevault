@@ -70,5 +70,9 @@ gradlePlugin {
             id = "safevault.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+        register("unitTest") {
+            id = "safevault.unitTest"
+            implementationClass = "UnitTestConventionPlugin"
+        }
     }
 }
