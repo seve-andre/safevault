@@ -1,7 +1,7 @@
 plugins {
-    id("safevault.android.library")
-    id("safevault.android.hilt")
-    id("safevault.android.room")
+    alias(libs.plugins.safevault.android.library)
+    alias(libs.plugins.safevault.android.hilt)
+    alias(libs.plugins.safevault.android.room)
 }
 
 android {
@@ -10,8 +10,4 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-}
-
-dependencies {
-
 }

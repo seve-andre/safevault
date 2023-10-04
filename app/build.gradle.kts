@@ -1,8 +1,7 @@
 plugins {
-    id("safevault.android.application")
-    id("safevault.android.application.compose")
-    id("safevault.android.hilt")
-    id("safevault.android.navigation")
+    alias(libs.plugins.safevault.android.application)
+    alias(libs.plugins.safevault.android.application.compose)
+    alias(libs.plugins.safevault.android.hilt)
 }
 
 val packageName = "com.mitch.safevault"
@@ -48,10 +47,10 @@ dependencies {
     // Formatting + Linting
     lintChecks(libs.linting.composeLints)
 
-    implementation(project(":core:data"))
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:util"))
+    implementation(projects.core.data)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
+    implementation(projects.core.util)
 
-    implementation(project(":feature:home"))
+    implementation(projects.feature.home)
 }

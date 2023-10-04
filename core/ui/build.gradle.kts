@@ -1,6 +1,6 @@
 plugins {
-    id("safevault.android.library")
-    id("safevault.android.library.compose")
+    alias(libs.plugins.safevault.android.library)
+    alias(libs.plugins.safevault.android.library.compose)
 }
 
 android {
@@ -17,5 +17,5 @@ dependencies {
     api(libs.compose.ui.tooling.preview)
     api(libs.compose.ui.util)
 
-    implementation(project(":core:designsystem"))
+    implementation(projects.core.designsystem)
 }

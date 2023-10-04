@@ -1,6 +1,6 @@
 plugins {
-    id("safevault.android.library")
-    id("safevault.android.library.compose")
+    alias(libs.plugins.safevault.android.library)
+    alias(libs.plugins.safevault.android.library.compose)
 }
 
 android {

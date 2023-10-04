@@ -1,6 +1,6 @@
 plugins {
-    id("safevault.android.library")
-    id("safevault.android.hilt")
+    alias(libs.plugins.safevault.android.library)
+    alias(libs.plugins.safevault.android.hilt)
     alias(libs.plugins.protobuf)
 }
 
@@ -34,5 +34,5 @@ dependencies {
     implementation(libs.protobuf.kotlin.lite)
     implementation(libs.kotlinx.coroutines.android)
 
-    implementation(project(":core:util"))
+    implementation(projects.core.util)
 }

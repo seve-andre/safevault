@@ -20,12 +20,5 @@ fun DependencyHandler.debugImplementation(dependency: Any): Dependency? =
 
 fun DependencyHandler.ksp(dependency: Any): Dependency? = add("ksp", dependency)
 
-fun DependencyHandler.kapt(dependency: Any): Dependency? = add("kapt", dependency)
-
-fun DependencyHandler.kaptAndroidTest(dependency: Any): Dependency? =
-    add("kaptAndroidTest", dependency)
-
-fun DependencyHandler.kaptTest(dependency: Any): Dependency? = add("kaptTest", dependency)
-
 fun DependencyHandler.coreLibraryDesugaring(dependency: Any): Dependency? =
     add("coreLibraryDesugaring", dependency)

@@ -1,6 +1,6 @@
 plugins {
-    id("safevault.android.library")
-    id("safevault.android.hilt")
+    alias(libs.plugins.safevault.android.library)
+    alias(libs.plugins.safevault.android.hilt)
 }
 
 android {
@@ -11,6 +11,6 @@ dependencies {
     api(libs.appcompat)
     api(libs.protobuf.kotlin.lite)
 
-    implementation(project(":core:datastore"))
-    implementation(project(":core:util"))
+    implementation(projects.core.datastore)
+    implementation(projects.core.util)
 }

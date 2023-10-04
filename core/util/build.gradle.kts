@@ -1,5 +1,5 @@
 plugins {
-    id("safevault.android.library")
+    alias(libs.plugins.safevault.android.library)
 }
 
 android {

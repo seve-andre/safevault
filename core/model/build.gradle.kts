@@ -1,3 +1,3 @@
 plugins {
-    id("safevault.jvm.library")
+    alias(libs.plugins.safevault.jvm.library)
 }

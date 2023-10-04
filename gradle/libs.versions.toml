@@ -20,7 +20,7 @@ appcompat = "1.6.1"
 navigation-compose = "2.7.3"
 
 # Dependency Injection
-hilt = "2.47"
+hilt = "2.48"
 hilt-navigation-compose = "1.0.0"
 
 # Room
@@ -60,7 +60,6 @@ junit5-plugin = "1.9.3.0"
 
 [libraries]
 # Kotlin
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
@@ -155,3 +154,16 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
+
+# Plugins defined by this project
+safevault-android-application-compose = { id = "safevault.android.application.compose", version = "unspecified" }
+safevault-android-application = { id = "safevault.android.application", version = "unspecified" }
+safevault-android-feature = { id = "safevault.android.feature", version = "unspecified" }
+safevault-android-hilt = { id = "safevault.android.hilt", version = "unspecified" }
+safevault-android-library-compose = { id = "safevault.android.library.compose", version = "unspecified" }
+safevault-android-library = { id = "safevault.android.library", version = "unspecified" }
+safevault-android-lint = { id = "safevault.android.lint", version = "unspecified" }
+safevault-android-room = { id = "safevault.android.room", version = "unspecified" }
+safevault-android-test = { id = "safevault.android.test", version = "unspecified" }
+safevault-jvm-library = { id = "safevault.jvm.library", version = "unspecified" }
+safevault-unitTest = { id = "safevault.unitTest", version = "unspecified" }
