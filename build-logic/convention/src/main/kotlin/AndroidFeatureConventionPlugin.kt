@@ -1,13 +1,10 @@
 import com.android.build.gradle.LibraryExtension
-import com.mitch.safevault.util.androidTestImplementation
 import com.mitch.safevault.util.implementation
 import com.mitch.safevault.util.libs
-import com.mitch.safevault.util.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.kotlin
 
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
