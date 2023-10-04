@@ -54,8 +54,6 @@ compose-lints = "1.2.0"
 # Plugins
 android-gradlePlugin = "8.1.2"
 ksp = "1.9.0-1.0.11"
-gradle-versions = "0.47.0"
-version-catalog-update = "0.8.1"
 junit5-plugin = "1.9.3.0"
 
 [libraries]
@@ -144,15 +142,13 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "android-gradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "android-gradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
-gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
-version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 
 # Plugins defined by this project
