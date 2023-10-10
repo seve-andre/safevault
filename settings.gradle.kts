@@ -30,3 +30,6 @@ include(":core:ui")
 include(":core:util")
 
 include(":feature:items")
+include(":feature:auth")
+include(":feature:onboarding")
+include(":feature:masterpassword")

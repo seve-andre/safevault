@@ -49,5 +49,8 @@ dependencies {
     implementation(projects.core.ui)
     implementation(projects.core.util)
 
+    implementation(projects.feature.onboarding)
+    implementation(projects.feature.auth)
+    implementation(projects.feature.masterpassword)
     implementation(projects.feature.items)
 }

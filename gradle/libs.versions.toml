@@ -55,6 +55,10 @@ compose-lints = "1.2.0"
 android-gradlePlugin = "8.1.2"
 ksp = "1.9.0-1.0.11"
 junit5-plugin = "1.9.3.0"
+org-jetbrains-kotlin-android = "1.9.0"
+core-ktx = "1.9.0"
+junit = "1.1.5"
+material = "1.10.0"
 
 [libraries]
 # Kotlin
@@ -140,6 +144,9 @@ linting-composeLints = { group = "com.slack.lint.compose", name = "compose-lint-
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -163,3 +170,4 @@ safevault-android-room = { id = "safevault.android.room", version = "unspecified
 safevault-android-test = { id = "safevault.android.test", version = "unspecified" }
 safevault-jvm-library = { id = "safevault.jvm.library", version = "unspecified" }
 safevault-unitTest = { id = "safevault.unitTest", version = "unspecified" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
