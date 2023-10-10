@@ -31,7 +31,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
-import com.mitch.safevault.navigation.NiaNavHost
+import com.mitch.safevault.navigation.SafeVaultNavHost
 import com.mitch.safevault.ui.rememberSafeVaultAppState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                                 )
                             )
                     ) {
-                        NiaNavHost(appState = appState)
+                        SafeVaultNavHost(appState = appState)
                     }
                 }
             }

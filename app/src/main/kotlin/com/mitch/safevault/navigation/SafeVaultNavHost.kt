@@ -8,7 +8,7 @@ import com.mitch.safevault.feature.home.navigation.homeScreen
 import com.mitch.safevault.ui.SafeVaultAppState
 
 @Composable
-fun NiaNavHost(
+fun SafeVaultNavHost(
     appState: SafeVaultAppState,
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
