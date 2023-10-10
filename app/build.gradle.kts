@@ -49,5 +49,5 @@ dependencies {
     implementation(projects.core.ui)
     implementation(projects.core.util)
 
-    implementation(projects.feature.home)
+    implementation(projects.feature.items)
 }

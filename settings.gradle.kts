@@ -12,7 +12,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-    }}
+    }
+}
 
 rootProject.name = "safevault"
 
@@ -28,4 +29,4 @@ include(":core:model")
 include(":core:ui")
 include(":core:util")
 
-include(":feature:home")
+include(":feature:items")

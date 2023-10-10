@@ -3,15 +3,15 @@ package com.mitch.safevault.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.mitch.safevault.feature.home.navigation.homeNavigationRoute
-import com.mitch.safevault.feature.home.navigation.homeScreen
+import com.mitch.safevault.feature.items.navigation.itemsNavigationRoute
+import com.mitch.safevault.feature.items.navigation.itemsScreen
 import com.mitch.safevault.ui.SafeVaultAppState
 
 @Composable
 fun SafeVaultNavHost(
     appState: SafeVaultAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = homeNavigationRoute,
+    startDestination: String = itemsNavigationRoute,
 ) {
     val navController = appState.navController
     NavHost(
@@ -19,6 +19,6 @@ fun SafeVaultNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeScreen()
+        itemsScreen()
     }
 }

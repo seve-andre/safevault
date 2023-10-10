@@ -4,5 +4,5 @@ plugins {
 }
 
 android {
-    namespace = "com.mitch.safevault.feature.home"
+    namespace = "com.mitch.safevault.feature.items"
 }
