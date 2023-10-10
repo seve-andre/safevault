@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.mitch.safevault.core.data.repository.UserSettingsRepository
 import com.mitch.safevault.core.util.SafeVaultTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -19,7 +19,7 @@ class MainActivityViewModel @Inject constructor(
      * Initial [MainActivity] ui state is set to [MainActivityUiState.Loading] and mapped to
      * [MainActivityUiState.Success] once the [SafeVaultTheme] data is retrieved
      */
-    val uiState = userSettingsRepository.getTheme().map {
+    val uiState = userSettingsRepository.getThemeStream().map {
         MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,

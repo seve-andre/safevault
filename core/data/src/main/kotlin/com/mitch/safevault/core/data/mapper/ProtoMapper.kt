@@ -3,7 +3,7 @@ package com.mitch.safevault.core.data.mapper
 import com.mitch.safevault.core.datastore.ProtoUserPreferences.ProtoAppTheme
 import com.mitch.safevault.core.util.SafeVaultTheme
 
-fun SafeVaultTheme.toProtoModel(): ProtoAppTheme = when (this) {
+fun SafeVaultTheme.toDataModel(): ProtoAppTheme = when (this) {
     SafeVaultTheme.FOLLOW_SYSTEM -> ProtoAppTheme.FOLLOW_SYSTEM
     SafeVaultTheme.LIGHT -> ProtoAppTheme.LIGHT
     SafeVaultTheme.DARK -> ProtoAppTheme.DARK
