@@ -1,6 +1,6 @@
 package com.mitch.safevault.feature.items
 
-sealed interface ItemsUiState {
+internal sealed interface ItemsUiState {
     data object Loading : ItemsUiState
 
     data class Error(
