@@ -17,13 +17,13 @@ import com.mitch.safevault.ui.SafeVaultAppState
 fun SafeVaultNavHost(
     appState: SafeVaultAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = onboardingNavigationRoute,
+    startDestination: String = onboardingNavigationRoute
 ) {
     val navController = appState.navController
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier,
+        modifier = modifier
     ) {
         onboardingGraph(
             nestedGraphs = {
