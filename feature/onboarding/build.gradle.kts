@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.mitch.safevault.feature.onboarding"
 }
+
+dependencies {
+    api(libs.icons.eva)
+}
