@@ -10,14 +10,14 @@ import com.mitch.safevault.feature.auth.navigation.signupScreen
 import com.mitch.safevault.feature.items.navigation.itemsScreen
 import com.mitch.safevault.feature.masterpassword.navigation.masterPasswordScreen
 import com.mitch.safevault.feature.onboarding.navigation.onboardingGraph
-import com.mitch.safevault.feature.onboarding.navigation.onboardingNavigationRoute
+import com.mitch.safevault.feature.onboarding.navigation.onboardingGraphRoute
 import com.mitch.safevault.ui.SafeVaultAppState
 
 @Composable
 fun SafeVaultNavHost(
     appState: SafeVaultAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = onboardingNavigationRoute
+    startDestination: String = onboardingGraphRoute
 ) {
     val navController = appState.navController
     NavHost(
@@ -26,9 +26,11 @@ fun SafeVaultNavHost(
         modifier = modifier
     ) {
         onboardingGraph(
+            onSignupClick = navController::navigateToSignup,
+            onLoginClick = navController::navigateToLogin,
             nestedGraphs = {
-                signupScreen(onSignUpClick = navController::navigateToSignup)
-                loginScreen(onLoginClick = navController::navigateToLogin)
+                signupScreen()
+                loginScreen()
             }
         )
         masterPasswordScreen()
