@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_shield_title">Secure your items</string>
+    <string name="onboarding_shield_body">Ensure your safety by securely storing your logins, passwords, and more within SafeVault</string>
+    <string name="onboarding_lock_title">Lock ‘em</string>
+    <string name="onboarding_lock_body">Safeguard your sensitive data with a master password, your key to locking and securing everything inside the vault</string>
+    <string name="onboarding_key_title">Use your key wisely</string>
+    <string name="onboarding_key_body">Relax, you\'re the one with the key to your stuff – no one else gets in!</string>
+</resources>

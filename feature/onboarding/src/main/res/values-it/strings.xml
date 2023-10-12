@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_shield_title">Proteggi le tue credenziali</string>
+    <string name="onboarding_shield_body">Garantisci la tua sicurezza memorizzando in modo sicuro i tuoi login, le password e altro all\'interno di SafeVault</string>
+    <string name="onboarding_lock_title">Chiudili a chiave</string>
+    <string name="onboarding_lock_body">Proteggi i tuoi dati sensibili con una password principale per proteggere tutto all\'interno della cassaforte</string>
+    <string name="onboarding_key_title">Usa la tua chiave saggiamente</string>
+    <string name="onboarding_key_body">Rilassati, sei l\'unico ad avere la chiave - nessun altro può entrare!</string>
+</resources>
