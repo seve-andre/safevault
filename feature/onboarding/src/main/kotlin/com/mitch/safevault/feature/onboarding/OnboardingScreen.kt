@@ -1,5 +1,7 @@
 package com.mitch.safevault.feature.onboarding
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -30,8 +31,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,58 +49,42 @@ internal fun OnboardingRoute(
     onSignupClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
-    val items = listOf(
-        CarouselItem(
-            image = painterResource(R.drawable.shield),
-            title = "Secure your items",
-            body = "Ensure your safety by securely storing your logins, passwords, and more within SafeVault"
-        ),
-        CarouselItem(
-            image = painterResource(R.drawable.lock),
-            title = "Lock ‘em",
-            body = "Safeguard your sensitive data with a master password, your key to locking and securing everything inside the vault"
-        ),
-        CarouselItem(
-            image = painterResource(R.drawable.key),
-            title = "Use your key wisely",
-            body = "Relax, you're the one with the key to your stuff – no one else gets in!"
-        )
+    val carouselItems = listOf(
+        CarouselItem.Shield,
+        CarouselItem.Lock,
+        CarouselItem.Key
     )
-    val pagerState = rememberPagerState(pageCount = { items.size })
+    val pagerState = rememberPagerState(pageCount = { carouselItems.size })
 
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
-            modifier = Modifier.weight(7f),
+            modifier = Modifier.weight(6f),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            HorizontalPager(
-                state = pagerState,
-                pageSize = PageSize.Fill
-            ) { index ->
-                val currentItem = items[index]
+            HorizontalPager(state = pagerState) { index ->
+                val currentItem = carouselItems[index]
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // 1) image + title + body text
                     Image(
-                        painter = currentItem.image,
+                        painter = painterResource(id = currentItem.imageId),
                         contentDescription = null,
                         modifier = Modifier.size(300.dp)
                     )
                     Spacer(modifier = Modifier.height(50.dp))
                     Text(
-                        text = currentItem.title,
+                        text = stringResource(id = currentItem.titleId),
                         fontWeight = FontWeight.Bold,
                         fontSize = MaterialTheme.typography.headlineSmall.fontSize
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = currentItem.body,
+                        text = stringResource(id = currentItem.bodyId),
                         modifier = Modifier.padding(20.dp),
-                        textAlign = TextAlign.Center,
-                        minLines = 3
+                        textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(50.dp))
 
@@ -123,11 +108,11 @@ internal fun OnboardingRoute(
                 .weight(1f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            if (pagerState.currentPage + 1 != items.size) {
+            if (pagerState.currentPage + 1 != carouselItems.size) {
                 TextButton(
                     onClick = {
                         scope.launch {
-                            pagerState.scrollToPage(items.size - 1)
+                            pagerState.scrollToPage(carouselItems.size - 1)
                         }
                     }
                 ) {
@@ -160,8 +145,6 @@ internal fun OnboardingRoute(
                 }
             }
         }
-
-
     }
 }
 
@@ -194,11 +177,29 @@ private fun CarouselDotIndicators(
     }
 }
 
-data class CarouselItem(
-    val image: Painter,
-    val title: String,
-    val body: String
-)
+sealed class CarouselItem(
+    @DrawableRes val imageId: Int,
+    @StringRes val titleId: Int,
+    @StringRes val bodyId: Int
+) {
+    data object Shield : CarouselItem(
+        imageId = R.drawable.shield,
+        titleId = R.string.onboarding_shield_title,
+        bodyId = R.string.onboarding_shield_body
+    )
+
+    data object Lock : CarouselItem(
+        imageId = R.drawable.lock,
+        titleId = R.string.onboarding_lock_title,
+        bodyId = R.string.onboarding_lock_body
+    )
+
+    data object Key : CarouselItem(
+        imageId = R.drawable.key,
+        titleId = R.string.onboarding_key_title,
+        bodyId = R.string.onboarding_key_body
+    )
+}
 
 @Preview
 @Composable
