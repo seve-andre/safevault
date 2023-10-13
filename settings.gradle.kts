@@ -28,6 +28,7 @@ include(":core:domain")
 include(":core:model")
 include(":core:ui")
 include(":core:util")
+include(":core:testing")
 
 include(":feature:items")
 include(":feature:auth")
