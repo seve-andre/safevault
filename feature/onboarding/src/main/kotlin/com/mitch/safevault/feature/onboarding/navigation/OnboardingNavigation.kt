@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.mitch.safevault.feature.onboarding.OnboardingRoute2
+import com.mitch.safevault.feature.onboarding.OnboardingRoute
 
 const val onboardingGraphRoute = "onboarding_graph"
 private const val ONBOARDING_NAVIGATION_ROUTE = "onboarding"
@@ -24,7 +24,7 @@ fun NavGraphBuilder.onboardingGraph(
         route = onboardingGraphRoute
     ) {
         composable(route = ONBOARDING_NAVIGATION_ROUTE) {
-            OnboardingRoute2(
+            OnboardingRoute(
                 onNavigateToSignup = onNavigateToSignup,
                 onNavigateToLogin = onNavigateToLogin
             )
