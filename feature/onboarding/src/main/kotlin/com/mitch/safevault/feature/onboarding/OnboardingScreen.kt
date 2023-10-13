@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.mitch.safevault.feature.onboarding.component.CarouselControls
 import com.mitch.safevault.feature.onboarding.component.CarouselItem
@@ -61,7 +62,7 @@ internal fun OnboardingRoute(
                         }
                     }
                 ) {
-                    Text(text = "Skip")
+                    Text(text = stringResource(id = R.string.skip))
                 }
 
                 FilledIconButton(
@@ -73,16 +74,16 @@ internal fun OnboardingRoute(
                 ) {
                     Icon(
                         imageVector = EvaIcons.Outline.ArrowForward,
-                        contentDescription = "Go to next page"
+                        contentDescription = stringResource(id = R.string.go_to_next_page)
                     )
                 }
             } else {
                 OutlinedButton(onClick = onNavigateToLogin) {
-                    Text(text = "Login")
+                    Text(text = stringResource(id = R.string.login))
                 }
 
                 Button(onClick = onNavigateToSignup) {
-                    Text(text = "Sign up")
+                    Text(text = stringResource(id = R.string.sign_up))
                 }
             }
         }

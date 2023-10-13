@@ -6,4 +6,8 @@
     <string name="onboarding_lock_body">Safeguard your sensitive data with a master password, your key to locking and securing everything inside the vault</string>
     <string name="onboarding_key_title">Use your key wisely</string>
     <string name="onboarding_key_body">Relax, you\'re the one with the key to your stuff – no one else gets in!</string>
+    <string name="skip">Skip</string>
+    <string name="go_to_next_page">Go to next page</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
 </resources>

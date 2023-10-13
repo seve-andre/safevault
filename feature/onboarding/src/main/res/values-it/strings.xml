@@ -6,4 +6,8 @@
     <string name="onboarding_lock_body">Proteggi i tuoi dati sensibili con una password principale per proteggere tutto all\'interno della cassaforte</string>
     <string name="onboarding_key_title">Usa la tua chiave saggiamente</string>
     <string name="onboarding_key_body">Rilassati, sei l\'unico ad avere la chiave - nessun altro può entrare!</string>
+    <string name="skip">Salta</string>
+    <string name="go_to_next_page">Vai alla prossima pagina</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Iscriviti</string>
 </resources>
