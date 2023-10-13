@@ -1,7 +1,5 @@
 package com.mitch.safevault.feature.onboarding
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.safevault.core.designsystem.theme.padding
+import com.mitch.safevault.feature.onboarding.component.CarouselItem
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
 import compose.icons.evaicons.outline.ArrowForward
@@ -175,30 +174,6 @@ private fun CarouselDotIndicators(
             )
         }
     }
-}
-
-sealed class CarouselItem(
-    @DrawableRes val imageId: Int,
-    @StringRes val titleId: Int,
-    @StringRes val bodyId: Int
-) {
-    data object Shield : CarouselItem(
-        imageId = R.drawable.shield,
-        titleId = R.string.onboarding_shield_title,
-        bodyId = R.string.onboarding_shield_body
-    )
-
-    data object Lock : CarouselItem(
-        imageId = R.drawable.lock,
-        titleId = R.string.onboarding_lock_title,
-        bodyId = R.string.onboarding_lock_body
-    )
-
-    data object Key : CarouselItem(
-        imageId = R.drawable.key,
-        titleId = R.string.onboarding_key_title,
-        bodyId = R.string.onboarding_key_body
-    )
 }
 
 @Preview
