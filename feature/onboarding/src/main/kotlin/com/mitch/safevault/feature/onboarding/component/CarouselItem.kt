@@ -4,6 +4,13 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.mitch.safevault.feature.onboarding.R
 
+/**
+ * A sealed hierarchy describing a carousel item of a swipeable slideshow.
+ *
+ * @property imageId The resource ID of the image to be displayed.
+ * @property titleId The resource ID of the title text.
+ * @property bodyId The resource ID of the body text.
+ */
 sealed class CarouselItem(
     @DrawableRes val imageId: Int,
     @StringRes val titleId: Int,
