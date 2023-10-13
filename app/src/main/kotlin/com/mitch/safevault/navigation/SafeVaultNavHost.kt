@@ -26,8 +26,8 @@ fun SafeVaultNavHost(
         modifier = modifier
     ) {
         onboardingGraph(
-            onSignupClick = navController::navigateToSignup,
-            onLoginClick = navController::navigateToLogin,
+            onNavigateToSignup = navController::navigateToSignup,
+            onNavigateToLogin = navController::navigateToLogin,
             nestedGraphs = {
                 signupScreen()
                 loginScreen()
