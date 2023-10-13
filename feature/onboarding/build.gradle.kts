@@ -8,5 +8,6 @@ android {
 }
 
 dependencies {
+    api(libs.kotlinx.immutableCollections)
     api(libs.icons.eva)
 }
