@@ -17,6 +17,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.mitch.safevault.core.designsystem.theme.padding
 
+internal fun pageIndicatorTag(indicator: Int): String {
+    return "page_indicator_$indicator"
+}
+
 @Composable
 internal fun CarouselPageIndicators(
     pageCountProvider: () -> Int,
@@ -31,7 +35,6 @@ internal fun CarouselPageIndicators(
         )
     ) {
         repeat(pageCountProvider()) {
-            println("current page is $it")
             val backgroundColor =
                 if (currentPageProvider() == it) MaterialTheme.colorScheme.primary else Color.Transparent
             val borderColor =
@@ -49,7 +52,7 @@ internal fun CarouselPageIndicators(
                         color = borderColor,
                         shape = CircleShape
                     )
-                    .testTag("carousel_page_indicator_$it")
+                    .testTag(pageIndicatorTag(it))
             )
         }
     }

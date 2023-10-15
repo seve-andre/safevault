@@ -17,6 +17,7 @@ import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.testing.util.assertBackgroundColor
 import com.mitch.safevault.core.testing.util.getStringById
 import com.mitch.safevault.feature.onboarding.component.CarouselItem
+import com.mitch.safevault.feature.onboarding.component.pageIndicatorTag
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -67,7 +68,7 @@ class OnboardingScreenTest {
     }
 
     private fun indicator(number: Int): SemanticsNodeInteraction {
-        return composeTestRule.onNodeWithTag("carousel_page_indicator_$number")
+        return composeTestRule.onNodeWithTag(pageIndicatorTag(number))
     }
 
     @Before
