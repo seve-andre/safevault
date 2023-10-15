@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import com.mitch.safevault.feature.auth.navigation.loginScreen
 import com.mitch.safevault.feature.auth.navigation.navigateToLogin
 import com.mitch.safevault.feature.auth.navigation.navigateToSignup
-import com.mitch.safevault.feature.auth.navigation.signupScreen
+import com.mitch.safevault.feature.auth.navigation.signUpScreen
 import com.mitch.safevault.feature.items.navigation.itemsScreen
 import com.mitch.safevault.feature.masterpassword.navigation.masterPasswordScreen
 import com.mitch.safevault.feature.onboarding.navigation.onboardingGraph
@@ -29,7 +29,7 @@ fun SafeVaultNavHost(
             onNavigateToSignup = navController::navigateToSignup,
             onNavigateToLogin = navController::navigateToLogin,
             nestedGraphs = {
-                signupScreen()
+                signUpScreen()
                 loginScreen()
             }
         )
