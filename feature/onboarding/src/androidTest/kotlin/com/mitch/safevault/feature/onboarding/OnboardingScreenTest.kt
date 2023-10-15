@@ -1,6 +1,8 @@
 package com.mitch.safevault.feature.onboarding
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -10,7 +12,9 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeLeft
+import com.mitch.safevault.core.designsystem.theme.LightColorScheme
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
+import com.mitch.safevault.core.testing.util.assertBackgroundColor
 import com.mitch.safevault.core.testing.util.getStringById
 import com.mitch.safevault.feature.onboarding.component.CarouselItem
 import org.junit.Before
@@ -62,10 +66,14 @@ class OnboardingScreenTest {
         )
     }
 
+    private fun indicator(number: Int): SemanticsNodeInteraction {
+        return composeTestRule.onNodeWithTag("carousel_page_indicator_$number")
+    }
+
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            SafeVaultMaterialTheme {
+            SafeVaultMaterialTheme(isThemeDark = false) {
                 OnboardingRoute(onNavigateToSignup = { }, onNavigateToLogin = { })
             }
         }
@@ -128,5 +136,48 @@ class OnboardingScreenTest {
 
         logInButton.assertIsDisplayed()
         signUpButton.assertIsDisplayed()
+    }
+
+    @Test
+    fun carouselItems_eachHasCorrectIndicator() {
+        indicator(0)
+            .assertIsDisplayed()
+            .assertBackgroundColor(LightColorScheme.primary)
+
+        indicator(1)
+            .assertIsDisplayed()
+            .assertBackgroundColor(Color.Transparent)
+
+        indicator(2)
+            .assertIsDisplayed()
+            .assertBackgroundColor(Color.Transparent)
+
+        composeTestRule.onRoot().performTouchInput { swipeLeft() }
+
+        indicator(0)
+            .assertIsDisplayed()
+            .assertBackgroundColor(Color.Transparent)
+
+        indicator(1)
+            .assertIsDisplayed()
+            .assertBackgroundColor(LightColorScheme.primary)
+
+        indicator(2)
+            .assertIsDisplayed()
+            .assertBackgroundColor(Color.Transparent)
+
+        composeTestRule.onRoot().performTouchInput { swipeLeft() }
+
+        indicator(0)
+            .assertIsDisplayed()
+            .assertBackgroundColor(Color.Transparent)
+
+        indicator(1)
+            .assertIsDisplayed()
+            .assertBackgroundColor(Color.Transparent)
+
+        indicator(2)
+            .assertIsDisplayed()
+            .assertBackgroundColor(LightColorScheme.primary)
     }
 }
