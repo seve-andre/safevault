@@ -5,27 +5,23 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
-const val signupNavigationRoute = "signup"
-const val loginNavigationRoute = "login"
+const val signUpNavigationRoute = "signUp"
+const val logInNavigationRoute = "logIn"
 
 fun NavController.navigateToSignup(navOptions: NavOptions? = null) {
-    this.navigate(signupNavigationRoute, navOptions)
+    this.navigate(signUpNavigationRoute, navOptions)
 }
 
 fun NavController.navigateToLogin(navOptions: NavOptions? = null) {
-    this.navigate(loginNavigationRoute, navOptions)
+    this.navigate(logInNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.signupScreen(
-    onSignUpClick: () -> Unit,
-) {
-    composable(route = signupNavigationRoute) {
+fun NavGraphBuilder.signUpScreen() {
+    composable(route = signUpNavigationRoute) {
     }
 }
 
-fun NavGraphBuilder.loginScreen(
-    onLoginClick: () -> Unit
-) {
-    composable(route = loginNavigationRoute) {
+fun NavGraphBuilder.logInScreen() {
+    composable(route = logInNavigationRoute) {
     }
 }

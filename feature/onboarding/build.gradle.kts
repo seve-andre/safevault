@@ -6,3 +6,8 @@ plugins {
 android {
     namespace = "com.mitch.safevault.feature.onboarding"
 }
+
+dependencies {
+    api(libs.kotlinx.immutableCollections)
+    api(libs.icons.eva)
+}

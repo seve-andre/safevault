@@ -5,22 +5,29 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.mitch.safevault.feature.onboarding.OnboardingRoute
 
-private const val ONBOARDING_GRAPH_ROUTE_PATTERN = "onboarding_graph"
-const val onboardingNavigationRoute = "onboarding"
+const val onboardingGraphRoute = "onboarding_graph"
+private const val ONBOARDING_NAVIGATION_ROUTE = "onboarding"
 
-fun NavController.navigateToOnboarding(navOptions: NavOptions? = null) {
-    this.navigate(onboardingNavigationRoute, navOptions)
+fun NavController.navigateToOnboardingGraph(navOptions: NavOptions? = null) {
+    this.navigate(onboardingGraphRoute, navOptions)
 }
 
 fun NavGraphBuilder.onboardingGraph(
+    onNavigateToSignup: () -> Unit,
+    onNavigateToLogin: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit
 ) {
     navigation(
-        startDestination = onboardingNavigationRoute,
-        route = ONBOARDING_GRAPH_ROUTE_PATTERN
+        startDestination = ONBOARDING_NAVIGATION_ROUTE,
+        route = onboardingGraphRoute
     ) {
-        composable(route = onboardingNavigationRoute) {
+        composable(route = ONBOARDING_NAVIGATION_ROUTE) {
+            OnboardingRoute(
+                onNavigateToSignup = onNavigateToSignup,
+                onNavigateToLogin = onNavigateToLogin
+            )
         }
         nestedGraphs()
     }
