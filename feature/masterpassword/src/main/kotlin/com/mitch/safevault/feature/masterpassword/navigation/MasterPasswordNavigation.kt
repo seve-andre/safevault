@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
-const val masterPasswordNavigationRoute = "login"
+const val masterPasswordNavigationRoute = ""
 
 fun NavController.navigateToMasterPassword(navOptions: NavOptions? = null) {
     this.navigate(masterPasswordNavigationRoute, navOptions)

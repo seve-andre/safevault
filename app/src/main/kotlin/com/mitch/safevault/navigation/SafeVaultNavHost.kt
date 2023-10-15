@@ -3,7 +3,7 @@ package com.mitch.safevault.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.mitch.safevault.feature.auth.navigation.loginScreen
+import com.mitch.safevault.feature.auth.navigation.logInScreen
 import com.mitch.safevault.feature.auth.navigation.navigateToLogin
 import com.mitch.safevault.feature.auth.navigation.navigateToSignup
 import com.mitch.safevault.feature.auth.navigation.signUpScreen
@@ -30,7 +30,7 @@ fun SafeVaultNavHost(
             onNavigateToLogin = navController::navigateToLogin,
             nestedGraphs = {
                 signUpScreen()
-                loginScreen()
+                logInScreen()
             }
         )
         masterPasswordScreen()

@@ -79,7 +79,7 @@ internal fun OnboardingRoute(
                 }
             } else {
                 OutlinedButton(onClick = onNavigateToLogin) {
-                    Text(text = stringResource(id = R.string.login))
+                    Text(text = stringResource(id = R.string.log_in))
                 }
 
                 Button(onClick = onNavigateToSignup) {
