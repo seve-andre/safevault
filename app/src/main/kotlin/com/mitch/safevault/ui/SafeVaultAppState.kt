@@ -9,8 +9,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.mitch.safevault.ui.util.SnackbarController
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
+import com.mitch.safevault.ui.util.SnackbarController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -21,7 +21,7 @@ fun rememberSafeVaultAppState(
     networkMonitor: NetworkMonitor,
     navController: NavHostController = rememberNavController(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope()
 ): SafeVaultAppState {
     return remember(navController, snackbarHostState, coroutineScope, networkMonitor) {
         SafeVaultAppState(navController, snackbarHostState, coroutineScope, networkMonitor)

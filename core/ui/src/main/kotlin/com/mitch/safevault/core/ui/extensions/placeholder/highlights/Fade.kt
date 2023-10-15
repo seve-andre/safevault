@@ -12,7 +12,7 @@ import com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderHighlight
 
 private data class Fade(
     private val highlightColor: Color,
-    override val animationSpec: InfiniteRepeatableSpec<Float>,
+    override val animationSpec: InfiniteRepeatableSpec<Float>
 ) : PlaceholderHighlight {
     private val brush = SolidColor(highlightColor)
 
@@ -22,14 +22,14 @@ private data class Fade(
 
 @Composable
 fun PlaceholderHighlight.Companion.fade(
-    animationSpec: InfiniteRepeatableSpec<Float> = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.fadeAnimationSpec,
+    animationSpec: InfiniteRepeatableSpec<Float> = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.fadeAnimationSpec
 ): PlaceholderHighlight = Fade(
     highlightColor = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.fadeHighlightColor(),
-    animationSpec = animationSpec,
+    animationSpec = animationSpec
 )
 
 @Composable
 fun PlaceholderDefaults.fadeHighlightColor(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    alpha: Float = 0.3f,
+    alpha: Float = 0.3f
 ): Color = backgroundColor.copy(alpha = alpha)

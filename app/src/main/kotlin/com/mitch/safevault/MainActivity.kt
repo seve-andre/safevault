@@ -34,10 +34,10 @@ import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.navigation.SafeVaultNavHost
 import com.mitch.safevault.ui.rememberSafeVaultAppState
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 private fun shouldUseDarkTheme(
-    uiState: MainActivityUiState,
+    uiState: MainActivityUiState
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {

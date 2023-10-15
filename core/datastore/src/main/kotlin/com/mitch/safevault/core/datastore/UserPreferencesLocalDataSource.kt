@@ -2,9 +2,9 @@ package com.mitch.safevault.core.datastore
 
 import androidx.datastore.core.DataStore
 import com.mitch.safevault.core.datastore.ProtoUserPreferences.ProtoAppTheme
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
  * [UserPreferencesLocalDataSource] is the mediator between [ProtoUserPreferences] Datastore and

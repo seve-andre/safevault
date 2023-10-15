@@ -7,9 +7,9 @@ import com.mitch.safevault.core.data.mapper.toDomainModel
 import com.mitch.safevault.core.datastore.UserPreferencesLocalDataSource
 import com.mitch.safevault.core.util.SafeVaultLanguage
 import com.mitch.safevault.core.util.SafeVaultTheme
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class DefaultUserSettingsRepository @Inject constructor(
     private val userPreferencesLocalDataSource: UserPreferencesLocalDataSource,

@@ -8,11 +8,11 @@ import androidx.navigation.compose.composable
 const val signUpNavigationRoute = "signUp"
 const val logInNavigationRoute = "logIn"
 
-fun NavController.navigateToSignup(navOptions: NavOptions? = null) {
+fun NavController.navigateToSignUp(navOptions: NavOptions? = null) {
     this.navigate(signUpNavigationRoute, navOptions)
 }
 
-fun NavController.navigateToLogin(navOptions: NavOptions? = null) {
+fun NavController.navigateToLogIn(navOptions: NavOptions? = null) {
     this.navigate(logInNavigationRoute, navOptions)
 }
 

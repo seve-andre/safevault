@@ -23,7 +23,7 @@ object DataStoreModule {
     @Singleton
     fun providesUserPreferencesDataStore(
         @ApplicationContext context: Context,
-        protoUserPreferencesSerializer: ProtoUserPreferencesSerializer,
+        protoUserPreferencesSerializer: ProtoUserPreferencesSerializer
     ): DataStore<ProtoUserPreferences> =
         DataStoreFactory.create(
             serializer = protoUserPreferencesSerializer,

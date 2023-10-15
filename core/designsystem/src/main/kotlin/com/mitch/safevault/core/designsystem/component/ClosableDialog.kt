@@ -31,10 +31,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mitch.safevault.core.designsystem.R
 import com.mitch.safevault.core.designsystem.theme.padding
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline

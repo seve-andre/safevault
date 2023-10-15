@@ -12,5 +12,4 @@ internal fun ItemsRoute(
 
 @Composable
 internal fun ItemsScreen() {
-
 }
