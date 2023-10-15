@@ -19,7 +19,13 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             }
             extensions.configure<LibraryExtension> {
                 defaultConfig {
-//                    testInstrumentationRunner = "com.mitch.safevault.core.testing.NiaTestRunner"
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                }
+
+                packaging {
+                    resources {
+                        excludes += listOf("/META-INF/LICENSE.md", "/META-INF/LICENSE-notice.md")
+                    }
                 }
             }
 

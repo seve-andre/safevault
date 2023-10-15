@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,10 +47,13 @@ internal fun SwipeableCarousel(
             verticalArrangement = Arrangement.spacedBy(50.dp)
         ) {
             Row {
+                val imageId = currentItem.imageId
                 Image(
-                    painter = painterResource(id = currentItem.imageId),
+                    painter = painterResource(id = imageId),
                     contentDescription = null,
-                    modifier = Modifier.size(300.dp)
+                    modifier = Modifier
+                        .size(300.dp)
+                        .testTag(imageId.toString())
                 )
             }
 
@@ -69,7 +73,7 @@ internal fun SwipeableCarousel(
                 )
             }
 
-            CarouselDotIndicators(
+            CarouselPageIndicators(
                 pageCountProvider = { carouselState.pageCount },
                 currentPageProvider = { carouselState.currentPage }
             )
@@ -78,7 +82,7 @@ internal fun SwipeableCarousel(
 }
 
 @Composable
-private fun CarouselDotIndicators(
+private fun CarouselPageIndicators(
     pageCountProvider: () -> Int,
     currentPageProvider: () -> Int
 ) {
