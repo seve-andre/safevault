@@ -64,7 +64,6 @@ internal fun SwipeableCarousel(
                     textAlign = TextAlign.Center
                 )
             }
-
         }
     }
 }
