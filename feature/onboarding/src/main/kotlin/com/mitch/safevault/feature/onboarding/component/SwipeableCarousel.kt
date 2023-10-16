@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -41,16 +40,14 @@ internal fun SwipeableCarousel(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(50.dp)
         ) {
-            Row {
-                val imageId = currentItem.imageId
-                Image(
-                    painter = painterResource(id = imageId),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(300.dp)
-                        .testTag(imageId.toString())
-                )
-            }
+            val imageId = currentItem.imageId
+            Image(
+                painter = painterResource(id = imageId),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(300.dp)
+                    .testTag(imageId.toString())
+            )
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(padding.medium),
@@ -71,4 +68,3 @@ internal fun SwipeableCarousel(
         }
     }
 }
-
