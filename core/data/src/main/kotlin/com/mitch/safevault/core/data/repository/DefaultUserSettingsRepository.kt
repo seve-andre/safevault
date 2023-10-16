@@ -5,6 +5,7 @@ import com.mitch.safevault.core.data.mapper.toAppLanguage
 import com.mitch.safevault.core.data.mapper.toDataModel
 import com.mitch.safevault.core.data.mapper.toDomainModel
 import com.mitch.safevault.core.datastore.UserPreferencesLocalDataSource
+import com.mitch.safevault.core.domain.repository.UserSettingsRepository
 import com.mitch.safevault.core.util.SafeVaultLanguage
 import com.mitch.safevault.core.util.SafeVaultTheme
 import kotlinx.coroutines.flow.Flow

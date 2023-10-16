@@ -1,7 +1,7 @@
 package com.mitch.safevault.core.data.di
 
 import com.mitch.safevault.core.data.repository.DefaultUserSettingsRepository
-import com.mitch.safevault.core.data.repository.UserSettingsRepository
+import com.mitch.safevault.core.domain.repository.UserSettingsRepository
 import com.mitch.safevault.core.data.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
 import dagger.Binds
@@ -21,5 +21,5 @@ abstract class DataModule {
     @Binds
     abstract fun bindsUserSettingsRepository(
         userSettingsRepository: DefaultUserSettingsRepository
-    ): UserSettingsRepository
+    ): com.mitch.safevault.core.domain.repository.UserSettingsRepository
 }
