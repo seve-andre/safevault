@@ -82,37 +82,27 @@ class OnboardingScreenTest {
 
     @Test
     fun carouselItems_whenClickingNext_hasCorrectOrder() {
-        // 1) assert carousel item 1 is displayed correctly
         firstCarouselItem.forEach { it.assertIsDisplayed() }
 
-        // 2) click on next
         nextButton.assertIsDisplayed().performClick()
 
-        // 3) assert carousel item 2 is displayed correctly
         secondCarouselItem.forEach { it.assertIsDisplayed() }
 
-        // 4) click on next
         nextButton.assertIsDisplayed().performClick()
 
-        // 5) assert carousel item 3 is displayed correctly
         thirdCarouselItem.forEach { it.assertIsDisplayed() }
     }
 
     @Test
     fun carouselItems_whenSwiping_hasCorrectOrder() {
-        // 1) assert carousel item 1 is displayed correctly
         firstCarouselItem.forEach { it.assertIsDisplayed() }
 
-        // 2) swipe
         composeTestRule.onRoot().performTouchInput { swipeLeft() }
 
-        // 3) assert carousel item 2 is displayed correctly
         secondCarouselItem.forEach { it.assertIsDisplayed() }
 
-        // 4) swipe
         composeTestRule.onRoot().performTouchInput { swipeLeft() }
 
-        // 5) assert carousel item 3 is displayed correctly
         thirdCarouselItem.forEach { it.assertIsDisplayed() }
     }
 
