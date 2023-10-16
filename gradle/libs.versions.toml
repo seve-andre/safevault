@@ -172,4 +172,3 @@ safevault-android-room = { id = "safevault.android.room", version = "unspecified
 safevault-android-test = { id = "safevault.android.test", version = "unspecified" }
 safevault-jvm-library = { id = "safevault.jvm.library", version = "unspecified" }
 safevault-unitTest = { id = "safevault.unitTest", version = "unspecified" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
