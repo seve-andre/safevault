@@ -17,5 +17,5 @@ dependencies {
     debugApi(libs.compose.ui.tooling)
     api(libs.compose.ui.tooling.preview)
     api(libs.accompanist.systemuicontroller)
-    api(libs.icons.eva)
+    implementation(libs.icons.eva)
 }
