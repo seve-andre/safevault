@@ -23,13 +23,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.mitch.safevault.core.designsystem.SafeVaultIcons
 import com.mitch.safevault.feature.onboarding.component.CarouselControls
 import com.mitch.safevault.feature.onboarding.component.CarouselItem
 import com.mitch.safevault.feature.onboarding.component.CarouselPageIndicators
 import com.mitch.safevault.feature.onboarding.component.SwipeableCarousel
-import compose.icons.EvaIcons
-import compose.icons.evaicons.Outline
-import compose.icons.evaicons.outline.ArrowForward
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
@@ -93,7 +91,7 @@ internal fun OnboardingRoute(
                         }
                     ) {
                         Icon(
-                            imageVector = EvaIcons.Outline.ArrowForward,
+                            imageVector = SafeVaultIcons.ArrowRight,
                             contentDescription = stringResource(id = R.string.go_to_next_page)
                         )
                     }
