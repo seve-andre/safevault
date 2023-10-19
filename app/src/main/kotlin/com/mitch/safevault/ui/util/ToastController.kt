@@ -9,7 +9,7 @@ object ToastController {
     fun show(
         context: Context,
         message: String,
-        duration: ToastDuration = ToastDuration.SHORT
+        duration: ToastDuration = ToastDuration.Short
     ) {
         if (showingToast != null) {
             showingToast?.cancel()
@@ -18,8 +18,8 @@ object ToastController {
             context,
             message,
             when (duration) {
-                ToastDuration.SHORT -> Toast.LENGTH_SHORT
-                ToastDuration.LONG -> Toast.LENGTH_LONG
+                ToastDuration.Short -> Toast.LENGTH_SHORT
+                ToastDuration.Long -> Toast.LENGTH_LONG
             }
         )
         showingToast?.show()
@@ -27,6 +27,6 @@ object ToastController {
 }
 
 enum class ToastDuration {
-    SHORT,
-    LONG
+    Short,
+    Long
 }
