@@ -127,8 +127,8 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        com.mitch.safevault.core.util.SafeVaultTheme.DARK -> true
-        com.mitch.safevault.core.util.SafeVaultTheme.LIGHT -> false
-        com.mitch.safevault.core.util.SafeVaultTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        com.mitch.safevault.core.util.SafeVaultTheme.Dark -> true
+        com.mitch.safevault.core.util.SafeVaultTheme.Light -> false
+        com.mitch.safevault.core.util.SafeVaultTheme.FollowSystem -> isSystemInDarkTheme()
     }
 }
