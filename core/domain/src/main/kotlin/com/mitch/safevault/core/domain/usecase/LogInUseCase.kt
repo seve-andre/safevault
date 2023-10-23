@@ -16,8 +16,8 @@ class LogInUseCase @Inject constructor(
 ) {
 
     suspend fun logIn(email: String, password: String): LogInResult {
-        val emailError = validateEmail(email)
-        val passwordError = validatePassword(password)
+        val emailError = this.validateEmail(email)
+        val passwordError = this.validatePassword(password)
 
         if (hasValidationErrors(emailError, passwordError)) {
             return LogInResult.Error(emailError, passwordError)
