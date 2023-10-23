@@ -30,12 +30,13 @@ import com.mitch.safevault.feature.onboarding.component.CarouselPageIndicators
 import com.mitch.safevault.feature.onboarding.component.SwipeableCarousel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
+import com.mitch.safevault.core.util.R as utilR
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 internal fun OnboardingRoute(
-    onNavigateToSignup: () -> Unit,
-    onNavigateToLogin: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onNavigateToLogIn: () -> Unit
 ) {
     val carouselItems = persistentListOf(
         CarouselItem.Shield,
@@ -97,12 +98,12 @@ internal fun OnboardingRoute(
                     }
                 }
             } else {
-                OutlinedButton(onClick = onNavigateToLogin) {
-                    Text(text = stringResource(id = R.string.log_in))
+                OutlinedButton(onClick = onNavigateToLogIn) {
+                    Text(text = stringResource(id = utilR.string.log_in))
                 }
 
-                Button(onClick = onNavigateToSignup) {
-                    Text(text = stringResource(id = R.string.sign_up))
+                Button(onClick = onNavigateToSignUp) {
+                    Text(text = stringResource(id = utilR.string.sign_up))
                 }
             }
         }
@@ -113,7 +114,7 @@ internal fun OnboardingRoute(
 @Composable
 private fun OnboardingPreview() {
     OnboardingRoute(
-        onNavigateToSignup = { },
-        onNavigateToLogin = { }
+        onNavigateToSignUp = { },
+        onNavigateToLogIn = { }
     )
 }
