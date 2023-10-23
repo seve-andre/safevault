@@ -25,8 +25,8 @@ fun NavGraphBuilder.onboardingGraph(
     ) {
         composable(route = OnboardingNavigationRoute) {
             OnboardingRoute(
-                onNavigateToSignup = onNavigateToSignup,
-                onNavigateToLogin = onNavigateToLogin
+                onNavigateToSignUp = onNavigateToSignup,
+                onNavigateToLogIn = onNavigateToLogin
             )
         }
         nestedGraphs()

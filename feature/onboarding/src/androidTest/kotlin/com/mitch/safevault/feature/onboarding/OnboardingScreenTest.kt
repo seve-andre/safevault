@@ -75,7 +75,7 @@ class OnboardingScreenTest {
     fun setUp() {
         composeTestRule.setContent {
             SafeVaultMaterialTheme(isThemeDark = false) {
-                OnboardingRoute(onNavigateToSignup = { }, onNavigateToLogin = { })
+                OnboardingRoute(onNavigateToSignUp = { }, onNavigateToLogIn = { })
             }
         }
     }
