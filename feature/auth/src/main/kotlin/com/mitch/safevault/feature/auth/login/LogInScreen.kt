@@ -68,7 +68,7 @@ internal fun LogInScreen(
             onValueChange = onChangeEmail,
             modifier = Modifier.semantics {
                 // Provide localized description of the error
-                if (passwordError != null) error(emailErrorMessage)
+                if (emailError != null) error(emailErrorMessage)
             },
             label = { Text(text = "Email") },
             placeholder = { Text("example@gmail.com") },
