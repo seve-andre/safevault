@@ -1,8 +1,6 @@
 package com.mitch.safevault.core.data.datasource
 
 import android.content.Context
-import com.mitch.safevault.core.data.remote.AuthApi
-import com.mitch.safevault.core.data.remote.request.LogInRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

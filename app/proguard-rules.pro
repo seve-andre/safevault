@@ -59,7 +59,6 @@
 -keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
 -dontwarn java.lang.invoke.*
 -keep interface * { *; }
--dontwarn retrofit2.KotlinExtensions
 
 -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
 -keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}

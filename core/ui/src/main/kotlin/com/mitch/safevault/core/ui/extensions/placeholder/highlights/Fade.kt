@@ -22,9 +22,9 @@ private data class Fade(
 
 @Composable
 fun PlaceholderHighlight.Companion.fade(
-    animationSpec: InfiniteRepeatableSpec<Float> = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.fadeAnimationSpec
+    animationSpec: InfiniteRepeatableSpec<Float> = PlaceholderDefaults.fadeAnimationSpec
 ): PlaceholderHighlight = Fade(
-    highlightColor = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.fadeHighlightColor(),
+    highlightColor = PlaceholderDefaults.fadeHighlightColor(),
     animationSpec = animationSpec
 )
 

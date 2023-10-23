@@ -4,7 +4,6 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
-import assertk.assertions.isNull
 import com.mitch.safevault.core.domain.repository.AuthRepository
 import com.mitch.safevault.core.domain.usecase.LogInResult
 import com.mitch.safevault.core.domain.usecase.LogInUseCase

@@ -53,10 +53,10 @@ private data class Shimmer(
 
 @Composable
 fun PlaceholderHighlight.Companion.shimmer(
-    animationSpec: InfiniteRepeatableSpec<Float> = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.shimmerAnimationSpec,
+    animationSpec: InfiniteRepeatableSpec<Float> = PlaceholderDefaults.shimmerAnimationSpec,
     @FloatRange(from = 0.0, to = 1.0) progressForMaxAlpha: Float = 0.6f
 ): PlaceholderHighlight = Shimmer(
-    highlightColor = com.mitch.safevault.core.ui.extensions.placeholder.PlaceholderDefaults.shimmerHighlightColor(),
+    highlightColor = PlaceholderDefaults.shimmerHighlightColor(),
     animationSpec = animationSpec,
     progressForMaxAlpha = progressForMaxAlpha
 )

@@ -22,15 +22,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.safevault.core.designsystem.SafeVaultIcons
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
-import com.mitch.safevault.core.util.validator.password.PasswordValidationResult
 
 @Composable
 internal fun LogInRoute(
