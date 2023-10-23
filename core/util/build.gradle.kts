@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.safevault.android.library)
+    alias(libs.plugins.safevault.android.hilt)
 }
 
 android {
@@ -9,5 +10,7 @@ android {
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
-    api("androidx.annotation:annotation:1.7.0")
+    implementation(libs.androidAnnotation)
+
+    testImplementation(projects.core.testing)
 }
