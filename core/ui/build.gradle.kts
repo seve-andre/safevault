@@ -18,4 +18,5 @@ dependencies {
     api(libs.compose.ui.util)
 
     implementation(projects.core.designsystem)
+    implementation(projects.core.util)
 }
