@@ -1,12 +1,12 @@
 package com.mitch.safevault.feature.auth.login
 
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitch.safevault.core.domain.usecase.LogInUseCase
+import com.mitch.safevault.core.ui.component.email.EmailState
+import com.mitch.safevault.core.ui.component.password.PasswordState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,23 +16,13 @@ class LogInViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase
 ) : ViewModel() {
 
-    var email by mutableStateOf("")
-        private set
+    val emailState by mutableStateOf(
+        EmailState(onValidateEmail = logInUseCase::validateEmail)
+    )
 
-    var password by mutableStateOf("")
-        private set
-
-    val emailError by derivedStateOf { logInUseCase.validateEmail(email) }
-
-    val passwordError by derivedStateOf { logInUseCase.validatePassword(password) }
-
-    fun updateEmail(email: String) {
-        this.email = email
-    }
-
-    fun updatePassword(password: String) {
-        this.password = password
-    }
+    val passwordState by mutableStateOf(
+        PasswordState(onValidatePassword = logInUseCase::validatePassword)
+    )
 
     fun logIn(
         email: String,

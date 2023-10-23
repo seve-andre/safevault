@@ -25,6 +25,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mitch.safevault.core.designsystem.SafeVaultIcons
+import com.mitch.safevault.core.ui.component.email.EmailTextField
+import com.mitch.safevault.core.ui.component.email.EmailState
+import com.mitch.safevault.core.ui.component.password.PasswordState
+import com.mitch.safevault.core.ui.component.password.PasswordTextField
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
 
@@ -32,110 +36,23 @@ import com.mitch.safevault.core.util.validator.password.PasswordError
 internal fun LogInRoute(
     viewModel: LogInViewModel = hiltViewModel()
 ) {
-    val emailError = viewModel.emailError
-    val passwordError = viewModel.passwordError
-
     LogInScreen(
-        email = viewModel.email,
-        emailError = emailError,
-        onChangeEmail = viewModel::updateEmail,
-        password = viewModel.password,
-        passwordError = passwordError,
-        onChangePassword = viewModel::updatePassword
+        emailState = viewModel.emailState,
+        passwordState = viewModel.passwordState
     )
 }
 
 @Composable
 internal fun LogInScreen(
-    email: String,
-    emailError: EmailError?,
-    onChangeEmail: (String) -> Unit,
-    password: String,
-    passwordError: PasswordError.EmptyField?,
-    onChangePassword: (String) -> Unit
+    emailState: EmailState,
+    passwordState: PasswordState
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val emailErrorMessage = emailError?.toErrorMessage() ?: ""
-
-        TextField(
-            value = email,
-            onValueChange = onChangeEmail,
-            modifier = Modifier.semantics {
-                // Provide localized description of the error
-                if (emailError != null) error(emailErrorMessage)
-            },
-            label = { Text(text = "Email") },
-            placeholder = { Text("example@gmail.com") },
-            supportingText = {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = emailErrorMessage
-                )
-            },
-            isError = emailError != null,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
-            ),
-            singleLine = true
-        )
-
-
-        // Password
-        var isPasswordVisible by rememberSaveable { mutableStateOf(false) }
-        val passwordErrorMessage = if (passwordError != null) "Inserisci la password!" else ""
-
-        TextField(
-            value = password,
-            onValueChange = onChangePassword,
-            modifier = Modifier.semantics {
-                // Provide localized description of the error
-                if (passwordError != null) error(passwordErrorMessage)
-            },
-            label = { Text(text = "Password") },
-            placeholder = { Text("Inserisci password") },
-            trailingIcon = {
-                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
-                    val visibilityIcon =
-                        if (isPasswordVisible) SafeVaultIcons.EyeOff else SafeVaultIcons.Eye
-                    // Please provide localized description for accessibility services
-                    val description = if (isPasswordVisible) "Hide password" else "Show password"
-                    Icon(imageVector = visibilityIcon, contentDescription = description)
-                }
-            },
-            supportingText = {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = passwordErrorMessage
-                )
-            },
-            isError = passwordError != null,
-            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    keyboardController?.hide()
-                    // on submit
-                }
-            ),
-            singleLine = true
-        )
-    }
-}
-
-@Composable
-private fun EmailError.toErrorMessage(): String {
-    return when (this) {
-        EmailError.EmptyField -> "Inserire la email!"
-        EmailError.NoMatch -> "La email inserita non è corretta"
+        EmailTextField(emailState = emailState)
+        PasswordTextField(passwordState = passwordState)
     }
 }
