@@ -7,4 +7,5 @@ sealed interface PasswordError {
     data object NoUppercaseLetter : PasswordError
     data object NoNumber : PasswordError
     data object NoSpecialCharacter : PasswordError
+    data object NoMatch : PasswordError
 }
