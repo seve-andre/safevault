@@ -128,8 +128,8 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        SafeVaultTheme.DARK -> true
-        SafeVaultTheme.LIGHT -> false
-        SafeVaultTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        SafeVaultTheme.Dark -> true
+        SafeVaultTheme.Light -> false
+        SafeVaultTheme.FollowSystem -> isSystemInDarkTheme()
     }
 }
