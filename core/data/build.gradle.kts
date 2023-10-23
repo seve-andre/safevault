@@ -11,6 +11,7 @@ dependencies {
     api(libs.appcompat)
     api(libs.protobuf.kotlin.lite)
 
+    implementation(projects.core.domain)
     implementation(projects.core.datastore)
     implementation(projects.core.util)
 }

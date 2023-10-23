@@ -6,3 +6,9 @@ plugins {
 android {
     namespace = "com.mitch.safevault.core.domain"
 }
+
+dependencies {
+    implementation(projects.core.util)
+    implementation(projects.core.model)
+    testImplementation(projects.core.testing)
+}
