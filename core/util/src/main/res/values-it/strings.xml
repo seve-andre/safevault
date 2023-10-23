@@ -3,4 +3,6 @@
     <string name="system_default">Predefinito di sistema</string>
     <string name="light_theme">Chiaro</string>
     <string name="dark_theme">Scuro</string>
+    <string name="log_in">Accedi</string>
+    <string name="sign_up">Iscriviti</string>
 </resources>
