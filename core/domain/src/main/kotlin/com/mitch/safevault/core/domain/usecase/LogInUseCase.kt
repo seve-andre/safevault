@@ -40,7 +40,9 @@ class LogInUseCase @Inject constructor(
             && PasswordError.EmptyField in passwordValidationResult.reasons
         ) {
             PasswordError.EmptyField
-        } else null
+        } else {
+            null
+        }
     }
 
     private fun hasValidationErrors(
