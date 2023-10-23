@@ -29,7 +29,7 @@ class LogInViewModel @Inject constructor(
         password: String
     ) {
         viewModelScope.launch {
-            val result = logInUseCase.logIn(email, password)
+            logInUseCase.logIn(email, password)
         }
     }
 }

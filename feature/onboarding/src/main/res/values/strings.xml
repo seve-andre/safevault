@@ -8,6 +8,4 @@
     <string name="onboarding_key_body">Relax, you\'re the one with the key to your stuff – no one else gets in!</string>
     <string name="skip">Skip</string>
     <string name="go_to_next_page">Go to next page</string>
-    <string name="log_in">Log in</string>
-    <string name="sign_up">Sign up</string>
 </resources>

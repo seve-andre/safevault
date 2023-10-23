@@ -22,8 +22,10 @@ fun NavGraphBuilder.signUpScreen() {
     }
 }
 
-fun NavGraphBuilder.logInScreen() {
+fun NavGraphBuilder.logInScreen(
+    onNavigateToSignUp: () -> Unit
+) {
     composable(route = logInNavigationRoute) {
-        LogInRoute()
+        LogInRoute(onNavigateToSignUp = onNavigateToSignUp)
     }
 }

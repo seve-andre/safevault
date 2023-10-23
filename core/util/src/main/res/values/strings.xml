@@ -3,4 +3,6 @@
     <string name="system_default">System default</string>
     <string name="light_theme">Light</string>
     <string name="dark_theme">Dark</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
 </resources>

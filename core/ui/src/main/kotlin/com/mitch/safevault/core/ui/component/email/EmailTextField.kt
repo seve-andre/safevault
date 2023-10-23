@@ -7,8 +7,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import com.mitch.safevault.core.util.validator.email.EmailError
@@ -25,9 +25,11 @@ fun EmailTextField(
     OutlinedTextField(
         value = emailState.email,
         onValueChange = { emailState.email = it },
-        modifier = modifier.semantics {
-            if (emailState.error != null) error(emailErrorMessage)
-        },
+        modifier = modifier
+            .semantics {
+                if (emailState.error != null) error(emailErrorMessage)
+            }
+            .fillMaxWidth(),
         label = { Text(text = "Email") },
         placeholder = { Text("example@gmail.com") },
         supportingText = {
