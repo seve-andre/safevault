@@ -31,6 +31,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
+import com.mitch.safevault.core.util.SafeVaultTheme
 import com.mitch.safevault.navigation.SafeVaultNavHost
 import com.mitch.safevault.ui.rememberSafeVaultAppState
 import dagger.hilt.android.AndroidEntryPoint
@@ -127,8 +128,8 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        com.mitch.safevault.core.util.SafeVaultTheme.Dark -> true
-        com.mitch.safevault.core.util.SafeVaultTheme.Light -> false
-        com.mitch.safevault.core.util.SafeVaultTheme.FollowSystem -> isSystemInDarkTheme()
+        SafeVaultTheme.DARK -> true
+        SafeVaultTheme.LIGHT -> false
+        SafeVaultTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
     }
 }

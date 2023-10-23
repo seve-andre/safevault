@@ -18,16 +18,12 @@ dependencies {
     api(libs.test.runner)
     api(libs.hilt.android.testing)
     api(libs.junit4)
-    api(libs.junit5)
-    api(libs.junit5.engine)
-    api(libs.junit5.params)
     api(libs.assertk)
     api(libs.kotlinx.coroutines.test)
     api(libs.turbine)
 
     debugApi(libs.composeTest.manifest)
 
-    implementation(projects.core.util)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(projects.core.domain)

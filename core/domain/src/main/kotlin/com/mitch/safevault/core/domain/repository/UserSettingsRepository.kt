@@ -1,4 +1,4 @@
-package com.mitch.safevault.core.data.repository
+package com.mitch.safevault.core.domain.repository
 
 import com.mitch.safevault.core.util.SafeVaultLanguage
 import com.mitch.safevault.core.util.SafeVaultTheme

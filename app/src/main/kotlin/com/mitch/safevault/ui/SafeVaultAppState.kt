@@ -41,7 +41,7 @@ class SafeVaultAppState(
     )
 ) {
     /**
-     * App's current [Destination] if set, otherwise starting destination.
+     * App's current [NavDestination] if set, otherwise starting destination.
      *
      * Starting destination: search for `@RootNavGraph(start = true)`
      */

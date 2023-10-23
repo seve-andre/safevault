@@ -5,17 +5,17 @@ kotlinx-coroutines = "1.7.3"
 kotlinx-immutableCollections = "0.3.6"
 
 # UI
-compose-bom = "2023.10.00"
+compose-bom = "2023.10.01"
 accompanist = "0.33.0-alpha"
 activity-compose = "1.8.0"
-compose = "1.5.0"
 compose-compiler = "1.5.2"
-compose-material3 = "1.2.0-alpha09"
+compose-material3 = "1.2.0-alpha08"
 androidx-lifecycle = "2.6.2"
 coil = "2.3.0"
 eva = "1.0.0"
 core-splashscreen = "1.0.1"
 appcompat = "1.6.1"
+annotation = "1.7.0"
 
 # Navigation
 navigation-compose = "2.7.4"
@@ -38,6 +38,7 @@ junit4 = "4.13.2"
 junit5 = "5.9.3"
 assertk = "0.26.1"
 turbine = "1.0.0"
+mockk = "1.13.8"
 ## Instrumented
 test-core = "1.5.0"
 espresso-core = "3.5.1"
@@ -96,6 +97,7 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 icons-eva = { group = "br.com.devsrsouza.compose.icons.android", name = "eva-icons", version.ref = "eva" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidAnnotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
 # Navigation
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
@@ -126,6 +128,7 @@ junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", ve
 junit5-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit5" }
 assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+mockk = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 ## Instrumented
 composeTest-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 composeTest-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
@@ -172,4 +175,3 @@ safevault-android-room = { id = "safevault.android.room", version = "unspecified
 safevault-android-test = { id = "safevault.android.test", version = "unspecified" }
 safevault-jvm-library = { id = "safevault.jvm.library", version = "unspecified" }
 safevault-unitTest = { id = "safevault.unitTest", version = "unspecified" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }

@@ -2,7 +2,7 @@ package com.mitch.safevault
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitch.safevault.core.data.repository.UserSettingsRepository
+import com.mitch.safevault.core.domain.repository.UserSettingsRepository
 import com.mitch.safevault.core.util.SafeVaultTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
