@@ -80,6 +80,7 @@ internal fun LogInScreen(
             keyboardActions = KeyboardActions(
                 onDone = {
                     keyboardController?.hide()
+                    passwordState.shouldStartValidation = true
                     onLogInSubmitted(emailState.email, passwordState.password)
                 }
             )
