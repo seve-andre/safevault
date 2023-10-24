@@ -36,8 +36,8 @@ class LogInUseCase @Inject constructor(
     fun validatePassword(password: String): PasswordError.EmptyField? {
         val passwordValidationResult = passwordValidator.validate(password.trim())
         return if (
-            passwordValidationResult is PasswordValidationResult.InvalidPassword
-            && PasswordError.EmptyField in passwordValidationResult.reasons
+            passwordValidationResult is PasswordValidationResult.InvalidPassword &&
+            PasswordError.EmptyField in passwordValidationResult.reasons
         ) {
             PasswordError.EmptyField
         } else {
