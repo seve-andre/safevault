@@ -12,5 +12,6 @@ class EmailState(
     private val onValidateEmail: (String) -> EmailError?
 ) {
     var email by mutableStateOf("")
-    val error by derivedStateOf { onValidateEmail(email) }
+    val error by derivedStateOf { if (shouldStartValidation) onValidateEmail(email) else null }
+    var shouldStartValidation by mutableStateOf(false)
 }
