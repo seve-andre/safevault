@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,7 +53,8 @@ internal fun LogInScreen(
     onLogInSubmitted: (String, String) -> Unit,
     onNavigateToSignUp: () -> Unit
 ) {
-    val (emailFocusRequester, passwordFocusRequester) = remember { FocusRequester.createRefs() }
+    val emailFocusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(Unit) {
         delay(1_000)
@@ -72,11 +74,12 @@ internal fun LogInScreen(
         )
         PasswordTextField(
             passwordState = passwordState,
-            modifier = Modifier
-                .focusRequester(passwordFocusRequester)
-                .onFocusChanged { if (it.isFocused) emailState.shouldStartValidation = true },
+            modifier = Modifier.onFocusChanged {
+                if (it.isFocused) emailState.shouldStartValidation = true
+            },
             keyboardActions = KeyboardActions(
                 onDone = {
+                    keyboardController?.hide()
                     onLogInSubmitted(emailState.email, passwordState.password)
                 }
             )
