@@ -12,7 +12,8 @@ class PasswordState(
     private val onValidatePassword: (String) -> PasswordError?
 ) {
     var password by mutableStateOf("")
-    val error by derivedStateOf { onValidatePassword(password) }
+    var shouldStartValidation by mutableStateOf(false)
+    val error by derivedStateOf { if (shouldStartValidation) onValidatePassword(password) else null }
     var isPasswordVisible by mutableStateOf(false)
 
     fun togglePasswordVisibility() {
