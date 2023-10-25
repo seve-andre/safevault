@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -30,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
+import com.mitch.safevault.core.designsystem.component.SwipeableSnackbar
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.util.SafeVaultTheme
 import com.mitch.safevault.navigation.SafeVaultNavHost
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         /* Must be called before super.onCreate()
          *
@@ -100,7 +103,14 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 Scaffold(
-                    snackbarHost = { SnackbarHost(appState.snackbarHostState) },
+                    snackbarHost = {
+                        SwipeableSnackbar(
+                            state = appState.snackbarHostState,
+                            dismissContent = {
+                                SnackbarHost(appState.snackbarHostState)
+                            }
+                        )
+                    },
                     contentWindowInsets = WindowInsets(0, 0, 0, 0)
                 ) { padding ->
                     Box(
