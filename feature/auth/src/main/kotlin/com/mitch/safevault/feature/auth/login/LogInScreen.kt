@@ -1,6 +1,5 @@
 package com.mitch.safevault.feature.auth.login
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,10 +40,6 @@ internal fun LogInRoute(
     onNavigateToSignUp: () -> Unit
 ) {
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
-
-    Log.d("login", "email: ${viewModel.emailState}")
-    Log.d("login", "password: ${viewModel.passwordState}")
-    Log.d("login", "ui state: $logInUiState")
 
     LogInScreen(
         logInUiState = logInUiState,
