@@ -1,6 +1,5 @@
 package com.mitch.safevault.feature.auth.navigation
 
-import androidx.compose.material3.SnackbarResult
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -23,14 +22,8 @@ fun NavGraphBuilder.signUpScreen() {
     }
 }
 
-fun NavGraphBuilder.logInScreen(
-    onShowSnackbar: suspend (String, String?) -> SnackbarResult,
-    onNavigateToSignUp: () -> Unit
-) {
+fun NavGraphBuilder.logInScreen(onNavigateToSignUp: () -> Unit) {
     composable(route = logInNavigationRoute) {
-        LogInRoute(
-            onShowSnackbar = onShowSnackbar,
-            onNavigateToSignUp = onNavigateToSignUp
-        )
+        LogInRoute(onNavigateToSignUp = onNavigateToSignUp)
     }
 }

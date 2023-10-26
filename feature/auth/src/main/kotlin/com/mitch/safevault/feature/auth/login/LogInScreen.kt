@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Button
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,19 +36,17 @@ import com.mitch.safevault.core.util.R as utilR
 
 @Composable
 internal fun LogInRoute(
-    onShowSnackbar: suspend (String, String?) -> SnackbarResult,
     viewModel: LogInViewModel = hiltViewModel(),
     onNavigateToSignUp: () -> Unit
 ) {
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
-
-
 
     Log.d("login", "email: ${viewModel.emailState}")
     Log.d("login", "password: ${viewModel.passwordState}")
     Log.d("login", "ui state: $logInUiState")
 
     LogInScreen(
+        logInUiState = logInUiState,
         emailState = viewModel.emailState,
         passwordState = viewModel.passwordState,
         onLogInSubmitted = viewModel::logIn,
@@ -59,6 +56,7 @@ internal fun LogInRoute(
 
 @Composable
 internal fun LogInScreen(
+    logInUiState: LogInUiState,
     emailState: EmailState,
     passwordState: PasswordState,
     onLogInSubmitted: (String, String) -> Unit,
@@ -79,6 +77,15 @@ internal fun LogInScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (logInUiState is LogInUiState.AuthenticationFailed) {
+            if (logInUiState.emailAuthError != null) {
+                Text(text = "Non esiste un account associato a questa email!")
+            }
+
+            if (logInUiState.passwordAuthError != null) {
+                Text(text = "Controlla la password! Non è corretta!")
+            }
+        }
         EmailTextField(
             emailState = emailState,
             modifier = Modifier.focusRequester(emailFocusRequester)

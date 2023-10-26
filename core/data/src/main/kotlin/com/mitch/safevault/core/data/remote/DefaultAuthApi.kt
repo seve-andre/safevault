@@ -5,8 +5,9 @@ import com.mitch.safevault.core.data.remote.request.LogInRequest
 import com.mitch.safevault.core.util.validator.email.EmailAuthError
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordAuthError
+import javax.inject.Inject
 
-class DefaultAuthApi : AuthApi {
+class DefaultAuthApi @Inject constructor() : AuthApi {
     override suspend fun signUp(request: CreateAccountRequest): Result<Unit> {
         TODO("Not yet implemented")
     }
