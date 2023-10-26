@@ -1,5 +1,6 @@
 package com.mitch.safevault.feature.auth.login
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -23,6 +25,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.component.email.EmailState
 import com.mitch.safevault.core.ui.component.email.EmailTextField
@@ -37,7 +40,14 @@ internal fun LogInRoute(
     viewModel: LogInViewModel = hiltViewModel(),
     onNavigateToSignUp: () -> Unit
 ) {
+    val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
+
+    Log.d("login", "email: ${viewModel.emailState}")
+    Log.d("login", "password: ${viewModel.passwordState}")
+    Log.d("login", "ui state: $logInUiState")
+
     LogInScreen(
+        logInUiState = logInUiState,
         emailState = viewModel.emailState,
         passwordState = viewModel.passwordState,
         onLogInSubmitted = viewModel::logIn,
@@ -48,6 +58,7 @@ internal fun LogInRoute(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun LogInScreen(
+    logInUiState: LogInUiState,
     emailState: EmailState,
     passwordState: PasswordState,
     onLogInSubmitted: (String, String) -> Unit,
@@ -68,6 +79,15 @@ internal fun LogInScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (logInUiState is LogInUiState.AuthenticationFailed) {
+            if (logInUiState.emailAuthError != null) {
+                Text(text = "Non esiste un account associato a questa email!")
+            }
+
+            if (logInUiState.passwordAuthError != null) {
+                Text(text = "Controlla la password! Non è corretta!")
+            }
+        }
         EmailTextField(
             emailState = emailState,
             modifier = Modifier.focusRequester(emailFocusRequester)
@@ -75,18 +95,22 @@ internal fun LogInScreen(
         PasswordTextField(
             passwordState = passwordState,
             modifier = Modifier.onFocusChanged {
-                if (it.isFocused) emailState.shouldStartValidation = true
+                if (it.isFocused) {
+                    emailState.shouldStartValidation = true
+                } else if (!it.isFocused && emailState.shouldStartValidation) {
+                    passwordState.shouldStartValidation = true
+                }
             },
             keyboardActions = KeyboardActions(
                 onDone = {
                     keyboardController?.hide()
-                    passwordState.shouldStartValidation = true
                     onLogInSubmitted(emailState.email, passwordState.password)
                 }
             )
         )
         Button(
             onClick = {
+                keyboardController?.hide()
                 onLogInSubmitted(emailState.email, passwordState.password)
             },
             modifier = Modifier

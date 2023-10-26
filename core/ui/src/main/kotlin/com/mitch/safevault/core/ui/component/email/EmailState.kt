@@ -5,13 +5,13 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.mitch.safevault.core.util.validator.email.EmailError
+import com.mitch.safevault.core.util.validator.email.EmailValidationError
 
 @Stable
 class EmailState(
-    private val onValidateEmail: (String) -> EmailError?
+    private val onValidateEmail: (String) -> EmailValidationError?
 ) {
     var email by mutableStateOf("")
-    val error by derivedStateOf { if (shouldStartValidation) onValidateEmail(email) else null }
+    val validationError by derivedStateOf { if (shouldStartValidation) onValidateEmail(email) else null }
     var shouldStartValidation by mutableStateOf(false)
 }
