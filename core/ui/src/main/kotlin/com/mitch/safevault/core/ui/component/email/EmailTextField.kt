@@ -7,10 +7,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import com.mitch.safevault.core.ui.R
 import com.mitch.safevault.core.util.validator.email.EmailAuthError
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.email.EmailValidationError
@@ -32,7 +34,7 @@ fun EmailTextField(
                 if (emailState.validationError != null) error(emailErrorMessage)
             }
             .fillMaxWidth(),
-        label = { Text(text = "Email") },
+        label = { Text(text = stringResource(id = R.string.email_label)) },
         placeholder = { Text("example@gmail.com") },
         supportingText = {
             Text(
@@ -53,7 +55,7 @@ fun EmailTextField(
 @Composable
 private fun EmailValidationError.toErrorMessage(): String {
     return when (this) {
-        EmailError.EmptyField -> "Inserire la email!"
-        EmailError.NotAnEmail -> "La email inserita non è corretta"
+        EmailError.EmptyField -> stringResource(id = R.string.email_error_empty_field)
+        EmailError.NotAnEmail -> stringResource(id = R.string.email_error_not_valid)
     }
 }

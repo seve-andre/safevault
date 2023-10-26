@@ -9,6 +9,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.mitch.safevault.core.designsystem.SafeVaultIcons
+import com.mitch.safevault.core.ui.R
 
 @Composable
 fun PasswordTextField(
@@ -24,7 +26,11 @@ fun PasswordTextField(
     imeAction: ImeAction = ImeAction.Done,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val passwordErrorMessage = if (passwordState.validationError != null) "Inserisci la password!" else ""
+    val passwordErrorMessage = if (passwordState.validationError != null) {
+        stringResource(id = R.string.password_error_empty_field)
+    } else {
+        ""
+    }
 
     OutlinedTextField(
         value = passwordState.password,
@@ -35,14 +41,17 @@ fun PasswordTextField(
             }
             .fillMaxWidth(),
         label = { Text(text = "Password") },
-        placeholder = { Text("Inserisci la password") },
+        placeholder = { Text(stringResource(id = R.string.password_placeholder)) },
         trailingIcon = {
             IconButton(onClick = { passwordState.togglePasswordVisibility() }) {
                 val visibilityIcon =
                     if (passwordState.isPasswordVisible) SafeVaultIcons.EyeOff else SafeVaultIcons.Eye
                 // Please provide localized description for accessibility services
-                val description =
-                    if (passwordState.isPasswordVisible) "Hide password" else "Show password"
+                val description = if (passwordState.isPasswordVisible) {
+                        stringResource(id = R.string.hide_password)
+                    } else {
+                    stringResource(id = R.string.show_password)
+                    }
                 Icon(imageVector = visibilityIcon, contentDescription = description)
             }
         },

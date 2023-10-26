@@ -15,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -50,7 +49,6 @@ internal fun LogInRoute(
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun LogInScreen(
     logInUiState: LogInUiState,
@@ -76,11 +74,11 @@ internal fun LogInScreen(
     ) {
         if (logInUiState is LogInUiState.AuthenticationFailed) {
             if (logInUiState.emailAuthError != null) {
-                Text(text = "Non esiste un account associato a questa email!")
+                Text(text = stringResource(id = R.string.no_existing_account))
             }
 
             if (logInUiState.passwordAuthError != null) {
-                Text(text = "Controlla la password! Non è corretta!")
+                Text(text = stringResource(id = R.string.password_error_wrong))
             }
         }
         EmailTextField(
