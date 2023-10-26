@@ -9,8 +9,8 @@ import com.mitch.safevault.core.domain.usecase.LogInUseCase
 import com.mitch.safevault.core.ui.component.email.EmailState
 import com.mitch.safevault.core.ui.component.password.PasswordState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,8 +27,8 @@ class LogInViewModel @Inject constructor(
         PasswordState(onValidatePassword = logInUseCase::validatePassword)
     )
 
-    private val _logInState = MutableSharedFlow<LogInUiState>()
-    val logInState = _logInState.asSharedFlow()
+    private val _logInUiState = MutableStateFlow<LogInUiState>(LogInUiState.Idle)
+    val logInUiState = _logInUiState.asStateFlow()
 
     fun logIn(
         email: String,
@@ -42,11 +42,19 @@ class LogInViewModel @Inject constructor(
             passwordState.shouldStartValidation = true
         }
 
+        if (emailState.validationError != null || passwordState.validationError != null) {
+            return
+        }
+
         viewModelScope.launch {
-            _logInState.emit(LogInUiState.Loading)
-            when (logInUseCase.logIn(email, password)) {
-                is LogInResult.Error -> _logInState.emit(LogInUiState.Error)
-                LogInResult.Success -> _logInState.emit(LogInUiState.Success)
+            _logInUiState.value = LogInUiState.Loading
+            when (val result = logInUseCase.logIn(email, password)) {
+                is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
+                    emailAuthError = result.emailError,
+                    passwordAuthError = result.passwordError
+                )
+
+                LogInResult.Success -> _logInUiState.value = LogInUiState.Success
             }
         }
     }

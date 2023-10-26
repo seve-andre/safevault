@@ -20,14 +20,14 @@ fun EmailTextField(
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val emailErrorMessage = emailState.error?.toErrorMessage() ?: ""
+    val emailErrorMessage = emailState.validationError?.toErrorMessage() ?: ""
 
     OutlinedTextField(
         value = emailState.email,
         onValueChange = { emailState.email = it },
         modifier = modifier
             .semantics {
-                if (emailState.error != null) error(emailErrorMessage)
+                if (emailState.validationError != null) error(emailErrorMessage)
             }
             .fillMaxWidth(),
         label = { Text(text = "Email") },
@@ -38,7 +38,7 @@ fun EmailTextField(
                 text = emailErrorMessage
             )
         },
-        isError = emailState.error != null,
+        isError = emailState.validationError != null,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Email,
             imeAction = imeAction
@@ -52,6 +52,6 @@ fun EmailTextField(
 private fun EmailError.toErrorMessage(): String {
     return when (this) {
         EmailError.EmptyField -> "Inserire la email!"
-        EmailError.NoMatch -> "La email inserita non è corretta"
+        EmailError.NotAnEmail -> "La email inserita non è corretta"
     }
 }

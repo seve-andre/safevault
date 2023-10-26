@@ -1,9 +1,11 @@
 package com.mitch.safevault.core.domain.usecase
 
 import com.mitch.safevault.core.domain.repository.AuthRepository
-import com.mitch.safevault.core.util.validator.email.EmailError
+import com.mitch.safevault.core.util.validator.email.EmailAuthError
+import com.mitch.safevault.core.util.validator.email.EmailValidationError
 import com.mitch.safevault.core.util.validator.email.EmailValidationResult
 import com.mitch.safevault.core.util.validator.email.EmailValidator
+import com.mitch.safevault.core.util.validator.password.PasswordAuthError
 import com.mitch.safevault.core.util.validator.password.PasswordError
 import com.mitch.safevault.core.util.validator.password.PasswordValidationResult
 import com.mitch.safevault.core.util.validator.password.PasswordValidator
@@ -16,17 +18,10 @@ class LogInUseCase @Inject constructor(
 ) {
 
     suspend fun logIn(email: String, password: String): LogInResult {
-        val emailError = this.validateEmail(email)
-        val passwordError = this.validatePassword(password)
-
-        if (hasValidationErrors(emailError, passwordError)) {
-            return LogInResult.Error(emailError, passwordError)
-        }
-
         return repository.logIn(email, password)
     }
 
-    fun validateEmail(email: String): EmailError? {
+    fun validateEmail(email: String): EmailValidationError? {
         return when (val result = emailValidator.validate(email.trim())) {
             is EmailValidationResult.InvalidEmail -> result.reason
             EmailValidationResult.Success -> null
@@ -44,19 +39,12 @@ class LogInUseCase @Inject constructor(
             null
         }
     }
-
-    private fun hasValidationErrors(
-        emailError: EmailError?,
-        passwordError: PasswordError?
-    ): Boolean {
-        return emailError != null || passwordError != null
-    }
 }
 
 sealed interface LogInResult {
     data class Error(
-        val emailError: EmailError? = null,
-        val passwordError: PasswordError? = null
+        val emailError: EmailAuthError? = null,
+        val passwordError: PasswordAuthError? = null
     ) : LogInResult
 
     data object Success : LogInResult

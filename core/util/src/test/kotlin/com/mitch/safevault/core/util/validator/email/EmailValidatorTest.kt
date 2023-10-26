@@ -22,7 +22,7 @@ internal class EmailValidatorTest {
     fun `when email does not match regex, validator returns no match error`() {
         val result = validator.validate("andrea.com") as EmailValidationResult.InvalidEmail
 
-        assertThat(result.reason).isEqualTo(EmailError.NoMatch)
+        assertThat(result.reason).isEqualTo(EmailError.NotAnEmail)
     }
 
     @Test

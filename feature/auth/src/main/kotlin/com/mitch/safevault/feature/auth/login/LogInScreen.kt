@@ -1,5 +1,6 @@
 package com.mitch.safevault.feature.auth.login
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,16 +41,13 @@ internal fun LogInRoute(
     viewModel: LogInViewModel = hiltViewModel(),
     onNavigateToSignUp: () -> Unit
 ) {
-    val logInUiState by viewModel.logInState.collectAsStateWithLifecycle(LogInUiState.Idle)
+    val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(logInUiState) {
-        when (logInUiState) {
-            LogInUiState.Idle -> Unit
-            LogInUiState.Error -> onShowSnackbar("Controlla le credenziali!", null)
-            LogInUiState.Loading -> onShowSnackbar("Verifichiamoooo!", null)
-            LogInUiState.Success -> onShowSnackbar("Log in effettuato con successo!", null)
-        }
-    }
+
+
+    Log.d("login", "email: ${viewModel.emailState}")
+    Log.d("login", "password: ${viewModel.passwordState}")
+    Log.d("login", "ui state: $logInUiState")
 
     LogInScreen(
         emailState = viewModel.emailState,
@@ -88,7 +86,11 @@ internal fun LogInScreen(
         PasswordTextField(
             passwordState = passwordState,
             modifier = Modifier.onFocusChanged {
-                if (it.isFocused) emailState.shouldStartValidation = true
+                if (it.isFocused) {
+                    emailState.shouldStartValidation = true
+                } else if (!it.isFocused && emailState.shouldStartValidation) {
+                    passwordState.shouldStartValidation = true
+                }
             },
             keyboardActions = KeyboardActions(
                 onDone = {

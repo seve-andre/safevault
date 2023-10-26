@@ -1,5 +1,7 @@
 package com.mitch.safevault.core.data.di
 
+import com.mitch.safevault.core.data.remote.AuthApi
+import com.mitch.safevault.core.data.remote.DefaultAuthApi
 import com.mitch.safevault.core.data.repository.DefaultAuthRepository
 import com.mitch.safevault.core.data.repository.DefaultUserSettingsRepository
 import com.mitch.safevault.core.data.util.network.ConnectivityManagerNetworkMonitor
@@ -29,4 +31,9 @@ abstract class DataModule {
     abstract fun bindsAuthRepository(
         authRepository: DefaultAuthRepository
     ): AuthRepository
+
+    @Binds
+    abstract fun bindsAuthApi(
+        authApi: DefaultAuthApi
+    ): AuthApi
 }

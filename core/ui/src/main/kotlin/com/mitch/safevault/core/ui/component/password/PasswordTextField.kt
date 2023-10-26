@@ -24,14 +24,14 @@ fun PasswordTextField(
     imeAction: ImeAction = ImeAction.Done,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val passwordErrorMessage = if (passwordState.error != null) "Inserisci la password!" else ""
+    val passwordErrorMessage = if (passwordState.validationError != null) "Inserisci la password!" else ""
 
     OutlinedTextField(
         value = passwordState.password,
         onValueChange = { passwordState.password = it },
         modifier = modifier
             .semantics {
-                if (passwordState.error != null) error(passwordErrorMessage)
+                if (passwordState.validationError != null) error(passwordErrorMessage)
             }
             .fillMaxWidth(),
         label = { Text(text = "Password") },
@@ -52,7 +52,7 @@ fun PasswordTextField(
                 text = passwordErrorMessage
             )
         },
-        isError = passwordState.error != null,
+        isError = passwordState.validationError != null,
         visualTransformation = if (passwordState.isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
