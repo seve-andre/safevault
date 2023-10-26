@@ -21,14 +21,19 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.component.email.EmailState
 import com.mitch.safevault.core.ui.component.email.EmailTextField
 import com.mitch.safevault.core.ui.component.password.PasswordState
 import com.mitch.safevault.core.ui.component.password.PasswordTextField
+import com.mitch.safevault.core.util.validator.email.EmailAuthError
+import com.mitch.safevault.core.util.validator.email.EmailError
+import com.mitch.safevault.core.util.validator.password.PasswordError
 import com.mitch.safevault.feature.auth.R
 import kotlinx.coroutines.delay
 import com.mitch.safevault.core.util.R as utilR
@@ -115,5 +120,78 @@ internal fun LogInScreen(
         TextButton(onClick = onNavigateToSignUp) {
             Text(text = stringResource(id = R.string.sign_up_now))
         }
+    }
+}
+
+@Preview
+@Composable
+private fun LogInScreenIdlePreview() {
+    SafeVaultMaterialTheme {
+        LogInScreen(
+            logInUiState = LogInUiState.Idle,
+            emailState = EmailState(onValidateEmail = { _ -> null }),
+            passwordState = PasswordState(onValidatePassword = { _ -> null }),
+            onLogInSubmitted = { _, _ -> },
+            onNavigateToSignUp = { }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun LogInScreenValidationErrorsPreview() {
+    val emailState = EmailState(
+        onValidateEmail = { _ -> EmailError.EmptyField },
+        shouldValidateImmediately = true
+    )
+
+    val passwordState = PasswordState(
+        onValidatePassword = { _ -> PasswordError.EmptyField },
+        shouldValidateImmediately = true
+    )
+
+    SafeVaultMaterialTheme {
+        LogInScreen(
+            logInUiState = LogInUiState.Idle,
+            emailState = emailState,
+            passwordState = passwordState,
+            onLogInSubmitted = { _, _ -> },
+            onNavigateToSignUp = { }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun LogInScreenPasswordVisibilityPreview() {
+    val passwordState = PasswordState(onValidatePassword = { _ -> null })
+    passwordState.password = "Preview"
+    passwordState.togglePasswordVisibility()
+
+    SafeVaultMaterialTheme {
+        LogInScreen(
+            logInUiState = LogInUiState.Idle,
+            emailState = EmailState(onValidateEmail = { _ -> null }),
+            passwordState = passwordState,
+            onLogInSubmitted = { _, _ -> },
+            onNavigateToSignUp = { }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun LogInScreenAuthErrorPreview() {
+    SafeVaultMaterialTheme {
+        LogInScreen(
+            logInUiState = LogInUiState.AuthenticationFailed(
+                emailAuthError = EmailError.NoExistingAccount,
+                passwordAuthError = PasswordError.WrongPassword
+            ),
+            emailState = EmailState(onValidateEmail = { _ -> null }),
+            passwordState = PasswordState(onValidatePassword = { _ -> null }),
+            onLogInSubmitted = { _, _ -> },
+            onNavigateToSignUp = { }
+        )
     }
 }
