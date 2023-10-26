@@ -37,10 +37,12 @@ fun EmailTextField(
         label = { Text(text = stringResource(id = R.string.email_label)) },
         placeholder = { Text("example@gmail.com") },
         supportingText = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = emailErrorMessage
-            )
+            if (emailState.validationError != null) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = emailErrorMessage
+                )
+            }
         },
         isError = emailState.validationError != null,
         keyboardOptions = KeyboardOptions(
