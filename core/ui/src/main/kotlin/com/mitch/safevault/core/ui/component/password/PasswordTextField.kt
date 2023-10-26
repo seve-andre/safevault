@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.password
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,17 +27,14 @@ fun PasswordTextField(
     imeAction: ImeAction = ImeAction.Done,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val passwordErrorMessage = if (passwordState.validationError != null) {
-        stringResource(id = R.string.password_error_empty_field)
-    } else {
-        ""
-    }
+    val passwordErrorMessage = stringResource(id = R.string.password_error_empty_field)
 
     OutlinedTextField(
         value = passwordState.password,
         onValueChange = { passwordState.password = it },
         modifier = modifier
             .semantics {
+                 password()
                 if (passwordState.validationError != null) error(passwordErrorMessage)
             }
             .fillMaxWidth(),
@@ -56,10 +54,12 @@ fun PasswordTextField(
             }
         },
         supportingText = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = passwordErrorMessage
-            )
+            if (passwordState.validationError != null) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = passwordErrorMessage
+                )
+            }
         },
         isError = passwordState.validationError != null,
         visualTransformation = if (passwordState.isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
