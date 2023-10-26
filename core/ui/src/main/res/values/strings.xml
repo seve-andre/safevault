@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_error_empty_field">Email is required</string>
+    <string name="email_error_not_valid">Please enter a valid email address</string>
+    <string name="email_label">Email</string>
+    <string name="password_error_empty_field">Password is required</string>
+    <string name="password_placeholder">Enter password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+</resources>

@@ -1,6 +1,5 @@
 package com.mitch.safevault.feature.auth.login
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -42,10 +40,6 @@ internal fun LogInRoute(
 ) {
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
 
-    Log.d("login", "email: ${viewModel.emailState}")
-    Log.d("login", "password: ${viewModel.passwordState}")
-    Log.d("login", "ui state: $logInUiState")
-
     LogInScreen(
         logInUiState = logInUiState,
         emailState = viewModel.emailState,
@@ -55,7 +49,6 @@ internal fun LogInRoute(
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun LogInScreen(
     logInUiState: LogInUiState,
@@ -81,11 +74,11 @@ internal fun LogInScreen(
     ) {
         if (logInUiState is LogInUiState.AuthenticationFailed) {
             if (logInUiState.emailAuthError != null) {
-                Text(text = "Non esiste un account associato a questa email!")
+                Text(text = stringResource(id = R.string.no_existing_account))
             }
 
             if (logInUiState.passwordAuthError != null) {
-                Text(text = "Controlla la password! Non è corretta!")
+                Text(text = stringResource(id = R.string.password_error_wrong))
             }
         }
         EmailTextField(
