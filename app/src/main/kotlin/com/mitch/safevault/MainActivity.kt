@@ -31,7 +31,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
-import com.mitch.safevault.core.designsystem.component.SwipeableSnackbar
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbar
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarVisuals
+import com.mitch.safevault.core.designsystem.component.snackbar.SwipeableSnackbar
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.util.SafeVaultTheme
 import com.mitch.safevault.navigation.SafeVaultNavHost
@@ -107,7 +109,14 @@ class MainActivity : AppCompatActivity() {
                         SwipeableSnackbar(
                             state = appState.snackbarHostState,
                             dismissContent = {
-                                SnackbarHost(appState.snackbarHostState)
+                                SnackbarHost(hostState = appState.snackbarHostState) {
+                                    val customVisuals = it.visuals as SafeVaultSnackbarVisuals
+                                    SafeVaultSnackbar(
+                                        message = customVisuals.message,
+                                        action = customVisuals.actionLabel,
+                                        icon = customVisuals.icon
+                                    )
+                                }
                             }
                         )
                     },
@@ -124,7 +133,20 @@ class MainActivity : AppCompatActivity() {
                                 )
                             )
                     ) {
-                        SafeVaultNavHost(appState = appState)
+                        SafeVaultNavHost(
+                            appState = appState,
+                            onShowSnackbar = { visuals: SafeVaultSnackbarVisuals ->
+                                appState.snackbarHostState.showSnackbar(
+                                    SafeVaultSnackbarVisuals(
+                                        message = visuals.message,
+                                        actionLabel = visuals.actionLabel,
+                                        duration = visuals.duration,
+                                        withDismissAction = visuals.withDismissAction,
+                                        icon = visuals.icon
+                                    )
+                                )
+                            }
+                        )
                     }
                 }
             }

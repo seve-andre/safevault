@@ -1,8 +1,10 @@
 package com.mitch.safevault.navigation
 
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarVisuals
 import com.mitch.safevault.feature.auth.navigation.logInScreen
 import com.mitch.safevault.feature.auth.navigation.navigateToLogIn
 import com.mitch.safevault.feature.auth.navigation.navigateToSignUp
@@ -16,6 +18,7 @@ import com.mitch.safevault.ui.SafeVaultAppState
 @Composable
 fun SafeVaultNavHost(
     appState: SafeVaultAppState,
+    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
     modifier: Modifier = Modifier,
     startDestination: String = OnboardingGraphRoutePattern
 ) {

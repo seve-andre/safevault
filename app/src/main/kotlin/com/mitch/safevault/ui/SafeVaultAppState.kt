@@ -10,7 +10,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
-import com.mitch.safevault.ui.util.SnackbarController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -34,11 +33,7 @@ class SafeVaultAppState(
     val navController: NavHostController,
     val snackbarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope,
-    networkMonitor: NetworkMonitor,
-    val snackbarController: SnackbarController = SnackbarController(
-        snackbarHostState,
-        coroutineScope
-    )
+    networkMonitor: NetworkMonitor
 ) {
     /**
      * App's current [NavDestination] if set, otherwise starting destination.
