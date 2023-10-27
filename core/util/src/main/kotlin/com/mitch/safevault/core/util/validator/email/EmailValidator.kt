@@ -8,8 +8,8 @@ class Rfc5322EmailValidator : EmailValidator() {
 
     override fun validate(toValidate: String): EmailValidationResult {
         return when {
-            toValidate.isBlank() -> EmailValidationResult.InvalidEmail(EmailError.EmptyField)
-            !emailMatcher.matches(toValidate) -> EmailValidationResult.InvalidEmail(EmailError.NotAnEmail)
+            toValidate.isBlank() -> EmailValidationResult.InvalidEmail(EmailValidationError.EmptyField)
+            !emailMatcher.matches(toValidate) -> EmailValidationResult.InvalidEmail(EmailValidationError.NotAnEmail)
             else -> EmailValidationResult.Success
         }
     }

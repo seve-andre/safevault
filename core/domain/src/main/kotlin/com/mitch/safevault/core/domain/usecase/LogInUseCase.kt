@@ -6,7 +6,7 @@ import com.mitch.safevault.core.util.validator.email.EmailValidationError
 import com.mitch.safevault.core.util.validator.email.EmailValidationResult
 import com.mitch.safevault.core.util.validator.email.EmailValidator
 import com.mitch.safevault.core.util.validator.password.PasswordAuthError
-import com.mitch.safevault.core.util.validator.password.PasswordError
+import com.mitch.safevault.core.util.validator.password.PasswordValidationError
 import com.mitch.safevault.core.util.validator.password.PasswordValidationResult
 import com.mitch.safevault.core.util.validator.password.PasswordValidator
 import javax.inject.Inject
@@ -28,13 +28,13 @@ class LogInUseCase @Inject constructor(
         }
     }
 
-    fun validatePassword(password: String): PasswordError.EmptyField? {
+    fun validatePassword(password: String): PasswordValidationError.EmptyField? {
         val passwordValidationResult = passwordValidator.validate(password.trim())
         return if (
             passwordValidationResult is PasswordValidationResult.InvalidPassword
-            && PasswordError.EmptyField in passwordValidationResult.reasons
+            && PasswordValidationError.EmptyField in passwordValidationResult.reasons
         ) {
-            PasswordError.EmptyField
+            PasswordValidationError.EmptyField
         } else {
             null
         }

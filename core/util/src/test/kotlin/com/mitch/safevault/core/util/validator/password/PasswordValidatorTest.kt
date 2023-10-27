@@ -14,43 +14,43 @@ internal class PasswordValidatorTest {
         val emptyPassword = validator.validate("") as PasswordValidationResult.InvalidPassword
         val whitespacesOnlyPassword = validator.validate("   ") as PasswordValidationResult.InvalidPassword
 
-        assertThat(emptyPassword.reasons).contains(PasswordError.EmptyField)
-        assertThat(whitespacesOnlyPassword.reasons).contains(PasswordError.EmptyField)
+        assertThat(emptyPassword.reasons).contains(PasswordValidationError.EmptyField)
+        assertThat(whitespacesOnlyPassword.reasons).contains(PasswordValidationError.EmptyField)
     }
 
     @Test
     fun `when short password, validator returns too short error`() {
         val result = validator.validate("1234567") as PasswordValidationResult.InvalidPassword
 
-        assertThat(result.reasons).contains(PasswordError.InputTooShort)
+        assertThat(result.reasons).contains(PasswordValidationError.InputTooShort)
     }
 
     @Test
     fun `when only uppercase letters in password, validator returns no lowercase letters error`() {
         val result = validator.validate("PASSWORD") as PasswordValidationResult.InvalidPassword
 
-        assertThat(result.reasons).contains(PasswordError.NoLowercaseLetter)
+        assertThat(result.reasons).contains(PasswordValidationError.NoLowercaseLetter)
     }
 
     @Test
     fun `when only lowercase letters in password, validator returns no uppercase letters error`() {
         val result = validator.validate("password") as PasswordValidationResult.InvalidPassword
 
-        assertThat(result.reasons).contains(PasswordError.NoUppercaseLetter)
+        assertThat(result.reasons).contains(PasswordValidationError.NoUppercaseLetter)
     }
 
     @Test
     fun `when only letters in password, validator returns no number error`() {
         val result = validator.validate("password") as PasswordValidationResult.InvalidPassword
 
-        assertThat(result.reasons).contains(PasswordError.NoNumber)
+        assertThat(result.reasons).contains(PasswordValidationError.NoNumber)
     }
 
     @Test
     fun `when no special characters in password, validator returns no special characters error`() {
         val result = validator.validate("password") as PasswordValidationResult.InvalidPassword
 
-        assertThat(result.reasons).contains(PasswordError.NoSpecialCharacter)
+        assertThat(result.reasons).contains(PasswordValidationError.NoSpecialCharacter)
     }
 
     @Test

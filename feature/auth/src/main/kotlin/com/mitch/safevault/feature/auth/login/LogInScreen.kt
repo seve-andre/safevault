@@ -2,12 +2,18 @@ package com.mitch.safevault.feature.auth.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -25,15 +31,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mitch.safevault.core.designsystem.SafeVaultIcons
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.component.email.EmailState
 import com.mitch.safevault.core.ui.component.email.EmailTextField
 import com.mitch.safevault.core.ui.component.password.PasswordState
 import com.mitch.safevault.core.ui.component.password.PasswordTextField
+import com.mitch.safevault.core.ui.extensions.m3.contentPadding
 import com.mitch.safevault.core.util.validator.email.EmailAuthError
-import com.mitch.safevault.core.util.validator.email.EmailError
-import com.mitch.safevault.core.util.validator.password.PasswordError
+import com.mitch.safevault.core.util.validator.email.EmailValidationError
+import com.mitch.safevault.core.util.validator.password.PasswordAuthError
+import com.mitch.safevault.core.util.validator.password.PasswordValidationError
 import com.mitch.safevault.feature.auth.R
 import kotlinx.coroutines.delay
 import com.mitch.safevault.core.util.R as utilR
@@ -78,8 +87,25 @@ internal fun LogInScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (logInUiState is LogInUiState.AuthenticationFailed) {
-            if (logInUiState.emailAuthError != null) {
-                Text(text = stringResource(id = R.string.no_existing_account))
+            if (logInUiState.emailAuthError is EmailAuthError.NoExistingAccount) {
+                Card(
+                    modifier = Modifier.size(width = 250.dp, height = 100.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(CardDefaults.contentPadding),
+                        horizontalArrangement = Arrangement.spacedBy(padding.medium),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(imageVector = SafeVaultIcons.Error, contentDescription = null)
+                        Text(text = stringResource(id = R.string.no_existing_account))
+                    }
+                }
             }
 
             if (logInUiState.passwordAuthError != null) {
@@ -141,12 +167,12 @@ private fun LogInScreenIdlePreview() {
 @Composable
 private fun LogInScreenValidationErrorsPreview() {
     val emailState = EmailState(
-        onValidateEmail = { _ -> EmailError.EmptyField },
+        onValidateEmail = { _ -> EmailValidationError.EmptyField },
         shouldValidateImmediately = true
     )
 
     val passwordState = PasswordState(
-        onValidatePassword = { _ -> PasswordError.EmptyField },
+        onValidatePassword = { _ -> PasswordValidationError.EmptyField },
         shouldValidateImmediately = true
     )
 
@@ -185,8 +211,8 @@ private fun LogInScreenAuthErrorPreview() {
     SafeVaultMaterialTheme {
         LogInScreen(
             logInUiState = LogInUiState.AuthenticationFailed(
-                emailAuthError = EmailError.NoExistingAccount,
-                passwordAuthError = PasswordError.WrongPassword
+                emailAuthError = EmailAuthError.NoExistingAccount,
+                passwordAuthError = PasswordAuthError.WrongPassword
             ),
             emailState = EmailState(onValidateEmail = { _ -> null }),
             passwordState = PasswordState(onValidatePassword = { _ -> null }),

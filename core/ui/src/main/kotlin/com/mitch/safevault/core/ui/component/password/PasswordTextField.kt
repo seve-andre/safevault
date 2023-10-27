@@ -34,7 +34,7 @@ fun PasswordTextField(
         onValueChange = { passwordState.password = it },
         modifier = modifier
             .semantics {
-                 password()
+                password()
                 if (passwordState.validationError != null) error(passwordErrorMessage)
             }
             .fillMaxWidth(),
@@ -46,10 +46,10 @@ fun PasswordTextField(
                     if (passwordState.isPasswordVisible) SafeVaultIcons.EyeOff else SafeVaultIcons.Eye
                 // Please provide localized description for accessibility services
                 val description = if (passwordState.isPasswordVisible) {
-                        stringResource(id = R.string.hide_password)
-                    } else {
+                    stringResource(id = R.string.hide_password)
+                } else {
                     stringResource(id = R.string.show_password)
-                    }
+                }
                 Icon(imageVector = visibilityIcon, contentDescription = description)
             }
         },
