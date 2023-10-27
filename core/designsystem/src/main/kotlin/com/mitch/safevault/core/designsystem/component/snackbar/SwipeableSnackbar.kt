@@ -1,4 +1,4 @@
-package com.mitch.safevault.core.designsystem.component
+package com.mitch.safevault.core.designsystem.component.snackbar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.DismissState
