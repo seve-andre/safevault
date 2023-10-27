@@ -14,15 +14,15 @@ internal class EmailValidatorTest {
         val emptyEmail = validator.validate("") as EmailValidationResult.InvalidEmail
         val whitespacesOnlyEmail = validator.validate("  ") as EmailValidationResult.InvalidEmail
 
-        assertThat(emptyEmail.reason).isEqualTo(EmailError.EmptyField)
-        assertThat(whitespacesOnlyEmail.reason).isEqualTo(EmailError.EmptyField)
+        assertThat(emptyEmail.reason).isEqualTo(EmailValidationError.EmptyField)
+        assertThat(whitespacesOnlyEmail.reason).isEqualTo(EmailValidationError.EmptyField)
     }
 
     @Test
     fun `when email does not match regex, validator returns no match error`() {
         val result = validator.validate("andrea.com") as EmailValidationResult.InvalidEmail
 
-        assertThat(result.reason).isEqualTo(EmailError.NotAnEmail)
+        assertThat(result.reason).isEqualTo(EmailValidationError.NotAnEmail)
     }
 
     @Test

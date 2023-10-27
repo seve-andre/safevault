@@ -3,7 +3,6 @@ package com.mitch.safevault.core.data.remote
 import com.mitch.safevault.core.data.remote.request.CreateAccountRequest
 import com.mitch.safevault.core.data.remote.request.LogInRequest
 import com.mitch.safevault.core.util.validator.email.EmailAuthError
-import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordAuthError
 import javax.inject.Inject
 
@@ -13,7 +12,7 @@ class DefaultAuthApi @Inject constructor() : AuthApi {
     }
 
     override suspend fun logIn(request: LogInRequest): AuthApiResponse {
-        return AuthApiResponse.Error(emailError = EmailError.NoExistingAccount)
+        return AuthApiResponse.Error(emailError = EmailAuthError.NoExistingAccount)
     }
 }
 

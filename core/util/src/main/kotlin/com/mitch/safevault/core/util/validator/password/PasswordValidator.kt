@@ -6,12 +6,12 @@ class PasswordValidator : Validator<String, PasswordValidationResult> {
 
     override fun validate(toValidate: String): PasswordValidationResult {
         val errors = listOf(
-            toValidate.isBlank() to PasswordError.EmptyField,
-            (toValidate.length < PasswordConstraints.MIN_LENGTH) to PasswordError.InputTooShort,
-            toValidate.none { it.isLowerCase() } to PasswordError.NoLowercaseLetter,
-            toValidate.none { it.isUpperCase() } to PasswordError.NoUppercaseLetter,
-            toValidate.none { it.isDigit() } to PasswordError.NoNumber,
-            toValidate.none { it in PasswordConstraints.SPECIAL_CHARACTERS } to PasswordError.NoSpecialCharacter
+            toValidate.isBlank() to PasswordValidationError.EmptyField,
+            (toValidate.length < PasswordConstraints.MIN_LENGTH) to PasswordValidationError.InputTooShort,
+            toValidate.none { it.isLowerCase() } to PasswordValidationError.NoLowercaseLetter,
+            toValidate.none { it.isUpperCase() } to PasswordValidationError.NoUppercaseLetter,
+            toValidate.none { it.isDigit() } to PasswordValidationError.NoNumber,
+            toValidate.none { it in PasswordConstraints.SPECIAL_CHARACTERS } to PasswordValidationError.NoSpecialCharacter
         )
             .filter { it.first }
             .map { it.second }

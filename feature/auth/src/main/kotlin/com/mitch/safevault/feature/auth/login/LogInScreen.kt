@@ -39,8 +39,10 @@ import com.mitch.safevault.core.ui.component.email.EmailTextField
 import com.mitch.safevault.core.ui.component.password.PasswordState
 import com.mitch.safevault.core.ui.component.password.PasswordTextField
 import com.mitch.safevault.core.ui.extensions.m3.contentPadding
-import com.mitch.safevault.core.util.validator.email.EmailError
-import com.mitch.safevault.core.util.validator.password.PasswordError
+import com.mitch.safevault.core.util.validator.email.EmailAuthError
+import com.mitch.safevault.core.util.validator.email.EmailValidationError
+import com.mitch.safevault.core.util.validator.password.PasswordAuthError
+import com.mitch.safevault.core.util.validator.password.PasswordValidationError
 import com.mitch.safevault.feature.auth.R
 import kotlinx.coroutines.delay
 import com.mitch.safevault.core.util.R as utilR
@@ -85,7 +87,7 @@ internal fun LogInScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (logInUiState is LogInUiState.AuthenticationFailed) {
-            if (logInUiState.emailAuthError != null) {
+            if (logInUiState.emailAuthError is EmailAuthError.NoExistingAccount) {
                 Card(
                     modifier = Modifier.size(width = 250.dp, height = 100.dp),
                     colors = CardDefaults.cardColors(
@@ -165,12 +167,12 @@ private fun LogInScreenIdlePreview() {
 @Composable
 private fun LogInScreenValidationErrorsPreview() {
     val emailState = EmailState(
-        onValidateEmail = { _ -> EmailError.EmptyField },
+        onValidateEmail = { _ -> EmailValidationError.EmptyField },
         shouldValidateImmediately = true
     )
 
     val passwordState = PasswordState(
-        onValidatePassword = { _ -> PasswordError.EmptyField },
+        onValidatePassword = { _ -> PasswordValidationError.EmptyField },
         shouldValidateImmediately = true
     )
 
@@ -209,8 +211,8 @@ private fun LogInScreenAuthErrorPreview() {
     SafeVaultMaterialTheme {
         LogInScreen(
             logInUiState = LogInUiState.AuthenticationFailed(
-                emailAuthError = EmailError.NoExistingAccount,
-                passwordAuthError = PasswordError.WrongPassword
+                emailAuthError = EmailAuthError.NoExistingAccount,
+                passwordAuthError = PasswordAuthError.WrongPassword
             ),
             emailState = EmailState(onValidateEmail = { _ -> null }),
             passwordState = PasswordState(onValidatePassword = { _ -> null }),
