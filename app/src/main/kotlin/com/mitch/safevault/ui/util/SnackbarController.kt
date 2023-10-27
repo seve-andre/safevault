@@ -1,6 +1,9 @@
 package com.mitch.safevault.ui.util
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -19,21 +22,25 @@ class SnackbarController(
 
     private var snackbarJob: Job? = null
 
+    private val snackbarResult = CompletableDeferred<SnackbarResult>()
+
     init {
         cancelActiveJob()
     }
 
-    // TODO: should show SnackbarResult
-    fun showSnackbar(
+    suspend fun showSnackbar(
         message: String,
-        actionLabel: String? = null
-    ) {
+        actionLabel: String? = null,
+        duration: SnackbarDuration = SnackbarDuration.Short
+    ): SnackbarResult {
         if (snackbarJob == null) {
             snackbarJob = scope.launch {
-                snackbarHostState.showSnackbar(
+                val result = snackbarHostState.showSnackbar(
                     message = message,
-                    actionLabel = actionLabel
+                    actionLabel = actionLabel,
+                    duration = duration
                 )
+                snackbarResult.complete(result)
                 cancelActiveJob()
             }
         } else {
@@ -46,6 +53,8 @@ class SnackbarController(
                 cancelActiveJob()
             }
         }
+
+        return snackbarResult.await()
     }
 
     private fun cancelActiveJob() {

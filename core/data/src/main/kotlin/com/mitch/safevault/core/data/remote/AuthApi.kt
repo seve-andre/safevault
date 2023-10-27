@@ -11,5 +11,5 @@ interface AuthApi {
 
     suspend fun logIn(
         request: LogInRequest
-    ): Result<Unit>
+    ): AuthApiResponse
 }

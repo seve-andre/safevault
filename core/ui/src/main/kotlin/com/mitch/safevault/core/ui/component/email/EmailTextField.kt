@@ -7,11 +7,15 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import com.mitch.safevault.core.ui.R
+import com.mitch.safevault.core.util.validator.email.EmailAuthError
 import com.mitch.safevault.core.util.validator.email.EmailError
+import com.mitch.safevault.core.util.validator.email.EmailValidationError
 
 @Composable
 fun EmailTextField(
@@ -20,25 +24,27 @@ fun EmailTextField(
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val emailErrorMessage = emailState.error?.toErrorMessage() ?: ""
+    val emailErrorMessage = emailState.validationError?.toErrorMessage() ?: ""
 
     OutlinedTextField(
         value = emailState.email,
         onValueChange = { emailState.email = it },
         modifier = modifier
             .semantics {
-                if (emailState.error != null) error(emailErrorMessage)
+                if (emailState.validationError != null) error(emailErrorMessage)
             }
             .fillMaxWidth(),
-        label = { Text(text = "Email") },
+        label = { Text(text = stringResource(id = R.string.email_label)) },
         placeholder = { Text("example@gmail.com") },
         supportingText = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = emailErrorMessage
-            )
+            if (emailState.validationError != null) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = emailErrorMessage
+                )
+            }
         },
-        isError = emailState.error != null,
+        isError = emailState.validationError != null,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Email,
             imeAction = imeAction
@@ -49,9 +55,9 @@ fun EmailTextField(
 }
 
 @Composable
-private fun EmailError.toErrorMessage(): String {
+private fun EmailValidationError.toErrorMessage(): String {
     return when (this) {
-        EmailError.EmptyField -> "Inserire la email!"
-        EmailError.NoMatch -> "La email inserita non è corretta"
+        EmailError.EmptyField -> stringResource(id = R.string.email_error_empty_field)
+        EmailError.NotAnEmail -> stringResource(id = R.string.email_error_not_valid)
     }
 }

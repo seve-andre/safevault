@@ -1,11 +1,14 @@
 package com.mitch.safevault.core.util.validator.password
 
+sealed interface PasswordValidationError
+sealed interface PasswordAuthError
+
 sealed interface PasswordError {
-    data object EmptyField : PasswordError
-    data object InputTooShort : PasswordError
-    data object NoLowercaseLetter : PasswordError
-    data object NoUppercaseLetter : PasswordError
-    data object NoNumber : PasswordError
-    data object NoSpecialCharacter : PasswordError
-    data object NoMatch : PasswordError
+    data object EmptyField : PasswordValidationError
+    data object InputTooShort : PasswordValidationError
+    data object NoLowercaseLetter : PasswordValidationError
+    data object NoUppercaseLetter : PasswordValidationError
+    data object NoNumber : PasswordValidationError
+    data object NoSpecialCharacter : PasswordValidationError
+    data object WrongPassword : PasswordAuthError
 }

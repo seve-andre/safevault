@@ -97,10 +97,12 @@ class MainActivity : AppCompatActivity() {
 
                 LaunchedEffect(isOffline) {
                     if (isOffline) {
-                        appState.snackbarHostState.showSnackbar(
-                            message = getString(R.string.not_connected),
-                            duration = SnackbarDuration.Indefinite
-                        )
+                        appState.snackbarController.scope.launch {
+                            appState.snackbarController.showSnackbar(
+                                message = getString(R.string.not_connected),
+                                duration = SnackbarDuration.Indefinite
+                            )
+                        }
                     }
                 }
 
@@ -144,7 +146,6 @@ class MainActivity : AppCompatActivity() {
                                         withDismissAction = visuals.withDismissAction,
                                         icon = visuals.icon
                                     )
-                                )
                             }
                         )
                     }
