@@ -1,9 +1,13 @@
 package com.mitch.safevault.feature.auth.login
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -12,11 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.designsystem.theme.padding
+import com.mitch.safevault.core.ui.ThemePreviews
 import com.mitch.safevault.core.ui.component.email.EmailState
 import com.mitch.safevault.core.ui.component.password.PasswordState
 import com.mitch.safevault.core.util.validator.email.EmailError
@@ -24,6 +34,7 @@ import com.mitch.safevault.core.util.validator.password.PasswordError
 import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.login.component.LogInForm
 import com.mitch.safevault.feature.auth.login.component.NoExistingAccountErrorCard
+import com.mitch.safevault.core.util.R as utilR
 
 @Composable
 internal fun LogInRoute(
@@ -58,16 +69,22 @@ internal fun LogInScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Login")
         if (logInUiState is LogInUiState.AuthenticationFailed) {
-            if (logInUiState.emailAuthError is EmailError.Auth.NoExistingAccount) {
-                NoExistingAccountErrorCard()
+            AnimatedVisibility(visible = logInUiState.emailAuthError is EmailError.Auth.NoExistingAccount) {
+                NoExistingAccountErrorCard(onNavigateToSignUp = onNavigateToSignUp)
             }
 
             if (logInUiState.passwordAuthError != null) {
                 Text(text = stringResource(id = R.string.password_error_wrong))
             }
         }
+        Text(
+            text = stringResource(id = utilR.string.log_in),
+            modifier = Modifier.align(Alignment.Start),
+            fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(padding.medium))
         LogInForm(
             emailState = emailState,
             passwordState = passwordState,
@@ -76,13 +93,23 @@ internal fun LogInScreen(
                 onLogInSubmitted(emailState.email, passwordState.password)
             }
         )
-
-        TextButton(onClick = onNavigateToSignUp) {
-            Text(text = stringResource(id = R.string.sign_up_now))
+        Spacer(modifier = Modifier.height(padding.small))
+        TextButton(
+            onClick = onNavigateToSignUp,
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            Text(
+                text = buildAnnotatedString {
+                    append(stringResource(id = R.string.no_account_question))
+                    append(" ")
+                    withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
+                        append(stringResource(id = R.string.sign_up_now))
+                    }
+                }
+            )
         }
     }
 }
-
 
 @Preview
 @Composable
@@ -98,7 +125,7 @@ private fun LogInScreenIdlePreview() {
     }
 }
 
-@Preview
+@ThemePreviews
 @Composable
 private fun LogInScreenValidationErrorsPreview() {
     val emailState = EmailState(
@@ -112,17 +139,15 @@ private fun LogInScreenValidationErrorsPreview() {
     )
 
     SafeVaultMaterialTheme {
-        LogInScreen(
-            logInUiState = LogInUiState.Idle,
+        LogInForm(
             emailState = emailState,
             passwordState = passwordState,
-            onLogInSubmitted = { _, _ -> },
-            onNavigateToSignUp = { }
+            onSubmit = { }
         )
     }
 }
 
-@Preview
+@ThemePreviews
 @Composable
 private fun LogInScreenPasswordVisibilityPreview() {
     val passwordState = PasswordState(onValidatePassword = { _ -> null })
@@ -130,17 +155,15 @@ private fun LogInScreenPasswordVisibilityPreview() {
     passwordState.togglePasswordVisibility()
 
     SafeVaultMaterialTheme {
-        LogInScreen(
-            logInUiState = LogInUiState.Idle,
+        LogInForm(
             emailState = EmailState(onValidateEmail = { _ -> null }),
             passwordState = passwordState,
-            onLogInSubmitted = { _, _ -> },
-            onNavigateToSignUp = { }
+            onSubmit = { }
         )
     }
 }
 
-@Preview
+@ThemePreviews
 @Composable
 private fun LogInScreenAuthErrorPreview() {
     SafeVaultMaterialTheme {
