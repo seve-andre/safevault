@@ -13,7 +13,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import com.mitch.safevault.core.ui.R
-import com.mitch.safevault.core.util.validator.email.EmailValidationError
+import com.mitch.safevault.core.util.validator.email.EmailError
 
 @Composable
 fun EmailTextField(
@@ -53,9 +53,9 @@ fun EmailTextField(
 }
 
 @Composable
-private fun EmailValidationError.toErrorMessage(): String {
+private fun EmailError.Validation.toErrorMessage(): String {
     return when (this) {
-        EmailValidationError.EmptyField -> stringResource(id = R.string.email_error_empty_field)
-        EmailValidationError.NotAnEmail -> stringResource(id = R.string.email_error_not_valid)
+        EmailError.Validation.EmptyField -> stringResource(id = R.string.email_error_empty_field)
+        EmailError.Validation.NotAnEmail -> stringResource(id = R.string.email_error_not_valid)
     }
 }

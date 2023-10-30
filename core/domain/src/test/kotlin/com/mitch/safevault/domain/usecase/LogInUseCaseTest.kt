@@ -35,7 +35,7 @@ internal class LogInUseCaseTest {
         val result = logInUseCase.validateEmail("")
 
         assertThat(result).isNotNull()
-        assertThat(result).isEqualTo(EmailError.EmptyField)
+        assertThat(result).isEqualTo(EmailError.Validation.EmptyField)
     }
 
     @Test

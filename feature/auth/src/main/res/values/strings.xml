@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="sign_up_now">Don\'t have an account? Sign up now!</string>
+    <string name="no_account_question">Don\'t have an account?</string>
+    <string name="sign_up_now">Sign up now!</string>
     <string name="no_existing_account">This email is not linked to any account</string>
     <string name="password_error_wrong">The password entered is not correct</string>
 </resources>

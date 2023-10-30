@@ -1,12 +1,12 @@
 package com.mitch.safevault.core.util.validator.email
 
-sealed interface EmailAuthError : EmailError {
-    data object NoExistingAccount : EmailAuthError
-    data object AlreadyExistingAccount : EmailAuthError
+sealed interface EmailError {
+    sealed interface Auth : EmailError {
+        data object NoExistingAccount : Auth
+        data object AlreadyExistingAccount : Auth
+    }
+    sealed interface Validation : EmailError {
+        data object EmptyField : Validation
+        data object NotAnEmail : Validation
+    }
 }
-sealed interface EmailValidationError : EmailError {
-    data object EmptyField : EmailValidationError
-    data object NotAnEmail : EmailValidationError
-}
-
-sealed interface EmailError
