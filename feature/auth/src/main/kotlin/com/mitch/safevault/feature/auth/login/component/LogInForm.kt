@@ -53,7 +53,7 @@ internal fun LogInForm(
                     }
 
                     if (!it.isFocused && isEmailBlurred) {
-                        emailState.shouldStartValidation = true
+                        emailState.startValidation()
                     }
                 }
         )
@@ -65,7 +65,7 @@ internal fun LogInForm(
                 }
 
                 if (!it.isFocused && isPasswordBlurred) {
-                    passwordState.shouldStartValidation = true
+                    passwordState.startValidation()
                 }
             },
             keyboardActions = KeyboardActions(
