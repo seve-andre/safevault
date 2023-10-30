@@ -17,6 +17,16 @@ annotation class DevicePreviews
  * Multi preview annotation that represents light and dark themes. Add this annotation to a
  * composable to render the both themes.
  */
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, name = "Light theme")
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark theme")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "Light theme",
+    showBackground = true,
+    backgroundColor = 0xFFFDFCFF
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark theme",
+    showBackground = true,
+    backgroundColor = 0xFF1A1C1E
+)
 annotation class ThemePreviews
