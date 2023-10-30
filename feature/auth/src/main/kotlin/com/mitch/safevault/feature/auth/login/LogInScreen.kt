@@ -127,44 +127,6 @@ private fun LogInScreenIdlePreview() {
 
 @ThemePreviews
 @Composable
-private fun LogInScreenValidationErrorsPreview() {
-    val emailState = EmailState(
-        onValidateEmail = { _ -> EmailError.Validation.EmptyField },
-        shouldValidateImmediately = true
-    )
-
-    val passwordState = PasswordState(
-        onValidatePassword = { _ -> PasswordError.Validation.EmptyField },
-        shouldValidateImmediately = true
-    )
-
-    SafeVaultMaterialTheme {
-        LogInForm(
-            emailState = emailState,
-            passwordState = passwordState,
-            onSubmit = { }
-        )
-    }
-}
-
-@ThemePreviews
-@Composable
-private fun LogInScreenPasswordVisibilityPreview() {
-    val passwordState = PasswordState(onValidatePassword = { _ -> null })
-    passwordState.password = "Preview"
-    passwordState.togglePasswordVisibility()
-
-    SafeVaultMaterialTheme {
-        LogInForm(
-            emailState = EmailState(onValidateEmail = { _ -> null }),
-            passwordState = passwordState,
-            onSubmit = { }
-        )
-    }
-}
-
-@ThemePreviews
-@Composable
 private fun LogInScreenAuthErrorPreview() {
     SafeVaultMaterialTheme {
         LogInScreen(
