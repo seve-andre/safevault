@@ -23,6 +23,10 @@ class PasswordState(
     }
     var isPasswordVisible by mutableStateOf(false)
 
+    fun startValidation() {
+        shouldStartValidation = true
+    }
+
     fun togglePasswordVisibility() {
         isPasswordVisible = !isPasswordVisible
     }

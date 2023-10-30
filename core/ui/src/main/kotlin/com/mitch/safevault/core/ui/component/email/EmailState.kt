@@ -21,4 +21,8 @@ class EmailState(
         }
     }
     var shouldStartValidation by mutableStateOf(false)
+
+    fun startValidation() {
+        shouldStartValidation = true
+    }
 }
