@@ -30,25 +30,22 @@ class LogInViewModel @Inject constructor(
     private val _logInUiState = MutableStateFlow<LogInUiState>(LogInUiState.Idle)
     val logInUiState = _logInUiState.asStateFlow()
 
-    fun logIn(
-        email: String,
-        password: String
-    ) {
+    fun logIn() {
         if (!emailState.shouldStartValidation) {
-            emailState.shouldStartValidation = true
+            emailState.startValidation()
         }
 
         if (!passwordState.shouldStartValidation) {
-            passwordState.shouldStartValidation = true
+            passwordState.startValidation()
         }
 
-        if (emailState.validationError != null || passwordState.validationError != null) {
+        if (emailState.hasError() || passwordState.hasError()) {
             return
         }
 
         viewModelScope.launch {
             _logInUiState.value = LogInUiState.Loading
-            when (val result = logInUseCase.logIn(email, password)) {
+            when (val result = logInUseCase.logIn(emailState.email, passwordState.password)) {
                 is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
                     emailAuthError = result.emailError,
                     passwordAuthError = result.passwordError

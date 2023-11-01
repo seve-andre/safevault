@@ -9,8 +9,8 @@ import com.mitch.safevault.core.util.validator.email.EmailError
 
 @Stable
 class EmailState(
-    private val onValidateEmail: (String) -> EmailError.Validation?,
-    private val shouldValidateImmediately: Boolean = false
+    onValidateEmail: (String) -> EmailError.Validation?,
+    shouldValidateImmediately: Boolean = false
 ) {
     var email by mutableStateOf("")
     val validationError by derivedStateOf {
@@ -21,8 +21,13 @@ class EmailState(
         }
     }
     var shouldStartValidation by mutableStateOf(false)
+        private set
 
     fun startValidation() {
         shouldStartValidation = true
+    }
+
+    fun hasError(): Boolean {
+        return validationError != null
     }
 }

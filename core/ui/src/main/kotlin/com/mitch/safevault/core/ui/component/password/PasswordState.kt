@@ -9,11 +9,12 @@ import com.mitch.safevault.core.util.validator.password.PasswordError
 
 @Stable
 class PasswordState(
-    private val onValidatePassword: (String) -> PasswordError.Validation?,
-    private val shouldValidateImmediately: Boolean = false
+    onValidatePassword: (String) -> PasswordError.Validation?,
+    shouldValidateImmediately: Boolean = false
 ) {
     var password by mutableStateOf("")
     var shouldStartValidation by mutableStateOf(false)
+        private set
     val validationError by derivedStateOf {
         if (shouldValidateImmediately || shouldStartValidation) {
             onValidatePassword(password)
@@ -22,6 +23,7 @@ class PasswordState(
         }
     }
     var isPasswordVisible by mutableStateOf(false)
+        private set
 
     fun startValidation() {
         shouldStartValidation = true
@@ -29,5 +31,9 @@ class PasswordState(
 
     fun togglePasswordVisibility() {
         isPasswordVisible = !isPasswordVisible
+    }
+
+    fun hasError(): Boolean {
+        return validationError != null
     }
 }
