@@ -101,6 +101,7 @@ androidAnnotation = { group = "androidx.annotation", name = "annotation", versio
 
 # Navigation
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+navigation-compose-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigation-compose" }
 
 # Dependency Injection
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
