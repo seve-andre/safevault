@@ -57,7 +57,7 @@ internal fun LogInScreen(
     logInUiState: LogInUiState,
     emailState: EmailState,
     passwordState: PasswordState,
-    onLogInSubmitted: (String, String) -> Unit,
+    onLogInSubmitted: () -> Unit,
     onNavigateToSignUp: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -90,7 +90,7 @@ internal fun LogInScreen(
             passwordState = passwordState,
             onSubmit = {
                 keyboardController?.hide()
-                onLogInSubmitted(emailState.email, passwordState.password)
+                onLogInSubmitted()
             }
         )
         Spacer(modifier = Modifier.height(padding.small))
@@ -119,46 +119,8 @@ private fun LogInScreenIdlePreview() {
             logInUiState = LogInUiState.Idle,
             emailState = EmailState(onValidateEmail = { _ -> null }),
             passwordState = PasswordState(onValidatePassword = { _ -> null }),
-            onLogInSubmitted = { _, _ -> },
+            onLogInSubmitted = { },
             onNavigateToSignUp = { }
-        )
-    }
-}
-
-@ThemePreviews
-@Composable
-private fun LogInScreenValidationErrorsPreview() {
-    val emailState = EmailState(
-        onValidateEmail = { _ -> EmailError.Validation.EmptyField },
-        shouldValidateImmediately = true
-    )
-
-    val passwordState = PasswordState(
-        onValidatePassword = { _ -> PasswordError.Validation.EmptyField },
-        shouldValidateImmediately = true
-    )
-
-    SafeVaultMaterialTheme {
-        LogInForm(
-            emailState = emailState,
-            passwordState = passwordState,
-            onSubmit = { }
-        )
-    }
-}
-
-@ThemePreviews
-@Composable
-private fun LogInScreenPasswordVisibilityPreview() {
-    val passwordState = PasswordState(onValidatePassword = { _ -> null })
-    passwordState.password = "Preview"
-    passwordState.togglePasswordVisibility()
-
-    SafeVaultMaterialTheme {
-        LogInForm(
-            emailState = EmailState(onValidateEmail = { _ -> null }),
-            passwordState = passwordState,
-            onSubmit = { }
         )
     }
 }
@@ -174,7 +136,7 @@ private fun LogInScreenAuthErrorPreview() {
             ),
             emailState = EmailState(onValidateEmail = { _ -> null }),
             passwordState = PasswordState(onValidatePassword = { _ -> null }),
-            onLogInSubmitted = { _, _ -> },
+            onLogInSubmitted = { },
             onNavigateToSignUp = { }
         )
     }

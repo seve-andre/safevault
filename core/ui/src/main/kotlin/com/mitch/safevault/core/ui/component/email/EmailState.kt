@@ -8,21 +8,23 @@ import androidx.compose.runtime.setValue
 import com.mitch.safevault.core.util.validator.email.EmailError
 
 @Stable
-class EmailState(
-    private val onValidateEmail: (String) -> EmailError.Validation?,
-    private val shouldValidateImmediately: Boolean = false
-) {
+class EmailState(onValidateEmail: (String) -> EmailError.Validation?) {
     var email by mutableStateOf("")
     val validationError by derivedStateOf {
-        if (shouldValidateImmediately || shouldStartValidation) {
+        if (shouldStartValidation) {
             onValidateEmail(email)
         } else {
             null
         }
     }
     var shouldStartValidation by mutableStateOf(false)
+        private set
 
     fun startValidation() {
         shouldStartValidation = true
+    }
+
+    fun hasError(): Boolean {
+        return validationError != null
     }
 }
