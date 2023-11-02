@@ -9,14 +9,12 @@ import com.mitch.safevault.core.util.validator.password.PasswordError
 
 @Stable
 class PasswordState(
-    onValidatePassword: (String) -> PasswordError.Validation?,
-    shouldValidateImmediately: Boolean = false
-) {
+    onValidatePassword: (String) -> PasswordError.Validation?) {
     var password by mutableStateOf("")
     var shouldStartValidation by mutableStateOf(false)
         private set
     val validationError by derivedStateOf {
-        if (shouldValidateImmediately || shouldStartValidation) {
+        if (shouldStartValidation) {
             onValidatePassword(password)
         } else {
             null

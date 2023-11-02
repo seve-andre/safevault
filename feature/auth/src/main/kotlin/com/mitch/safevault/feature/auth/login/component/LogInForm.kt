@@ -94,13 +94,13 @@ internal fun LogInForm(
 private fun LogInFormValidationErrorsPreview() {
     val emailState = EmailState(
         onValidateEmail = { _ -> EmailError.Validation.EmptyField },
-        shouldValidateImmediately = true
     )
+    emailState.startValidation()
 
     val passwordState = PasswordState(
         onValidatePassword = { _ -> PasswordError.Validation.EmptyField },
-        shouldValidateImmediately = true
     )
+    passwordState.startValidation()
 
     SafeVaultMaterialTheme {
         LogInForm(
