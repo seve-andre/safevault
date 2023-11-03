@@ -103,7 +103,10 @@ class LogInViewModel @Inject constructor(
 
         viewModelScope.launch {
             _logInUiState.value = LogInUiState.Loading
-            val logInResult = logInUseCase.logIn(emailTextFieldState.text, passwordTextFieldState.text)
+            val logInResult = logInUseCase.logIn(
+                email = emailTextFieldState.text,
+                password = passwordTextFieldState.text
+            )
             when (logInResult) {
                 is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
                     emailAuthError = logInResult.emailError,
