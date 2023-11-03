@@ -64,7 +64,7 @@ internal fun LogInScreen(
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
-    onNavigateToSignUp: () -> Unit,
+    onNavigateToSignUp: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 

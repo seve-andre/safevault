@@ -152,7 +152,6 @@ class LogInScreenTest {
         val newRoute = navController.currentBackStackEntry?.destination?.route
         assertThat(newRoute).isEqualTo(signUpNavigationRoute)
     }
-
 }
 
 @Composable

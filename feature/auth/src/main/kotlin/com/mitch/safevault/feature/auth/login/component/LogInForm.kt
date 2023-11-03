@@ -18,7 +18,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.ThemePreviews
@@ -127,6 +126,7 @@ private fun LogInFormFormErrorsPreview() {
             validationError = PasswordError.Validation.EmptyField
         ),
         onStartEmailValidation = { /*TODO*/ },
-        onStartPasswordValidation = { /*TODO*/ }) {
+        onStartPasswordValidation = { /*TODO*/ }
+    ) {
     }
 }

@@ -19,7 +19,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import com.mitch.safevault.core.designsystem.SafeVaultIcons
 import com.mitch.safevault.core.ui.R
 import com.mitch.safevault.core.ui.ThemePreviews
@@ -50,7 +49,6 @@ fun PasswordTextField(
         label = { Text(text = "Password") },
         placeholder = { Text(stringResource(id = R.string.password_placeholder)) },
         trailingIcon = {
-
             if (additionalTrailingIcon != null) {
                 Row {
                     PasswordVisibilityIcon(passwordState)
@@ -94,7 +92,7 @@ private fun PasswordTextFieldMultipleTrailingIconsPreview() {
     PasswordTextField(
         passwordState = PasswordTextFieldState(),
         additionalTrailingIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { }) {
                 Icon(imageVector = SafeVaultIcons.Copy, contentDescription = null)
             }
         }

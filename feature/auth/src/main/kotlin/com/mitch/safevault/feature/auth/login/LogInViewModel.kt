@@ -45,9 +45,11 @@ class LogInViewModel @Inject constructor(
             null
         }
     }
+
     fun startEmailValidation() {
         hasEmailValidationStarted = true
     }
+
     val emailState = snapshotFlow { EmailState(emailTextFieldState, emailValidationError) }
         .stateIn(
             scope = viewModelScope,
@@ -58,7 +60,6 @@ class LogInViewModel @Inject constructor(
             )
         )
 
-
     private var passwordTextFieldState by mutableStateOf(PasswordTextFieldState())
     private var hasPasswordValidationStarted by mutableStateOf(false)
     private val passwordValidationError by derivedStateOf {
@@ -68,9 +69,11 @@ class LogInViewModel @Inject constructor(
             null
         }
     }
+
     fun startPasswordValidation() {
         hasPasswordValidationStarted = true
     }
+
     val passwordState =
         snapshotFlow { PasswordState(passwordTextFieldState, passwordValidationError) }
             .stateIn(
@@ -100,8 +103,8 @@ class LogInViewModel @Inject constructor(
 
         viewModelScope.launch {
             _logInUiState.value = LogInUiState.Loading
-            when (val result =
-                logInUseCase.logIn(emailTextFieldState.text, passwordTextFieldState.text)) {
+            val logInResult = logInUseCase.logIn(emailTextFieldState.text, passwordTextFieldState.text)
+            when (logInResult) {
                 is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
                     emailAuthError = result.emailError,
                     passwordAuthError = result.passwordError
