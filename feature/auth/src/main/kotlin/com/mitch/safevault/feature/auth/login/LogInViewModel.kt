@@ -106,8 +106,8 @@ class LogInViewModel @Inject constructor(
             val logInResult = logInUseCase.logIn(emailTextFieldState.text, passwordTextFieldState.text)
             when (logInResult) {
                 is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
-                    emailAuthError = result.emailError,
-                    passwordAuthError = result.passwordError
+                    emailAuthError = logInResult.emailError,
+                    passwordAuthError = logInResult.passwordError
                 )
 
                 LogInResult.Success -> _logInUiState.value = LogInUiState.Success
