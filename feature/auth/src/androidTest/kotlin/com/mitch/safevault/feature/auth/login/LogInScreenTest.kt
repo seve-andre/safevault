@@ -4,9 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
@@ -16,12 +14,10 @@ import androidx.navigation.testing.TestNavHostController
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
-import com.mitch.safevault.core.testing.util.getStringById
-import com.mitch.safevault.core.ui.component.email.EmailState
-import com.mitch.safevault.core.ui.component.password.PasswordState
+import com.mitch.safevault.core.ui.component.PasswordTextFieldState
+import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
-import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.navigation.logInNavigationRoute
 import com.mitch.safevault.feature.auth.navigation.navigateToSignUp
 import com.mitch.safevault.feature.auth.navigation.signUpNavigationRoute
@@ -42,8 +38,16 @@ class LogInScreenTest {
             SafeVaultMaterialTheme {
                 LogInScreen(
                     logInUiState = LogInUiState.Idle,
-                    emailState = EmailState(onValidateEmail = { _ -> EmailError.Validation.EmptyField }),
-                    passwordState = PasswordState(onValidatePassword = { _ -> PasswordError.Validation.EmptyField }),
+                    emailState = EmailState(
+                        textFieldState = TextFieldState("fewfew"),
+                        validationError = null
+                    ),
+                    passwordState = PasswordState(
+                        textFieldState = PasswordTextFieldState("fewfewvve"),
+                        validationError = null
+                    ),
+                    onStartEmailValidation = { },
+                    onStartPasswordValidation = { },
                     onLogInSubmitted = { },
                     onNavigateToSignUp = { }
                 )
@@ -69,8 +73,16 @@ class LogInScreenTest {
             SafeVaultMaterialTheme {
                 LogInScreen(
                     logInUiState = LogInUiState.AuthenticationFailed(emailAuthError = EmailError.Auth.NoExistingAccount),
-                    emailState = EmailState(onValidateEmail = { _ -> null }),
-                    passwordState = PasswordState(onValidatePassword = { _ -> null }),
+                    emailState = EmailState(
+                        textFieldState = TextFieldState(),
+                        validationError = null
+                    ),
+                    passwordState = PasswordState(
+                        textFieldState = PasswordTextFieldState(),
+                        validationError = null
+                    ),
+                    onStartEmailValidation = { },
+                    onStartPasswordValidation = { },
                     onLogInSubmitted = { },
                     onNavigateToSignUp = { }
                 )
@@ -84,22 +96,20 @@ class LogInScreenTest {
 
     @Test
     fun logInForm_whenFormFieldsHaveErrors_shouldDisplayErrors() {
-        val emailState = EmailState(
-            onValidateEmail = { _ -> EmailError.Validation.EmptyField },
-        )
-        emailState.startValidation()
-
-        val passwordState = PasswordState(
-            onValidatePassword = { _ -> PasswordError.Validation.EmptyField },
-        )
-        passwordState.startValidation()
-
         composeTestRule.setContent {
             SafeVaultMaterialTheme {
                 LogInScreen(
                     logInUiState = LogInUiState.Idle,
-                    emailState = emailState,
-                    passwordState = passwordState,
+                    emailState = EmailState(
+                        textFieldState = TextFieldState(""),
+                        validationError = EmailError.Validation.EmptyField
+                    ),
+                    passwordState = PasswordState(
+                        textFieldState = PasswordTextFieldState(),
+                        validationError = PasswordError.Validation.EmptyField
+                    ),
+                    onStartEmailValidation = { },
+                    onStartPasswordValidation = { },
                     onLogInSubmitted = { },
                     onNavigateToSignUp = { }
                 )
@@ -163,8 +173,16 @@ private fun FakeAuthNavHost(navController: NavHostController) {
         composable(route = logInNavigationRoute) {
             LogInScreen(
                 logInUiState = LogInUiState.AuthenticationFailed(emailAuthError = EmailError.Auth.NoExistingAccount),
-                emailState = EmailState(onValidateEmail = { _ -> EmailError.Validation.EmptyField }),
-                passwordState = PasswordState(onValidatePassword = { _ -> PasswordError.Validation.EmptyField }),
+                emailState = EmailState(
+                    textFieldState = TextFieldState(),
+                    validationError = EmailError.Validation.EmptyField
+                ),
+                passwordState = PasswordState(
+                    textFieldState = PasswordTextFieldState(),
+                    validationError = PasswordError.Validation.EmptyField
+                ),
+                onStartEmailValidation = { },
+                onStartPasswordValidation = { },
                 onLogInSubmitted = { },
                 onNavigateToSignUp = navController::navigateToSignUp
             )
