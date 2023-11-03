@@ -27,8 +27,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.ThemePreviews
-import com.mitch.safevault.core.ui.component.email.EmailState
-import com.mitch.safevault.core.ui.component.password.PasswordState
+import com.mitch.safevault.core.ui.component.PasswordTextFieldState
+import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
 import com.mitch.safevault.feature.auth.R
@@ -41,12 +41,16 @@ internal fun LogInRoute(
     viewModel: LogInViewModel = hiltViewModel(),
     onNavigateToSignUp: () -> Unit
 ) {
+    val emailState by viewModel.emailState.collectAsStateWithLifecycle()
+    val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
 
     LogInScreen(
         logInUiState = logInUiState,
-        emailState = viewModel.emailState,
-        passwordState = viewModel.passwordState,
+        emailState = emailState,
+        passwordState = passwordState,
+        onStartEmailValidation = viewModel::startEmailValidation,
+        onStartPasswordValidation = viewModel::startPasswordValidation,
         onLogInSubmitted = viewModel::logIn,
         onNavigateToSignUp = onNavigateToSignUp
     )
@@ -57,8 +61,10 @@ internal fun LogInScreen(
     logInUiState: LogInUiState,
     emailState: EmailState,
     passwordState: PasswordState,
+    onStartEmailValidation: () -> Unit,
+    onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -88,6 +94,8 @@ internal fun LogInScreen(
         LogInForm(
             emailState = emailState,
             passwordState = passwordState,
+            onStartEmailValidation = onStartEmailValidation,
+            onStartPasswordValidation = onStartPasswordValidation,
             onSubmit = {
                 keyboardController?.hide()
                 onLogInSubmitted()
@@ -117,8 +125,16 @@ private fun LogInScreenIdlePreview() {
     SafeVaultMaterialTheme {
         LogInScreen(
             logInUiState = LogInUiState.Idle,
-            emailState = EmailState(onValidateEmail = { _ -> null }),
-            passwordState = PasswordState(onValidatePassword = { _ -> null }),
+            emailState = EmailState(
+                textFieldState = TextFieldState(),
+                validationError = null
+            ),
+            passwordState = PasswordState(
+                textFieldState = PasswordTextFieldState(),
+                validationError = null
+            ),
+            onStartEmailValidation = { },
+            onStartPasswordValidation = { },
             onLogInSubmitted = { },
             onNavigateToSignUp = { }
         )
@@ -134,8 +150,16 @@ private fun LogInScreenAuthErrorPreview() {
                 emailAuthError = EmailError.Auth.NoExistingAccount,
                 passwordAuthError = PasswordError.Auth.WrongPassword
             ),
-            emailState = EmailState(onValidateEmail = { _ -> null }),
-            passwordState = PasswordState(onValidatePassword = { _ -> null }),
+            emailState = EmailState(
+                textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
+                validationError = null
+            ),
+            passwordState = PasswordState(
+                textFieldState = PasswordTextFieldState("Abcewefiew67#"),
+                validationError = null
+            ),
+            onStartEmailValidation = { },
+            onStartPasswordValidation = { },
             onLogInSubmitted = { },
             onNavigateToSignUp = { }
         )
