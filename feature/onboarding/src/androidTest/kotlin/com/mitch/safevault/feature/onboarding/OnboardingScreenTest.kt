@@ -21,6 +21,7 @@ import com.mitch.safevault.feature.onboarding.component.pageIndicatorTag
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import com.mitch.safevault.core.util.R as utilR
 
 class OnboardingScreenTest {
 
@@ -36,11 +37,11 @@ class OnboardingScreenTest {
     }
 
     private val logInButton by lazy {
-        composeTestRule.onNodeWithText(composeTestRule.getStringById(R.string.log_in))
+        composeTestRule.onNodeWithText(composeTestRule.getStringById(utilR.string.log_in))
     }
 
     private val signUpButton by lazy {
-        composeTestRule.onNodeWithText(composeTestRule.getStringById(R.string.sign_up))
+        composeTestRule.onNodeWithText(composeTestRule.getStringById(utilR.string.sign_up))
     }
 
     private val firstCarouselItem by lazy {
