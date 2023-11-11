@@ -25,13 +25,13 @@ import com.mitch.safevault.core.ui.component.PasswordTextFieldState
 import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.core.ui.component.email.EmailTextField
 import com.mitch.safevault.core.ui.component.password.PasswordTextField
-import com.mitch.safevault.core.util.R as utilR
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
 import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.login.EmailState
 import com.mitch.safevault.feature.auth.login.PasswordState
 import kotlinx.coroutines.delay
+import com.mitch.safevault.core.util.R as utilR
 
 @Composable
 internal fun LogInForm(
