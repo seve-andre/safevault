@@ -36,7 +36,7 @@ class LogInViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase
 ) : ViewModel() {
 
-    private var emailTextFieldState by mutableStateOf(TextFieldState())
+    private val emailTextFieldState = TextFieldState()
     private var hasEmailValidationStarted by mutableStateOf(false)
     private val emailValidationError by derivedStateOf {
         if (hasEmailValidationStarted) {
@@ -60,7 +60,7 @@ class LogInViewModel @Inject constructor(
             )
         )
 
-    private var passwordTextFieldState by mutableStateOf(PasswordTextFieldState())
+    private val passwordTextFieldState = PasswordTextFieldState()
     private var hasPasswordValidationStarted by mutableStateOf(false)
     private val passwordValidationError by derivedStateOf {
         if (hasPasswordValidationStarted) {
@@ -90,7 +90,7 @@ class LogInViewModel @Inject constructor(
 
     fun logIn() {
         if (!hasEmailValidationStarted) {
-            hasEmailValidationStarted = true
+            this.startEmailValidation()
         }
 
         if (!hasPasswordValidationStarted) {

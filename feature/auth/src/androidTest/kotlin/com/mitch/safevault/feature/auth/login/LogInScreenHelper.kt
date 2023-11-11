@@ -30,6 +30,18 @@ fun <A : ComponentActivity> SafeVaultComposeTestRule<A>.onSignUpNowLink(): Seman
     )
 }
 
-fun <A : ComponentActivity> SafeVaultComposeTestRule<A>.onError(@StringRes errorId: Int): SemanticsNodeInteraction {
+fun <A : ComponentActivity> SafeVaultComposeTestRule<A>.onError(
+    @StringRes errorId: Int
+): SemanticsNodeInteraction {
     return this.onNodeWithText(this.getStringById(errorId))
 }
+
+
+internal fun <A : ComponentActivity> logInScreenRobot(
+    composeRule: SafeVaultComposeTestRule<A>,
+    func: LogInScreenRobot<A>.() -> Unit
+) = LogInScreenRobot(composeRule).also(func)
+
+class LogInScreenRobot<A : ComponentActivity>(
+    private val composeRule: SafeVaultComposeTestRule<A>
+)

@@ -25,9 +25,10 @@ import com.mitch.safevault.core.ui.component.PasswordTextFieldState
 import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.core.ui.component.email.EmailTextField
 import com.mitch.safevault.core.ui.component.password.PasswordTextField
-import com.mitch.safevault.core.util.R
+import com.mitch.safevault.core.util.R as utilR
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
+import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.login.EmailState
 import com.mitch.safevault.feature.auth.login.PasswordState
 import kotlinx.coroutines.delay
@@ -36,6 +37,7 @@ import kotlinx.coroutines.delay
 internal fun LogInForm(
     emailState: EmailState,
     passwordState: PasswordState,
+    authenticationFailed: Boolean,
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onSubmit: () -> Unit
@@ -82,10 +84,14 @@ internal fun LogInForm(
                     onStartPasswordValidation()
                 }
             },
-            isError = passwordState.validationError != null,
+            isError = passwordState.validationError != null || authenticationFailed,
             supportingText = {
                 if (passwordState.validationError != null) {
                     Text(text = stringResource(id = com.mitch.safevault.core.ui.R.string.password_error_empty_field))
+                }
+
+                if (authenticationFailed) {
+                    Text(text = stringResource(id = R.string.password_error_wrong))
                 }
             },
             keyboardActions = KeyboardActions(
@@ -100,7 +106,7 @@ internal fun LogInForm(
                 .fillMaxWidth()
                 .height(60.dp)
         ) {
-            Text(text = stringResource(id = R.string.log_in))
+            Text(text = stringResource(id = utilR.string.log_in))
         }
     }
 }
@@ -115,7 +121,7 @@ private fun EmailError.Validation.toErrorMessage(): String {
 
 @ThemePreviews
 @Composable
-private fun LogInFormFormErrorsPreview() {
+private fun LogInFormValidationErrorsPreview() {
     LogInForm(
         emailState = EmailState(
             textFieldState = TextFieldState(),
@@ -125,8 +131,28 @@ private fun LogInFormFormErrorsPreview() {
             textFieldState = PasswordTextFieldState(),
             validationError = PasswordError.Validation.EmptyField
         ),
+        authenticationFailed = false,
         onStartEmailValidation = { /*TODO*/ },
-        onStartPasswordValidation = { /*TODO*/ }
-    ) {
-    }
+        onStartPasswordValidation = { /*TODO*/ },
+        onSubmit = { }
+    )
+}
+
+@ThemePreviews
+@Composable
+private fun LogInFormWrongPasswordPreview() {
+    LogInForm(
+        emailState = EmailState(
+            textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
+            validationError = null
+        ),
+        passwordState = PasswordState(
+            textFieldState = PasswordTextFieldState("Abginwiefnien76#"),
+            validationError = null
+        ),
+        authenticationFailed = true,
+        onStartEmailValidation = { /*TODO*/ },
+        onStartPasswordValidation = { /*TODO*/ },
+        onSubmit = { }
+    )
 }
