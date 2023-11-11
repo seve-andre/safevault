@@ -36,7 +36,6 @@ fun <A : ComponentActivity> SafeVaultComposeTestRule<A>.onError(
     return this.onNodeWithText(this.getStringById(errorId))
 }
 
-
 internal fun <A : ComponentActivity> logInScreenRobot(
     composeRule: SafeVaultComposeTestRule<A>,
     func: LogInScreenRobot<A>.() -> Unit

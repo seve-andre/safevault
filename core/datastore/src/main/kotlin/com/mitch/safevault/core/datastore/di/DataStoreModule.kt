@@ -6,7 +6,7 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.mitch.safevault.core.datastore.ProtoUserPreferences
 import com.mitch.safevault.core.datastore.ProtoUserPreferencesSerializer
-import com.mitch.safevault.core.datastore.UserAppFlowManager
+import com.mitch.safevault.core.datastore.UserFlowDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,9 +35,9 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    fun providesUserAppFlowDataStore(
+    fun providesUserFlowDataStore(
         @ApplicationContext context: Context
-    ): UserAppFlowManager {
-        return UserAppFlowManager(context)
+    ): UserFlowDataStore {
+        return UserFlowDataStore(context)
     }
 }

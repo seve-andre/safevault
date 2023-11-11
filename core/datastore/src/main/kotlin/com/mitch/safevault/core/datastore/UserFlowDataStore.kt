@@ -8,24 +8,24 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.map
 
-class UserAppFlowManager(
+class UserFlowDataStore(
     private val context: Context
 ) {
     companion object {
-        val Context.userAppFlowDataStore: DataStore<Preferences> by preferencesDataStore(name = "userAppFlowDataStore")
+        val Context.userFlowDataStore: DataStore<Preferences> by preferencesDataStore(name = "userFlowDataStore")
         val IS_USER_LOGGED_IN = booleanPreferencesKey("isUserLoggedIn")
     }
 
-    val userLoggedInFlow = context.userAppFlowDataStore.data.map { it[IS_USER_LOGGED_IN] ?: false }
+    val userLoggedInFlow = context.userFlowDataStore.data.map { it[IS_USER_LOGGED_IN] ?: false }
 
     suspend fun logUserIn() {
-        context.userAppFlowDataStore.edit {
+        context.userFlowDataStore.edit {
             it[IS_USER_LOGGED_IN] = true
         }
     }
 
     suspend fun logUserOut() {
-        context.userAppFlowDataStore.edit {
+        context.userFlowDataStore.edit {
             it[IS_USER_LOGGED_IN] = false
         }
     }
