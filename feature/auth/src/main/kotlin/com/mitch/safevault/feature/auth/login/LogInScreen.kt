@@ -30,7 +30,6 @@ import com.mitch.safevault.core.ui.ThemePreviews
 import com.mitch.safevault.core.ui.component.PasswordTextFieldState
 import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.core.util.validator.email.EmailError
-import com.mitch.safevault.core.util.validator.password.PasswordError
 import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.login.component.LogInForm
 import com.mitch.safevault.feature.auth.login.component.NoExistingAccountErrorCard
@@ -64,7 +63,7 @@ internal fun LogInScreen(
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
-    onNavigateToSignUp: () -> Unit,
+    onNavigateToSignUp: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -79,10 +78,6 @@ internal fun LogInScreen(
             AnimatedVisibility(visible = logInUiState.emailAuthError is EmailError.Auth.NoExistingAccount) {
                 NoExistingAccountErrorCard(onNavigateToSignUp = onNavigateToSignUp)
             }
-
-            if (logInUiState.passwordAuthError != null) {
-                Text(text = stringResource(id = R.string.password_error_wrong))
-            }
         }
         Text(
             text = stringResource(id = utilR.string.log_in),
@@ -94,6 +89,7 @@ internal fun LogInScreen(
         LogInForm(
             emailState = emailState,
             passwordState = passwordState,
+            authenticationFailed = logInUiState is LogInUiState.AuthenticationFailed && logInUiState.passwordAuthError != null,
             onStartEmailValidation = onStartEmailValidation,
             onStartPasswordValidation = onStartPasswordValidation,
             onSubmit = {
@@ -147,8 +143,7 @@ private fun LogInScreenAuthErrorPreview() {
     SafeVaultMaterialTheme {
         LogInScreen(
             logInUiState = LogInUiState.AuthenticationFailed(
-                emailAuthError = EmailError.Auth.NoExistingAccount,
-                passwordAuthError = PasswordError.Auth.WrongPassword
+                emailAuthError = EmailError.Auth.NoExistingAccount
             ),
             emailState = EmailState(
                 textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),

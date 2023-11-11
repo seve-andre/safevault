@@ -17,7 +17,6 @@ open class TextFieldState(
     }
 }
 
-@Stable
 class PasswordTextFieldState(
     initialText: String = ""
 ) : TextFieldState(initialText) {

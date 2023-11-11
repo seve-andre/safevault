@@ -36,7 +36,7 @@ class LogInViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase
 ) : ViewModel() {
 
-    private var emailTextFieldState by mutableStateOf(TextFieldState())
+    private val emailTextFieldState = TextFieldState()
     private var hasEmailValidationStarted by mutableStateOf(false)
     private val emailValidationError by derivedStateOf {
         if (hasEmailValidationStarted) {
@@ -45,9 +45,11 @@ class LogInViewModel @Inject constructor(
             null
         }
     }
+
     fun startEmailValidation() {
         hasEmailValidationStarted = true
     }
+
     val emailState = snapshotFlow { EmailState(emailTextFieldState, emailValidationError) }
         .stateIn(
             scope = viewModelScope,
@@ -58,8 +60,7 @@ class LogInViewModel @Inject constructor(
             )
         )
 
-
-    private var passwordTextFieldState by mutableStateOf(PasswordTextFieldState())
+    private val passwordTextFieldState = PasswordTextFieldState()
     private var hasPasswordValidationStarted by mutableStateOf(false)
     private val passwordValidationError by derivedStateOf {
         if (hasPasswordValidationStarted) {
@@ -68,9 +69,11 @@ class LogInViewModel @Inject constructor(
             null
         }
     }
+
     fun startPasswordValidation() {
         hasPasswordValidationStarted = true
     }
+
     val passwordState =
         snapshotFlow { PasswordState(passwordTextFieldState, passwordValidationError) }
             .stateIn(
@@ -87,7 +90,7 @@ class LogInViewModel @Inject constructor(
 
     fun logIn() {
         if (!hasEmailValidationStarted) {
-            hasEmailValidationStarted = true
+            this.startEmailValidation()
         }
 
         if (!hasPasswordValidationStarted) {
@@ -100,11 +103,14 @@ class LogInViewModel @Inject constructor(
 
         viewModelScope.launch {
             _logInUiState.value = LogInUiState.Loading
-            when (val result =
-                logInUseCase.logIn(emailTextFieldState.text, passwordTextFieldState.text)) {
+            val logInResult = logInUseCase.logIn(
+                email = emailTextFieldState.text,
+                password = passwordTextFieldState.text
+            )
+            when (logInResult) {
                 is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
-                    emailAuthError = result.emailError,
-                    passwordAuthError = result.passwordError
+                    emailAuthError = logInResult.emailError,
+                    passwordAuthError = logInResult.passwordError
                 )
 
                 LogInResult.Success -> _logInUiState.value = LogInUiState.Success
