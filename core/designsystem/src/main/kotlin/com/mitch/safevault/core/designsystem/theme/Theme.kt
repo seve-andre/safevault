@@ -84,6 +84,12 @@ fun SafeVaultMaterialTheme(
         LightColorScheme
     }
 
+    val extendedColorScheme = if (isThemeDark) {
+        DarkExtendedColorScheme
+    } else {
+        LightExtendedColorScheme
+    }
+
     /**
      * Use this if [Navigation bar](https://m3.material.io/components/navigation-bar/overview) (with tonal elevation) is used
      */
@@ -100,7 +106,8 @@ fun SafeVaultMaterialTheme(
     }
 
     CompositionLocalProvider(
-        LocalPadding provides padding
+        LocalPadding provides padding,
+        LocalExtendedColorScheme provides extendedColorScheme
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

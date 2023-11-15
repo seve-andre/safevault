@@ -32,7 +32,7 @@ fun rememberSafeVaultAppState(
 class SafeVaultAppState(
     val navController: NavHostController,
     val snackbarHostState: SnackbarHostState,
-    val coroutineScope: CoroutineScope,
+    coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor
 ) {
     /**
