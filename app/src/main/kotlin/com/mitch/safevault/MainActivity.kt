@@ -6,14 +6,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -38,6 +34,7 @@ import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackba
 import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarVisuals
 import com.mitch.safevault.core.designsystem.component.snackbar.SwipeableSnackbar
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
+import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.util.SafeVaultTheme
 import com.mitch.safevault.navigation.SafeVaultNavHost
 import com.mitch.safevault.ui.rememberSafeVaultAppState
@@ -92,9 +89,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
 
-            SafeVaultMaterialTheme(
-                isThemeDark = isThemeDark
-            ) {
+            SafeVaultMaterialTheme(isThemeDark = isThemeDark) {
                 val appState = rememberSafeVaultAppState(networkMonitor)
                 val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -112,7 +107,12 @@ class MainActivity : AppCompatActivity() {
                         SwipeableSnackbar(
                             state = appState.snackbarHostState,
                             dismissContent = {
-                                SnackbarHost(hostState = appState.snackbarHostState) {
+                                SnackbarHost(
+                                    hostState = appState.snackbarHostState,
+                                    modifier = Modifier
+                                        .navigationBarsPadding()
+                                        .padding(horizontal = padding.medium)
+                                ) {
                                     val customVisuals = it.visuals as SafeVaultSnackbarVisuals
                                     val colors = when (customVisuals.type) {
                                         SafeVaultSnackbarType.Default -> SafeVaultSnackbarDefaults.defaultSnackbarColors()
@@ -136,31 +136,18 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         )
-                    },
-                    contentWindowInsets = WindowInsets(0, 0, 0, 0)
+                    }
                 ) { padding ->
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(padding)
-                            .consumeWindowInsets(padding)
-                            .windowInsetsPadding(
-                                WindowInsets.safeDrawing.only(
-                                    WindowInsetsSides.Horizontal
-                                )
-                            )
+                            .safeDrawingPadding()
                     ) {
                         SafeVaultNavHost(
                             appState = appState,
                             onShowSnackbar = { visuals: SafeVaultSnackbarVisuals ->
-                                appState.snackbarHostState.showSnackbar(
-                                    SafeVaultSnackbarVisuals(
-                                        message = visuals.message,
-                                        actionLabel = visuals.actionLabel,
-                                        duration = visuals.duration,
-                                        withDismissAction = visuals.withDismissAction
-                                    )
-                                )
+                                appState.snackbarHostState.showSnackbar(visuals)
                             }
                         )
                     }

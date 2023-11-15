@@ -24,7 +24,7 @@ fun SafeVaultSnackbar(
     action: String?,
     colors: SafeVaultSnackbarColors,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
+    icon: ImageVector? = null
 ) {
     Snackbar(
         modifier = modifier,
