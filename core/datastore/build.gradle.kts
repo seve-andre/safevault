@@ -33,7 +33,6 @@ dependencies {
     implementation(libs.datastore.proto)
     implementation(libs.protobuf.kotlin.lite)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.datastore.preferences)
 
     implementation(projects.core.util)
 }
