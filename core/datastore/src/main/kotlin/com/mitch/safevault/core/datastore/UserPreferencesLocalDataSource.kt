@@ -10,16 +10,16 @@ import javax.inject.Inject
  * [UserPreferencesLocalDataSource] is the mediator between [ProtoUserPreferences] Datastore and
  * the repo to exchange data from the Datastore file
  *
- * @property userPreferences is the actual [ProtoUserPreferences] Datastore
+ * @property userPreferencesDataStore is the actual [ProtoUserPreferences] Datastore
  */
 class UserPreferencesLocalDataSource @Inject constructor(
-    private val userPreferences: DataStore<ProtoUserPreferences>
+    private val userPreferencesDataStore: DataStore<ProtoUserPreferences>
 ) {
     suspend fun setAppTheme(theme: ProtoAppTheme) {
-        userPreferences.updateData {
+        userPreferencesDataStore.updateData {
             it.toBuilder().setTheme(theme).build()
         }
     }
 
-    fun getAppThemeStream(): Flow<ProtoAppTheme> = userPreferences.data.map { it.theme }
+    fun getAppThemeStream(): Flow<ProtoAppTheme> = userPreferencesDataStore.data.map { it.theme }
 }

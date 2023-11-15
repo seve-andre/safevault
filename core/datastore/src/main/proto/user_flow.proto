@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option java_package = "com.mitch.safevault.core.datastore";
+option java_multiple_files = true;
+
+message ProtoUserFlow {
+  bool is_user_logged_in = 1;
+}

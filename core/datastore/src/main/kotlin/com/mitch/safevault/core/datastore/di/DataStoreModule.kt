@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
+import com.mitch.safevault.core.datastore.ProtoUserFlow
+import com.mitch.safevault.core.datastore.ProtoUserFlowSerializer
 import com.mitch.safevault.core.datastore.ProtoUserPreferences
 import com.mitch.safevault.core.datastore.ProtoUserPreferencesSerializer
-import com.mitch.safevault.core.datastore.UserFlowDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,8 +37,13 @@ object DataStoreModule {
     @Provides
     @Singleton
     fun providesUserFlowDataStore(
-        @ApplicationContext context: Context
-    ): UserFlowDataStore {
-        return UserFlowDataStore(context)
-    }
+        @ApplicationContext context: Context,
+        protoUserFlowSerializer: ProtoUserFlowSerializer
+    ): DataStore<ProtoUserFlow> =
+        DataStoreFactory.create(
+            serializer = protoUserFlowSerializer,
+            scope = CoroutineScope(SupervisorJob())
+        ) {
+            context.dataStoreFile("user_flow.pb")
+        }
 }
