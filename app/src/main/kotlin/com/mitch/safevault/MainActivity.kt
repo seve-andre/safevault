@@ -144,14 +144,7 @@ class MainActivity : AppCompatActivity() {
                         SafeVaultNavHost(
                             appState = appState,
                             onShowSnackbar = { visuals: SafeVaultSnackbarVisuals ->
-                                appState.snackbarHostState.showSnackbar(
-                                    SafeVaultSnackbarVisuals(
-                                        message = visuals.message,
-                                        actionLabel = visuals.actionLabel,
-                                        duration = visuals.duration,
-                                        withDismissAction = visuals.withDismissAction
-                                    )
-                                )
+                                appState.snackbarHostState.showSnackbar(visuals)
                             }
                         )
                     }

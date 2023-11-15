@@ -27,6 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarType
 import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarVisuals
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.designsystem.theme.padding
@@ -48,8 +49,6 @@ internal fun LogInRoute(
     val emailState by viewModel.emailState.collectAsStateWithLifecycle()
     val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
-
-
 
     LogInScreen(
         logInUiState = logInUiState,
@@ -78,7 +77,12 @@ internal fun LogInScreen(
 
     LaunchedEffect(logInUiState) {
         if (logInUiState is LogInUiState.Success) {
-            onShowSnackbar(SafeVaultSnackbarVisuals(message = "Successfully logged in!"))
+            onShowSnackbar(
+                SafeVaultSnackbarVisuals(
+                    message = "Successfully logged in!",
+                    type = SafeVaultSnackbarType.Success
+                )
+            )
             // TODO: navigate to home/masterpassword screen
         }
     }
