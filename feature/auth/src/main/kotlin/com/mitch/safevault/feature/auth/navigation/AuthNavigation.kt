@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.mitch.safevault.feature.auth.login.LogInRoute
+import com.mitch.safevault.feature.auth.signup.SignUpRoute
 
 const val signUpNavigationRoute = "signUp"
 const val logInNavigationRoute = "logIn"
@@ -19,6 +20,7 @@ fun NavController.navigateToLogIn(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.signUpScreen() {
     composable(route = signUpNavigationRoute) {
+        SignUpRoute()
     }
 }
 

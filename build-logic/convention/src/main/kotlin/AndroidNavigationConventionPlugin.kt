@@ -1,3 +1,4 @@
+import com.mitch.safevault.util.androidTestImplementation
 import com.mitch.safevault.util.implementation
 import com.mitch.safevault.util.libs
 import org.gradle.api.Plugin
@@ -9,6 +10,7 @@ class AndroidNavigationConventionPlugin : Plugin<Project> {
         with(target) {
             dependencies {
                 implementation(libs.findLibrary("navigation-compose").get())
+                androidTestImplementation(libs.findLibrary("navigation-compose-testing").get())
             }
         }
     }

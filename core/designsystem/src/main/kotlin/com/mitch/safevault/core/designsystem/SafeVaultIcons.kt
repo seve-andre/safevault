@@ -7,6 +7,7 @@ import compose.icons.evaicons.fill.AlertTriangle
 import compose.icons.evaicons.fill.CheckmarkCircle2
 import compose.icons.evaicons.fill.CloseCircle
 import compose.icons.evaicons.outline.ArrowForward
+import compose.icons.evaicons.outline.Copy
 import compose.icons.evaicons.outline.Eye
 import compose.icons.evaicons.outline.EyeOff
 
@@ -17,4 +18,5 @@ object SafeVaultIcons {
     val Success = EvaIcons.Fill.CheckmarkCircle2
     val Warning = EvaIcons.Fill.AlertTriangle
     val Error = EvaIcons.Fill.CloseCircle
+    val Copy = EvaIcons.Outline.Copy
 }

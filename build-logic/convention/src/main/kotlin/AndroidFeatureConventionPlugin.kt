@@ -27,6 +27,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                         excludes += listOf("/META-INF/LICENSE.md", "/META-INF/LICENSE-notice.md")
                     }
                 }
+
+                testOptions {
+                    unitTests.isReturnDefaultValues = true
+                }
             }
 
             dependencies {
