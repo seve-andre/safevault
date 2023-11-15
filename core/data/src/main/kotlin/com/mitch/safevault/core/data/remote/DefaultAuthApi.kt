@@ -12,7 +12,7 @@ class DefaultAuthApi @Inject constructor() : AuthApi {
     }
 
     override suspend fun logIn(request: LogInRequest): AuthApiResponse {
-        return AuthApiResponse.Error(emailError = EmailError.Auth.NoExistingAccount)
+        return AuthApiResponse.Success
     }
 }
 

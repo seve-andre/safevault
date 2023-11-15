@@ -6,11 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarVisuals
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.ThemePreviews
@@ -37,12 +41,15 @@ import com.mitch.safevault.core.util.R as utilR
 
 @Composable
 internal fun LogInRoute(
+    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
     viewModel: LogInViewModel = hiltViewModel(),
     onNavigateToSignUp: () -> Unit
 ) {
     val emailState by viewModel.emailState.collectAsStateWithLifecycle()
     val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
+
+
 
     LogInScreen(
         logInUiState = logInUiState,
@@ -51,7 +58,8 @@ internal fun LogInRoute(
         onStartEmailValidation = viewModel::startEmailValidation,
         onStartPasswordValidation = viewModel::startPasswordValidation,
         onLogInSubmitted = viewModel::logIn,
-        onNavigateToSignUp = onNavigateToSignUp
+        onNavigateToSignUp = onNavigateToSignUp,
+        onShowSnackbar = onShowSnackbar
     )
 }
 
@@ -63,13 +71,22 @@ internal fun LogInScreen(
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(logInUiState) {
+        if (logInUiState is LogInUiState.Success) {
+            onShowSnackbar(SafeVaultSnackbarVisuals(message = "Successfully logged in!"))
+            // TODO: navigate to home/masterpassword screen
+        }
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .navigationBarsPadding()
             .padding(padding.medium),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -119,20 +136,18 @@ internal fun LogInScreen(
 @Composable
 private fun LogInScreenIdlePreview() {
     SafeVaultMaterialTheme {
-        LogInScreen(
-            logInUiState = LogInUiState.Idle,
+        LogInScreen(logInUiState = LogInUiState.Idle,
             emailState = EmailState(
-                textFieldState = TextFieldState(),
-                validationError = null
+                textFieldState = TextFieldState(), validationError = null
             ),
             passwordState = PasswordState(
-                textFieldState = PasswordTextFieldState(),
-                validationError = null
+                textFieldState = PasswordTextFieldState(), validationError = null
             ),
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
-            onNavigateToSignUp = { }
+            onNavigateToSignUp = { },
+            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
         )
     }
 }
@@ -150,13 +165,13 @@ private fun LogInScreenAuthErrorPreview() {
                 validationError = null
             ),
             passwordState = PasswordState(
-                textFieldState = PasswordTextFieldState("Abcewefiew67#"),
-                validationError = null
+                textFieldState = PasswordTextFieldState("Abcewefiew67#"), validationError = null
             ),
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
-            onNavigateToSignUp = { }
+            onNavigateToSignUp = { },
+            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
         )
     }
 }

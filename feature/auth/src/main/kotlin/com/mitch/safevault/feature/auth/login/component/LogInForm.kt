@@ -31,6 +31,7 @@ import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.login.EmailState
 import com.mitch.safevault.feature.auth.login.PasswordState
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 import com.mitch.safevault.core.util.R as utilR
 
 @Composable
@@ -48,7 +49,7 @@ internal fun LogInForm(
     var isPasswordBlurred by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        delay(1_000)
+        delay(1.seconds)
         emailFocusRequester.requestFocus()
     }
 
