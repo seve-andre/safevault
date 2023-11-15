@@ -29,7 +29,6 @@ val DarkExtendedColorScheme = ExtendedColorScheme(
 )
 
 val LocalExtendedColorScheme = staticCompositionLocalOf { LightExtendedColorScheme }
-
 val MaterialTheme.extendedColorScheme: ExtendedColorScheme
     @Composable
     get() = LocalExtendedColorScheme.current

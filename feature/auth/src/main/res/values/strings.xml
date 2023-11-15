@@ -4,4 +4,5 @@
     <string name="sign_up_now">Sign up now!</string>
     <string name="no_existing_account">This email is not linked to any account</string>
     <string name="password_error_wrong">The password entered is not correct</string>
+    <string name="successfully_logged_in">Successfully logged in!</string>
 </resources>

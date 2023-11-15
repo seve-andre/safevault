@@ -43,12 +43,26 @@ import com.mitch.safevault.core.util.R as utilR
 @Composable
 internal fun LogInRoute(
     onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
-    viewModel: LogInViewModel = hiltViewModel(),
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onNavigateToHome: () -> Unit,
+    viewModel: LogInViewModel = hiltViewModel()
 ) {
     val emailState by viewModel.emailState.collectAsStateWithLifecycle()
     val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
+
+    val successMessage = stringResource(id = R.string.successfully_logged_in)
+    LaunchedEffect(logInUiState) {
+        if (logInUiState is LogInUiState.Success) {
+            onShowSnackbar(
+                SafeVaultSnackbarVisuals(
+                    message = successMessage,
+                    type = SafeVaultSnackbarType.Success
+                )
+            )
+            onNavigateToHome()
+        }
+    }
 
     LogInScreen(
         logInUiState = logInUiState,
@@ -57,8 +71,7 @@ internal fun LogInRoute(
         onStartEmailValidation = viewModel::startEmailValidation,
         onStartPasswordValidation = viewModel::startPasswordValidation,
         onLogInSubmitted = viewModel::logIn,
-        onNavigateToSignUp = onNavigateToSignUp,
-        onShowSnackbar = onShowSnackbar
+        onNavigateToSignUp = onNavigateToSignUp
     )
 }
 
@@ -70,22 +83,9 @@ internal fun LogInScreen(
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
-    onNavigateToSignUp: () -> Unit,
-    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult
+    onNavigateToSignUp: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    LaunchedEffect(logInUiState) {
-        if (logInUiState is LogInUiState.Success) {
-            onShowSnackbar(
-                SafeVaultSnackbarVisuals(
-                    message = "Successfully logged in!",
-                    type = SafeVaultSnackbarType.Success
-                )
-            )
-            // TODO: navigate to home/masterpassword screen
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -153,8 +153,7 @@ private fun LogInScreenIdlePreview() {
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
-            onNavigateToSignUp = { },
-            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
+            onNavigateToSignUp = { }
         )
     }
 }
@@ -178,8 +177,7 @@ private fun LogInScreenAuthErrorPreview() {
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
-            onNavigateToSignUp = { },
-            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
+            onNavigateToSignUp = { }
         )
     }
 }
