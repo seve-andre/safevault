@@ -27,7 +27,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.safevault.core.data.util.network.NetworkMonitor
+import com.mitch.safevault.core.designsystem.SafeVaultIcons
 import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbar
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarDefaults
+import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarType
 import com.mitch.safevault.core.designsystem.component.snackbar.SafeVaultSnackbarVisuals
 import com.mitch.safevault.core.designsystem.component.snackbar.SwipeableSnackbar
 import com.mitch.safevault.core.designsystem.theme.SafeVaultMaterialTheme
@@ -89,12 +92,10 @@ class MainActivity : AppCompatActivity() {
 
                 LaunchedEffect(isOffline) {
                     if (isOffline) {
-                        appState.coroutineScope.launch {
-                            appState.snackbarHostState.showSnackbar(
-                                message = getString(R.string.not_connected),
-                                duration = SnackbarDuration.Indefinite
-                            )
-                        }
+                        appState.snackbarHostState.showSnackbar(
+                            message = getString(R.string.not_connected),
+                            duration = SnackbarDuration.Indefinite
+                        )
                     }
                 }
 
@@ -110,10 +111,24 @@ class MainActivity : AppCompatActivity() {
                                         .padding(horizontal = padding.medium)
                                 ) {
                                     val customVisuals = it.visuals as SafeVaultSnackbarVisuals
+                                    val colors = when (customVisuals.type) {
+                                        SafeVaultSnackbarType.Default -> SafeVaultSnackbarDefaults.defaultSnackbarColors()
+                                        SafeVaultSnackbarType.Success -> SafeVaultSnackbarDefaults.successSnackbarColors()
+                                        SafeVaultSnackbarType.Warning -> SafeVaultSnackbarDefaults.warningSnackbarColors()
+                                        SafeVaultSnackbarType.Error -> SafeVaultSnackbarDefaults.errorSnackbarColors()
+                                    }
+                                    val icon = when (customVisuals.type) {
+                                        SafeVaultSnackbarType.Default -> null
+                                        SafeVaultSnackbarType.Success -> SafeVaultIcons.Success
+                                        SafeVaultSnackbarType.Warning -> SafeVaultIcons.Warning
+                                        SafeVaultSnackbarType.Error -> SafeVaultIcons.Error
+                                    }
+
                                     SafeVaultSnackbar(
                                         message = customVisuals.message,
                                         action = customVisuals.actionLabel,
-                                        icon = customVisuals.icon
+                                        icon = icon,
+                                        colors = colors
                                     )
                                 }
                             }
@@ -134,8 +149,7 @@ class MainActivity : AppCompatActivity() {
                                         message = visuals.message,
                                         actionLabel = visuals.actionLabel,
                                         duration = visuals.duration,
-                                        withDismissAction = visuals.withDismissAction,
-                                        icon = visuals.icon
+                                        withDismissAction = visuals.withDismissAction
                                     )
                                 )
                             }
