@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
-    override fun onCreate(savedInstanceState: Bundle?) {/* Must be called before super.onCreate()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        /* Must be called before super.onCreate()
          *
          * Splashscreen look in res/values/themes.xml
          */
@@ -66,9 +67,11 @@ class MainActivity : AppCompatActivity() {
         // Update the uiState
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.onEach {
-                    uiState = it
-                }.collect()
+                viewModel.uiState
+                    .onEach {
+                        uiState = it
+                    }
+                    .collect()
             }
         }
 

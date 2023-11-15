@@ -140,12 +140,15 @@ internal fun LogInScreen(
 @Composable
 private fun LogInScreenIdlePreview() {
     SafeVaultMaterialTheme {
-        LogInScreen(logInUiState = LogInUiState.Idle,
+        LogInScreen(
+            logInUiState = LogInUiState.Idle,
             emailState = EmailState(
-                textFieldState = TextFieldState(), validationError = null
+                textFieldState = TextFieldState(),
+                validationError = null
             ),
             passwordState = PasswordState(
-                textFieldState = PasswordTextFieldState(), validationError = null
+                textFieldState = PasswordTextFieldState(),
+                validationError = null
             ),
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
@@ -169,7 +172,8 @@ private fun LogInScreenAuthErrorPreview() {
                 validationError = null
             ),
             passwordState = PasswordState(
-                textFieldState = PasswordTextFieldState("Abcewefiew67#"), validationError = null
+                textFieldState = PasswordTextFieldState("Abcewefiew67#"),
+                validationError = null
             ),
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
