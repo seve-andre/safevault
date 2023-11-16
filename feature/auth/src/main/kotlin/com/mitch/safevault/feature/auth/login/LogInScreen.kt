@@ -44,25 +44,12 @@ import com.mitch.safevault.core.util.R as utilR
 internal fun LogInRoute(
     onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
     onNavigateToSignUp: () -> Unit,
-    onNavigateToHome: () -> Unit,
+    onNavigateToItems: () -> Unit,
     viewModel: LogInViewModel = hiltViewModel()
 ) {
     val emailState by viewModel.emailState.collectAsStateWithLifecycle()
     val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
     val logInUiState by viewModel.logInUiState.collectAsStateWithLifecycle()
-
-    val successMessage = stringResource(id = R.string.successfully_logged_in)
-    LaunchedEffect(logInUiState) {
-        if (logInUiState is LogInUiState.Success) {
-            onShowSnackbar(
-                SafeVaultSnackbarVisuals(
-                    message = successMessage,
-                    type = SafeVaultSnackbarType.Success
-                )
-            )
-            onNavigateToHome()
-        }
-    }
 
     LogInScreen(
         logInUiState = logInUiState,
@@ -71,7 +58,9 @@ internal fun LogInRoute(
         onStartEmailValidation = viewModel::startEmailValidation,
         onStartPasswordValidation = viewModel::startPasswordValidation,
         onLogInSubmitted = viewModel::logIn,
-        onNavigateToSignUp = onNavigateToSignUp
+        onNavigateToSignUp = onNavigateToSignUp,
+        onNavigateToItems = onNavigateToItems,
+        onShowSnackbar = onShowSnackbar
     )
 }
 
@@ -83,9 +72,24 @@ internal fun LogInScreen(
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onNavigateToItems: () -> Unit,
+    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    val successMessage = stringResource(id = R.string.successfully_logged_in)
+    LaunchedEffect(logInUiState) {
+        if (logInUiState is LogInUiState.Success) {
+            onShowSnackbar(
+                SafeVaultSnackbarVisuals(
+                    message = successMessage,
+                    type = SafeVaultSnackbarType.Success
+                )
+            )
+            onNavigateToItems()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -99,6 +103,7 @@ internal fun LogInScreen(
             AnimatedVisibility(visible = logInUiState.emailAuthError is EmailError.Auth.NoExistingAccount) {
                 NoExistingAccountErrorCard(onNavigateToSignUp = onNavigateToSignUp)
             }
+            Spacer(modifier = Modifier.height(padding.medium))
         }
         Text(
             text = stringResource(id = utilR.string.log_in),
@@ -153,7 +158,9 @@ private fun LogInScreenIdlePreview() {
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
-            onNavigateToSignUp = { }
+            onNavigateToSignUp = { },
+            onNavigateToItems = { },
+            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
         )
     }
 }
@@ -177,7 +184,33 @@ private fun LogInScreenAuthErrorPreview() {
             onStartEmailValidation = { },
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
-            onNavigateToSignUp = { }
+            onNavigateToSignUp = { },
+            onNavigateToItems = { },
+            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
+        )
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun LogInScreenSuccessPreview() {
+    SafeVaultMaterialTheme {
+        LogInScreen(
+            logInUiState = LogInUiState.Success,
+            emailState = EmailState(
+                textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
+                validationError = null
+            ),
+            passwordState = PasswordState(
+                textFieldState = PasswordTextFieldState("Abcewefiew67#"),
+                validationError = null
+            ),
+            onStartEmailValidation = { },
+            onStartPasswordValidation = { },
+            onLogInSubmitted = { },
+            onNavigateToSignUp = { },
+            onNavigateToItems = { },
+            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
         )
     }
 }

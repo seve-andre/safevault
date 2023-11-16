@@ -28,13 +28,13 @@ fun NavGraphBuilder.signUpScreen() {
 
 fun NavGraphBuilder.logInScreen(
     onNavigateToSignUp: () -> Unit,
-    onNavigateToHome: () -> Unit,
+    onNavigateToItems: () -> Unit,
     onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult
 ) {
     composable(route = logInNavigationRoute) {
         LogInRoute(
             onNavigateToSignUp = onNavigateToSignUp,
-            onNavigateToHome = onNavigateToHome,
+            onNavigateToItems = onNavigateToItems,
             onShowSnackbar = onShowSnackbar
         )
     }

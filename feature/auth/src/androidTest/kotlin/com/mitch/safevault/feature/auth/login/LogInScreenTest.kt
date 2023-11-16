@@ -1,6 +1,7 @@
 package com.mitch.safevault.feature.auth.login
 
 import androidx.activity.ComponentActivity
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
@@ -49,7 +50,9 @@ class LogInScreenTest {
                     onStartEmailValidation = { },
                     onStartPasswordValidation = { },
                     onLogInSubmitted = { },
-                    onNavigateToSignUp = { }
+                    onNavigateToSignUp = { },
+                    onNavigateToItems = { },
+                    onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
                 )
             }
         }
@@ -84,7 +87,9 @@ class LogInScreenTest {
                     onStartEmailValidation = { },
                     onStartPasswordValidation = { },
                     onLogInSubmitted = { },
-                    onNavigateToSignUp = { }
+                    onNavigateToSignUp = { },
+                    onNavigateToItems = { },
+                    onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
                 )
             }
         }
@@ -111,7 +116,9 @@ class LogInScreenTest {
                     onStartEmailValidation = { },
                     onStartPasswordValidation = { },
                     onLogInSubmitted = { },
-                    onNavigateToSignUp = { }
+                    onNavigateToSignUp = { },
+                    onNavigateToItems = { },
+                    onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
                 )
             }
         }
@@ -183,7 +190,9 @@ private fun FakeAuthNavHost(navController: NavHostController) {
                 onStartEmailValidation = { },
                 onStartPasswordValidation = { },
                 onLogInSubmitted = { },
-                onNavigateToSignUp = navController::navigateToSignUp
+                onNavigateToSignUp = navController::navigateToSignUp,
+                onNavigateToItems = { },
+                onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
             )
         }
         signUpScreen()
