@@ -152,7 +152,6 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -168,6 +167,7 @@ junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" 
 safevault-android-application-compose = { id = "safevault.android.application.compose", version = "unspecified" }
 safevault-android-application = { id = "safevault.android.application", version = "unspecified" }
 safevault-android-feature = { id = "safevault.android.feature", version = "unspecified" }
+safevault-android-navigation = { id = "safevault.android.navigation", version = "unspecified" }
 safevault-android-hilt = { id = "safevault.android.hilt", version = "unspecified" }
 safevault-android-library-compose = { id = "safevault.android.library.compose", version = "unspecified" }
 safevault-android-library = { id = "safevault.android.library", version = "unspecified" }

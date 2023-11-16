@@ -4,4 +4,5 @@
     <string name="sign_up_now">Registrati ora!</string>
     <string name="no_existing_account">Non esiste un account associato a questa email</string>
     <string name="password_error_wrong">La password inserita non è corretta</string>
+    <string name="successfully_logged_in">Accesso avvenuto correttamente!</string>
 </resources>

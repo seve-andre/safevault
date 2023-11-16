@@ -43,8 +43,9 @@ import com.mitch.safevault.core.util.R as utilR
 @Composable
 internal fun LogInRoute(
     onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
-    viewModel: LogInViewModel = hiltViewModel(),
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onNavigateToItems: () -> Unit,
+    viewModel: LogInViewModel = hiltViewModel()
 ) {
     val emailState by viewModel.emailState.collectAsStateWithLifecycle()
     val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
@@ -58,6 +59,7 @@ internal fun LogInRoute(
         onStartPasswordValidation = viewModel::startPasswordValidation,
         onLogInSubmitted = viewModel::logIn,
         onNavigateToSignUp = onNavigateToSignUp,
+        onNavigateToItems = onNavigateToItems,
         onShowSnackbar = onShowSnackbar
     )
 }
@@ -71,19 +73,21 @@ internal fun LogInScreen(
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
     onNavigateToSignUp: () -> Unit,
-    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult
+    onNavigateToItems: () -> Unit,
+    onShowSnackbar: suspend (SafeVaultSnackbarVisuals) -> SnackbarResult,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
+    val successMessage = stringResource(id = R.string.successfully_logged_in)
     LaunchedEffect(logInUiState) {
         if (logInUiState is LogInUiState.Success) {
             onShowSnackbar(
                 SafeVaultSnackbarVisuals(
-                    message = "Successfully logged in!",
+                    message = successMessage,
                     type = SafeVaultSnackbarType.Success
                 )
             )
-            // TODO: navigate to home/masterpassword screen
+            onNavigateToItems()
         }
     }
 
@@ -99,6 +103,7 @@ internal fun LogInScreen(
             AnimatedVisibility(visible = logInUiState.emailAuthError is EmailError.Auth.NoExistingAccount) {
                 NoExistingAccountErrorCard(onNavigateToSignUp = onNavigateToSignUp)
             }
+            Spacer(modifier = Modifier.height(padding.medium))
         }
         Text(
             text = stringResource(id = utilR.string.log_in),
@@ -154,6 +159,7 @@ private fun LogInScreenIdlePreview() {
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
             onNavigateToSignUp = { },
+            onNavigateToItems = { },
             onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
         )
     }
@@ -179,6 +185,31 @@ private fun LogInScreenAuthErrorPreview() {
             onStartPasswordValidation = { },
             onLogInSubmitted = { },
             onNavigateToSignUp = { },
+            onNavigateToItems = { },
+            onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
+        )
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun LogInScreenSuccessPreview() {
+    SafeVaultMaterialTheme {
+        LogInScreen(
+            logInUiState = LogInUiState.Success,
+            emailState = EmailState(
+                textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
+                validationError = null
+            ),
+            passwordState = PasswordState(
+                textFieldState = PasswordTextFieldState("Abcewefiew67#"),
+                validationError = null
+            ),
+            onStartEmailValidation = { },
+            onStartPasswordValidation = { },
+            onLogInSubmitted = { },
+            onNavigateToSignUp = { },
+            onNavigateToItems = { },
             onShowSnackbar = { _ -> SnackbarResult.ActionPerformed }
         )
     }

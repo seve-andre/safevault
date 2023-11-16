@@ -49,6 +49,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.ui)
     implementation(projects.core.util)
+    implementation(projects.core.testing)
 
     implementation(projects.feature.onboarding)
     implementation(projects.feature.auth)
