@@ -12,7 +12,7 @@ data class SafeVaultSnackbarVisuals(
     override val message: String,
     override val actionLabel: String? = null,
     override val duration: SnackbarDuration = SnackbarDuration.Short,
-    override val withDismissAction: Boolean = false,
+    override val withDismissAction: Boolean = duration == SnackbarDuration.Indefinite,
     val type: SafeVaultSnackbarType = SafeVaultSnackbarType.Default
 ) : SnackbarVisuals
 

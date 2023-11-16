@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.safevault.core.designsystem.SafeVaultIcons
+import com.mitch.safevault.core.designsystem.theme.padding
 
 @Composable
 fun SafeVaultSnackbar(
@@ -33,10 +34,13 @@ fun SafeVaultSnackbar(
         contentColor = colors.contentColor,
         actionContentColor = colors.actionColor
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.Bottom) {
             if (icon != null) {
-                Icon(imageVector = icon, contentDescription = null)
-                Spacer(modifier = Modifier.width(5.dp))
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.width(padding.small))
             }
             Text(text = message)
         }
