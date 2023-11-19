@@ -1,4 +1,4 @@
-package com.mitch.safevault.feature.auth.login
+package com.mitch.safevault.feature.auth.signup
 
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -7,12 +7,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitch.safevault.core.domain.usecase.LogInResult
-import com.mitch.safevault.core.domain.usecase.LogInUseCase
+import com.mitch.safevault.core.domain.usecase.SignUpResult
+import com.mitch.safevault.core.domain.usecase.SignUpUseCase
 import com.mitch.safevault.core.ui.component.PasswordTextFieldState
 import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.feature.auth.EmailState
-import com.mitch.safevault.feature.auth.PasswordLogInState
+import com.mitch.safevault.feature.auth.PasswordSignUpState
+import com.mitch.safevault.feature.auth.login.LogInUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,15 +23,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor(
-    private val logInUseCase: LogInUseCase
+class SignUpViewModel @Inject constructor(
+    private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
 
     private val emailTextFieldState = TextFieldState()
     private var hasEmailValidationStarted by mutableStateOf(false)
     private val emailValidationError by derivedStateOf {
         if (hasEmailValidationStarted) {
-            logInUseCase.validateEmail(emailTextFieldState.text)
+            signUpUseCase.validateEmail(emailTextFieldState.text)
         } else {
             null
         }
@@ -52,9 +53,9 @@ class LogInViewModel @Inject constructor(
 
     private val passwordTextFieldState = PasswordTextFieldState()
     private var hasPasswordValidationStarted by mutableStateOf(false)
-    private val passwordValidationError by derivedStateOf {
+    private val passwordValidationErrors by derivedStateOf {
         if (hasPasswordValidationStarted) {
-            logInUseCase.validatePassword(passwordTextFieldState.text)
+            signUpUseCase.validatePassword(passwordTextFieldState.text)
         } else {
             null
         }
@@ -65,20 +66,20 @@ class LogInViewModel @Inject constructor(
     }
 
     val passwordState =
-        snapshotFlow { PasswordLogInState(passwordTextFieldState, passwordValidationError) }
+        snapshotFlow { PasswordSignUpState(passwordTextFieldState, passwordValidationErrors) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = PasswordLogInState(
+                initialValue = PasswordSignUpState(
                     textFieldState = passwordTextFieldState,
-                    validationError = passwordValidationError
+                    validationErrors = passwordValidationErrors
                 )
             )
 
-    private val _logInUiState = MutableStateFlow<LogInUiState>(LogInUiState.Idle)
-    val logInUiState = _logInUiState.asStateFlow()
+    private val _signUpUiState = MutableStateFlow<SignUpUiState>(SignUpUiState.Idle)
+    val signUpUiState = _signUpUiState.asStateFlow()
 
-    fun logIn() {
+    fun signUp() {
         if (!hasEmailValidationStarted) {
             this.startEmailValidation()
         }
@@ -87,23 +88,24 @@ class LogInViewModel @Inject constructor(
             this.startPasswordValidation()
         }
 
-        if (emailValidationError != null || passwordValidationError != null) {
+        if (emailValidationError != null || passwordValidationErrors != null) {
             return
         }
 
         viewModelScope.launch {
-            _logInUiState.value = LogInUiState.Loading
-            val logInResult = logInUseCase.logIn(
+            _signUpUiState.value = SignUpUiState.Loading
+
+            val signUpResult = signUpUseCase.signUp(
                 email = emailTextFieldState.text,
                 password = passwordTextFieldState.text
             )
-            when (logInResult) {
-                is LogInResult.Error -> _logInUiState.value = LogInUiState.AuthenticationFailed(
-                    emailAuthError = logInResult.emailError,
-                    passwordAuthError = logInResult.passwordError
+            when (signUpResult) {
+                is SignUpResult.Error -> _signUpUiState.value = SignUpUiState.AuthenticationFailed(
+                    emailAuthError = signUpResult.emailError,
+                    passwordAuthError = signUpResult.passwordError
                 )
 
-                LogInResult.Success -> _logInUiState.value = LogInUiState.Success
+                SignUpResult.Success -> _signUpUiState.value = SignUpUiState.Success
             }
         }
     }

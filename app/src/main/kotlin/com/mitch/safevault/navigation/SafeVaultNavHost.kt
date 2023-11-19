@@ -34,7 +34,9 @@ fun SafeVaultNavHost(
             onNavigateToSignup = navController::navigateToSignUp,
             onNavigateToLogin = navController::navigateToLogIn,
             nestedGraphs = {
-                signUpScreen()
+                signUpScreen(
+                    onNavigateToLogIn = navController::navigateToLogIn
+                )
                 logInScreen(
                     onNavigateToSignUp = navController::navigateToSignUp,
                     onNavigateToItems = {

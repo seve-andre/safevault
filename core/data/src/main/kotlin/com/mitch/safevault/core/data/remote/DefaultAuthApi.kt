@@ -7,8 +7,8 @@ import com.mitch.safevault.core.util.validator.password.PasswordError
 import javax.inject.Inject
 
 class DefaultAuthApi @Inject constructor() : AuthApi {
-    override suspend fun signUp(request: CreateAccountRequest): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun signUp(request: CreateAccountRequest): AuthApiResponse {
+        return AuthApiResponse.Error(emailError = EmailError.Auth.AlreadyExistingAccount)
     }
 
     override suspend fun logIn(request: LogInRequest): AuthApiResponse {

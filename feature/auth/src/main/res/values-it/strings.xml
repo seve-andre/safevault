@@ -5,4 +5,6 @@
     <string name="no_existing_account">Non esiste un account associato a questa email</string>
     <string name="password_error_wrong">La password inserita non è corretta</string>
     <string name="successfully_logged_in">Accesso avvenuto correttamente!</string>
+    <string name="already_have_an_account_question">Hai già un account?</string>
+    <string name="already_existing_account">Esiste già un account associato a questa email</string>
 </resources>

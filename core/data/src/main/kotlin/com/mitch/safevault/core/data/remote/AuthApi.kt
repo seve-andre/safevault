@@ -5,11 +5,11 @@ import com.mitch.safevault.core.data.remote.request.LogInRequest
 
 interface AuthApi {
 
-    suspend fun signUp(
-        request: CreateAccountRequest
-    ): Result<Unit>
-
     suspend fun logIn(
         request: LogInRequest
+    ): AuthApiResponse
+
+    suspend fun signUp(
+        request: CreateAccountRequest
     ): AuthApiResponse
 }

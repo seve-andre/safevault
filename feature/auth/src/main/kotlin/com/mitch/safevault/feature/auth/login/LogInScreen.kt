@@ -35,6 +35,8 @@ import com.mitch.safevault.core.ui.ThemePreviews
 import com.mitch.safevault.core.ui.component.PasswordTextFieldState
 import com.mitch.safevault.core.ui.component.TextFieldState
 import com.mitch.safevault.core.util.validator.email.EmailError
+import com.mitch.safevault.feature.auth.EmailState
+import com.mitch.safevault.feature.auth.PasswordLogInState
 import com.mitch.safevault.feature.auth.R
 import com.mitch.safevault.feature.auth.login.component.LogInForm
 import com.mitch.safevault.feature.auth.login.component.NoExistingAccountErrorCard
@@ -68,7 +70,7 @@ internal fun LogInRoute(
 internal fun LogInScreen(
     logInUiState: LogInUiState,
     emailState: EmailState,
-    passwordState: PasswordState,
+    passwordState: PasswordLogInState,
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
     onLogInSubmitted: () -> Unit,
@@ -151,7 +153,7 @@ private fun LogInScreenIdlePreview() {
                 textFieldState = TextFieldState(),
                 validationError = null
             ),
-            passwordState = PasswordState(
+            passwordState = PasswordLogInState(
                 textFieldState = PasswordTextFieldState(),
                 validationError = null
             ),
@@ -177,7 +179,7 @@ private fun LogInScreenAuthErrorPreview() {
                 textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
                 validationError = null
             ),
-            passwordState = PasswordState(
+            passwordState = PasswordLogInState(
                 textFieldState = PasswordTextFieldState("Abcewefiew67#"),
                 validationError = null
             ),
@@ -201,7 +203,7 @@ private fun LogInScreenSuccessPreview() {
                 textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
                 validationError = null
             ),
-            passwordState = PasswordState(
+            passwordState = PasswordLogInState(
                 textFieldState = PasswordTextFieldState("Abcewefiew67#"),
                 validationError = null
             ),

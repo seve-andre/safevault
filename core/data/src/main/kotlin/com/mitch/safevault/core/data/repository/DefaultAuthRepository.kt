@@ -4,6 +4,7 @@ import com.mitch.safevault.core.data.datasource.AuthRemoteDataSource
 import com.mitch.safevault.core.datastore.UserFlowLocalDataSource
 import com.mitch.safevault.core.domain.repository.AuthRepository
 import com.mitch.safevault.core.domain.usecase.LogInResult
+import com.mitch.safevault.core.domain.usecase.SignUpResult
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
@@ -18,5 +19,9 @@ class DefaultAuthRepository @Inject constructor(
         }
 
         return result
+    }
+
+    override suspend fun signUp(email: String, password: String): SignUpResult {
+        return authRemoteDataSource.signUp(email, password)
     }
 }

@@ -4,6 +4,12 @@
     <string name="email_error_not_valid">Please enter a valid email address</string>
     <string name="email_label">Email</string>
     <string name="password_error_empty_field">Password is required</string>
+    <string name="password_must_have_at_least">Password must have at least %1$s</string>
+    <string name="password_error_input_too_short">8 characters</string>
+    <string name="password_error_no_lowercase_letter">1 lowercase letter</string>
+    <string name="password_error_no_uppercase_letter">1 uppercase letter</string>
+    <string name="password_error_no_number">1 number</string>
+    <string name="password_error_no_special_character">1 special character (%1$s)</string>
     <string name="password_placeholder">Enter password</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>

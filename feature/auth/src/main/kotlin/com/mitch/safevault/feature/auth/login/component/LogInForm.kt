@@ -18,6 +18,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.mitch.safevault.core.designsystem.theme.padding
 import com.mitch.safevault.core.ui.ThemePreviews
@@ -27,17 +29,19 @@ import com.mitch.safevault.core.ui.component.email.EmailTextField
 import com.mitch.safevault.core.ui.component.password.PasswordTextField
 import com.mitch.safevault.core.util.validator.email.EmailError
 import com.mitch.safevault.core.util.validator.password.PasswordError
+import com.mitch.safevault.feature.auth.EmailState
+import com.mitch.safevault.feature.auth.PasswordLogInState
 import com.mitch.safevault.feature.auth.R
-import com.mitch.safevault.feature.auth.login.EmailState
-import com.mitch.safevault.feature.auth.login.PasswordState
+import com.mitch.safevault.feature.auth.signup.component.toErrorMessage
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
+import com.mitch.safevault.core.ui.R as uiR
 import com.mitch.safevault.core.util.R as utilR
 
 @Composable
 internal fun LogInForm(
     emailState: EmailState,
-    passwordState: PasswordState,
+    passwordState: PasswordLogInState,
     authenticationFailed: Boolean,
     onStartEmailValidation: () -> Unit,
     onStartPasswordValidation: () -> Unit,
@@ -54,9 +58,13 @@ internal fun LogInForm(
     }
 
     Column(verticalArrangement = Arrangement.spacedBy(padding.medium)) {
+        val emailErrorMessage = emailState.validationError?.toErrorMessage()
         EmailTextField(
             emailState = emailState.textFieldState,
             modifier = Modifier
+                .semantics {
+                    if (emailErrorMessage != null) error(emailErrorMessage)
+                }
                 .focusRequester(emailFocusRequester)
                 .onFocusChanged {
                     if (it.isFocused && !isEmailBlurred) {
@@ -67,28 +75,34 @@ internal fun LogInForm(
                         onStartEmailValidation()
                     }
                 },
-            isError = emailState.validationError != null,
+            isError = emailErrorMessage != null,
             supportingText = {
-                if (emailState.validationError != null) {
-                    Text(text = emailState.validationError.toErrorMessage())
+                if (emailErrorMessage != null) {
+                    Text(text = emailErrorMessage)
                 }
             }
         )
+
+        val passwordErrorMessage = passwordState.validationError?.toErrorMessage()
         PasswordTextField(
             passwordState = passwordState.textFieldState,
-            modifier = Modifier.onFocusChanged {
-                if (it.isFocused && !isPasswordBlurred) {
-                    isPasswordBlurred = true
+            modifier = Modifier
+                .semantics {
+                    if (passwordErrorMessage != null) error(passwordErrorMessage)
                 }
+                .onFocusChanged {
+                    if (it.isFocused && !isPasswordBlurred) {
+                        isPasswordBlurred = true
+                    }
 
-                if (!it.isFocused && isPasswordBlurred) {
-                    onStartPasswordValidation()
-                }
-            },
-            isError = passwordState.validationError != null || authenticationFailed,
+                    if (!it.isFocused && isPasswordBlurred) {
+                        onStartPasswordValidation()
+                    }
+                },
+            isError = passwordErrorMessage != null || authenticationFailed,
             supportingText = {
-                if (passwordState.validationError != null) {
-                    Text(text = stringResource(id = com.mitch.safevault.core.ui.R.string.password_error_empty_field))
+                if (passwordErrorMessage != null) {
+                    Text(text = stringResource(id = uiR.string.password_error_empty_field))
                 }
 
                 if (authenticationFailed) {
@@ -113,10 +127,10 @@ internal fun LogInForm(
 }
 
 @Composable
-private fun EmailError.Validation.toErrorMessage(): String {
+internal fun EmailError.Validation.toErrorMessage(): String {
     return when (this) {
-        EmailError.Validation.EmptyField -> stringResource(id = com.mitch.safevault.core.ui.R.string.email_error_empty_field)
-        EmailError.Validation.NotAnEmail -> stringResource(id = com.mitch.safevault.core.ui.R.string.email_error_not_valid)
+        EmailError.Validation.EmptyField -> stringResource(id = uiR.string.email_error_empty_field)
+        EmailError.Validation.NotAnEmail -> stringResource(id = uiR.string.email_error_not_valid)
     }
 }
 
@@ -128,7 +142,7 @@ private fun LogInFormValidationErrorsPreview() {
             textFieldState = TextFieldState(),
             validationError = EmailError.Validation.EmptyField
         ),
-        passwordState = PasswordState(
+        passwordState = PasswordLogInState(
             textFieldState = PasswordTextFieldState(),
             validationError = PasswordError.Validation.EmptyField
         ),
@@ -147,7 +161,7 @@ private fun LogInFormWrongPasswordPreview() {
             textFieldState = TextFieldState("andrea.severi.dev@gmail.com"),
             validationError = null
         ),
-        passwordState = PasswordState(
+        passwordState = PasswordLogInState(
             textFieldState = PasswordTextFieldState("Abginwiefnien76#"),
             validationError = null
         ),

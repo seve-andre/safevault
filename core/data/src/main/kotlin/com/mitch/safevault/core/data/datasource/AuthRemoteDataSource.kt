@@ -2,8 +2,10 @@ package com.mitch.safevault.core.data.datasource
 
 import com.mitch.safevault.core.data.remote.AuthApi
 import com.mitch.safevault.core.data.remote.AuthApiResponse
+import com.mitch.safevault.core.data.remote.request.CreateAccountRequest
 import com.mitch.safevault.core.data.remote.request.LogInRequest
 import com.mitch.safevault.core.domain.usecase.LogInResult
+import com.mitch.safevault.core.domain.usecase.SignUpResult
 import javax.inject.Inject
 
 class AuthRemoteDataSource @Inject constructor(
@@ -20,6 +22,20 @@ class AuthRemoteDataSource @Inject constructor(
             )
 
             AuthApiResponse.Success -> LogInResult.Success
+        }
+    }
+
+    suspend fun signUp(
+        email: String,
+        password: String
+    ): SignUpResult {
+        return when (val response = api.signUp(CreateAccountRequest(email, password))) {
+            is AuthApiResponse.Error -> SignUpResult.Error(
+                emailError = response.emailError,
+                passwordError = response.passwordError
+            )
+
+            AuthApiResponse.Success -> SignUpResult.Success
         }
     }
 }
